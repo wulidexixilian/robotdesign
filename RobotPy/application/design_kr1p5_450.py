@@ -42,7 +42,7 @@ s.loadQ(trace_file, percentage)
 # inverse dynamic simulation
 s.simFromQ()
 # animation
-s.animate()
+# s.animate()
 # *** result ***
 rs = s.get_result()
 # stall torque
@@ -56,7 +56,7 @@ motor_percent = stall_tau['motor_percent']
 print('Motor stall torque:\n {}Nm\n {}%'.format(tau_stall_motor, motor_percent))
 print('Gear stall torque: {}Nm'.format(stall_tau['tau_joint']))
 # simulation trajectory
-rs.show_performance()
+# rs.show_performance()
 # motor characteristic
 rs.drive_characteristic(30, 15, tau_stall_motor)
 # gearbox characteristic
