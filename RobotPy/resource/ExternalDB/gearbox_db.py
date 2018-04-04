@@ -5,7 +5,7 @@ gear_db = {
         "acc_tau": 51,
         "max_tau": 70,
         'emergency_tau': 109,
-        "limit_factor": 1.35,
+        "limit_factor": 1.15,
         "max_omega": 7300,
         'rated_omega': 3500,
         "offset": 0,
@@ -29,7 +29,7 @@ gear_db = {
         "acc_tau": 51,
         "max_tau": 70,
         'emergency_tau': 143,
-        "limit_factor": 1.35,
+        "limit_factor": 1.15,
         "max_omega": 7300,
         'rated_omega': 3500,
         "offset": 0,
@@ -48,26 +48,26 @@ gear_db = {
     },
 
     'SHG-17-120-2SO': {
-        "ratio":         120,
-        "rated_tau":     31,
-        "acc_tau":       51,
-        "max_tau":       70,
+        "ratio": 120,
+        "rated_tau": 31,
+        "acc_tau": 51,
+        "max_tau": 70,
         'emergency_tau': 143,
-        "limit_factor":  1.35,
-        "max_omega":     7300,
-        'rated_omega':   3500,
-        "offset":        0,
-        "stator":        {
+        "limit_factor": 1.2,
+        "max_omega": 7300,
+        'rated_omega': 3500,
+        "offset": 0,
+        "stator": {
             "inertia_drive": 8e-6,
-            "inertia_body":  [0, 0, 0],
-            "cm":            0,
-            "m":             0.79
+            "inertia_body": [0, 0, 0],
+            "cm": 0,
+            "m": 0.79
         },
-        "rotor":         {
+        "rotor": {
             "inertia_drive": 8e-6,
-            "inertia_body":  [0, 0, 0],
-            "cm":            0,
-            "m":             0
+            "inertia_body": [0, 0, 0],
+            "cm": 0,
+            "m": 0
         },
     },
 
@@ -102,7 +102,7 @@ gear_db = {
         "acc_tau":       14,
         "max_tau":       30,
         'emergency_tau': 61,
-        "limit_factor":  1.35,
+        "limit_factor":  1.15,
         "max_omega":     8500,
         'rated_omega':   3500,
         "stator":        {
@@ -126,7 +126,7 @@ gear_db = {
         "acc_tau":      5.5,
         "max_tau":      8.3,
         'emergency_tau': 17,
-        "limit_factor": 1.35,
+        "limit_factor": 1.15,
         "max_omega":    8500,
         'rated_omega': 3500,
         "stator": {
@@ -150,7 +150,7 @@ gear_db = {
         "acc_tau":      5.5,
         "max_tau":      8.3,
         'emergency_tau': 17,
-        "limit_factor": 1.35,
+        "limit_factor": 1.2,
         "max_omega":    8500,
         'rated_omega': 3500,
         "stator":       {
@@ -174,7 +174,7 @@ gear_db = {
         "acc_tau": 2.3,
         "max_tau": 3.3,
         'emergency_tau': 6.6,
-        "limit_factor": 1.35,
+        "limit_factor": 1.2,
         "max_omega": 8500,
         'rated_omega': 3500,
         "stator": {
@@ -198,7 +198,7 @@ gear_db = {
         "acc_tau":       0.53,
         "max_tau":       0.9,
         'emergency_tau': 1.8,
-        "limit_factor":  1.35,
+        "limit_factor":  1.15,
         "max_omega":     8500,
         'rated_omega':   3500,
         "stator":        {

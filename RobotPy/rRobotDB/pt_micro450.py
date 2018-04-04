@@ -124,7 +124,7 @@ motor_installation = [
         "nest":           "handbase",
         "position":       np.array([0, -8.5, -50]) * 1e-3,
         "orientation":    np.array([-np.pi / 2, 0, 0]),
-        'type':           'TS4866'
+        'type':           'TS4872'
     },
 
     # A6
@@ -181,7 +181,7 @@ gear_installation = [
         "nest": "handbase",
         "case": 9,
         'type': 'CSF11-50-2UP',
-        'pre ratio': 7.2/5
+        'pre ratio': 6/5
     },
     # A6
     {

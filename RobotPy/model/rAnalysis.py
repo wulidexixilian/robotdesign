@@ -433,6 +433,14 @@ class SimulationAnalysis(StaticAnalysis):
 
         # plt.show()
 
+    def get_max_drive_tau(self):
+        tau_max = np.abs(self.motor_tau_ser).max(axis=0)
+        characteristic = self.get_motor_characteristic()
+        tau_limit = np.array([cha['max'][1][0] for cha in characteristic])
+        percentage = tau_max/tau_limit
+        print('max motor tau / motor limit: {}%'.format(percentage * 100))
+        return tau_max
+
     def joint_characteristic(self, gearbox_datasheet=None):
         characteristic = self.get_gear_characteristic()
         # plt.figure()
@@ -464,7 +472,13 @@ class SimulationAnalysis(StaticAnalysis):
             ax.grid(True)
             ax.set_title("A"+str(i+1))
 
-        # plt.show()
+    def get_max_joint_tau(self):
+        tau_max = np.abs(self.tau_ser).max(axis=0)
+        characteristic = self.get_gear_characteristic()
+        tau_limit = np.array([char['max'][1][0] for char in characteristic])
+        percentage = tau_max / tau_limit
+        print('max joint tau / gearbox limit: {}%'.format(percentage * 100))
+        return tau_max
 
     def get_fea_input(self):
         """

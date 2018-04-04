@@ -28,7 +28,7 @@ s.buildRobot(
 )
 # *** kinematics ***
 q = [0, 0, 0, 0, 0, 0]
-q_dot_max = np.array([300, 300, 450, 500, 500, 700]) / 180 * np.pi
+q_dot_max = np.array([300, 300, 450, 550, 550, 700]) / 180 * np.pi
 q_dot = q_dot_max * 0.01
 q_ddot = [0, 0, 0, 0, 0, 0]
 s.runStep(q, q_dot)
@@ -59,6 +59,12 @@ print('Gear stall torque: {}Nm'.format(stall_tau['tau_joint']))
 # rs.show_performance()
 # motor characteristic
 rs.drive_characteristic(30, 15, tau_stall_motor)
+rs.get_max_drive_tau()
 # gearbox characteristic
 rs.joint_characteristic(cfg.gearPara)
+rs.get_max_joint_tau()
+gear_av_tau_percent = rs.gear_average_tau() /\
+    np.array([item['acc_tau'] for item in cfg.gearPara])
+print('Gear average torque ratio: {}%'.format(gear_av_tau_percent * 100))
+
 plt.show()
