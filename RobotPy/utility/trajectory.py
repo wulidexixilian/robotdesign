@@ -1,5 +1,5 @@
 import numpy as np
-from model.rMath import rotation
+from model.m_math import rotation
 
 
 class TrajectoryGenerator:

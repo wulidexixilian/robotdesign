@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-robot configurations kr6 900
-Created on Fri Mar 24 11:03:07 2017
-
-@author: pei.sun
-"""
 import numpy as np
 from resource.ExternalDB.gearbox_db import load_gear_db
 from resource.ExternalDB.motor_db import load_motor_db
@@ -62,26 +55,26 @@ massPara = [
     # arm structure
     {
         "nest": "arm",
-        "cm": np.array([-18.74, -15.62, -38])*1e-3, "m": 0.5,
+        "cm": np.array([-35, -15.62, -15])*1e-3, "m": 0.7,
         "iT": np.array([1335.47, 1678.4, 1286.26, 0, 0, 0])*1e-6
     },
     # wrist structure
     {
         "nest": "handbase",
-        "cm": np.array([-1.43, -4.01, -60])*1e-3, "m":0.3,
+        "cm": np.array([-1.43, -4.01, -60])*1e-3, "m":0.7,
         "iT": np.array([3197.98, 3064.24, 579.79, 0, 0, 0])*1e-6
     },
     # wrist hand structure
     {
         "nest": "handwrist",
-        "cm": np.array([0, 9.09, 19.8])*1e-3, "m": 0.1,
+        "cm": np.array([19.8, 9.09, 0])*1e-3, "m": 0.1,
         "iT": np.array([114.01, 70.72, 79.18, 0, 0, 0])*1e-6
     },
     # flange structure
     {
         "nest": "handflange",
-        "cm": np.array([0, 0, -3])*1e-3, "m": 0.01,
-        "iT": np.array([50, 50, 50, 0, 0, 0])*1e-6
+        "cm": np.array([0, 0, -3])*1e-3, "m": 0.04,
+        "iT": np.array([10, 10, 10, 0, 0, 0])*1e-6
     },
 ]
 
@@ -89,50 +82,52 @@ motor_installation = [
     # A1
 
     {
-        "nest":           "groundbase",
-        "position":       np.array([0, 0, 112.5]) * 1e-3,
-        "orientation":    np.array([0, 0, np.pi]),
-        'type':           'TSM3104E040'
+        "nest": "groundbase",
+        "position": np.array([0, 0, 112.5]) * 1e-3,
+        "orientation": np.array([0, 0, np.pi]),
+        'type': 'TSM3104E040'
     },
 
     # A2
     {
-        "nest":           "rotationcolumn",
-        "position":       np.array([0, -52, -82.5]) * 1e-3,
-        "orientation":    np.array([0, 0, np.pi / 2]),
-        'type':           'TSM3104E040'
+        "nest": "rotationcolumn",
+        "position": np.array([0, -52, -82.5]) * 1e-3,
+        "orientation": np.array([0, 0, np.pi / 2]),
+        'type': 'TSM3104E040'
     },
 
     # A3
     {
-        "nest":           "linkarm",
-        "position":       np.array([100, 0, -30]) * 1e-3,
-        "orientation":    np.array([0, 0, 0]),
-        'type':           'TSM3102E040'
+        "nest": "linkarm",
+        "position": np.array([100, 0, -30]) * 1e-3,
+        "orientation": np.array([0, 0, 0]),
+        'type': 'TSM3102E040'
     },
 
     # A4
     {
-        "nest":           "arm",
-        "position":       np.array([75, -9, -22]) * 1e-3,
-        "orientation":    np.array([0, np.pi / 2, 0]),
-        'type':           'TS4873'
+        "nest": "arm",
+        "position": np.array([75, -9, -22]) * 1e-3,
+        "orientation": np.array([0, np.pi / 2, 0]),
+        'type': 'TS4873'
     },
 
     # A5
     {
-        "nest":           "handbase",
-        "position":       np.array([0, -8.5, -50]) * 1e-3,
-        "orientation":    np.array([-np.pi / 2, 0, 0]),
-        'type':           'TS4872'
+        "nest": "handbase",
+        "position": np.array([0, -8.5, -40]) * 1e-3,
+        "orientation": np.array([0, -np.pi / 2, 0]),
+        'type': 'TS4872'
+        # 'type': 'TS4632'
     },
 
     # A6
     {
-        "nest":           "handwrist",
-        "position":       np.array([30.7, 0, 8.5]) * 1e-3,
-        "orientation":    np.array([0, np.pi / 2, 0]),
-        'type':           'TS4871'
+        "nest": "handwrist",
+        "position": np.array([30.7, 0, 8.5]) * 1e-3,
+        "orientation": np.array([0, np.pi / 2, 0]),
+        'type': 'TS4871'
+        # 'type': 'TS4632'
     }
 ]
 
@@ -153,42 +148,48 @@ gear_installation = [
         "nest": "groundbase",
         "case": 9,
         'type': 'CSG-17-100-2UH',
-        'pre ratio': 1
+        'pre ratio': 1,
+        "limit_factor": 1.35,
     },
     # A2
     {
         "nest": "rotationcolumn",
         "case": 9,
         'type': 'SHG-17-120-2SO',
-        'pre ratio': 1
+        'pre ratio': 1,
+        "limit_factor": 1.35,
     },
     # A3
     {
         "nest": "linkarm",
         "case": 9,
         'type': 'SHG-14-80-2SO-LW',
-        'pre ratio': 1
+        'pre ratio': 1,
+        "limit_factor": 1.35,
     },
     # A4
     {
         "nest": "arm",
         "case": 9,
         'type': 'CSF11-50-2UP',
-        'pre ratio': 1
+        'pre ratio': 1,
+        "limit_factor": 1.2,
     },
     # A5
     {
         "nest": "handbase",
         "case": 9,
         'type': 'CSF11-50-2UP',
-        'pre ratio': 6/5
+        'pre ratio': 7/5,
+        "limit_factor": 1.2,
     },
     # A6
     {
         "nest": "handwrist",
         "case": 9,
         'type': 'CSF8-50-2UP',
-        'pre ratio': 1
+        'pre ratio': 1,
+        "limit_factor": 1.2,
     }
 ]
 
