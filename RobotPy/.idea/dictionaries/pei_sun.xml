@@ -2,10 +2,13 @@
   <dictionary name="pei.sun">
     <words>
       <w>dauer</w>
+      <w>ddot</w>
       <w>groundbase</w>
       <w>handbase</w>
       <w>handflange</w>
       <w>handwrist</w>
+      <w>jacobian</w>
+      <w>kuka</w>
       <w>linkarm</w>
       <w>rotationcolumn</w>
     </words>

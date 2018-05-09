@@ -33,21 +33,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="m_manipulator.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="m_manipulator.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2544">
-              <caret line="242" column="22" lean-forward="true" selection-start-line="242" selection-start-column="22" selection-end-line="242" selection-end-column="22" />
+            <state relative-caret-position="2692">
+              <caret line="263" column="23" lean-forward="true" selection-start-line="263" selection-start-column="23" selection-end-line="263" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pt_micro450.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pt_micro450.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rRobotDB/pt_micro450.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-58">
-              <caret line="164" column="18" lean-forward="true" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
+            <state relative-caret-position="3784">
+              <caret line="174" column="23" lean-forward="true" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -100,7 +100,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/utility/gearbox_utility.py" />
         <option value="$PROJECT_DIR$/utility/gear_characteristic.py" />
         <option value="$PROJECT_DIR$/utility/physics.py" />
         <option value="$PROJECT_DIR$/rRobotLib/robot_config_prototype.py" />
@@ -151,6 +150,7 @@
         <option value="$PROJECT_DIR$/utility/compare_with_OPC.py" />
         <option value="$PROJECT_DIR$/application/design_kr1p5_450.py" />
         <option value="$PROJECT_DIR$/rRobotDB/pt_micro450.py" />
+        <option value="$PROJECT_DIR$/model/m_manipulator.py" />
       </list>
     </option>
   </component>
@@ -182,31 +182,6 @@
             <path>
               <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
-              <item name="rRobotDB" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
-              <item name="utility" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -458,11 +433,11 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22739291" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16683218" sideWeight="0.18244316" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3270142" sideWeight="0.49814913" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16683218" sideWeight="0.18561608" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20059583" sideWeight="0.49603385" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31876862" sideWeight="0.7202538" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16683218" sideWeight="0.81755686" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16683218" sideWeight="0.8143839" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35260662" sideWeight="0.49603385" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -834,14 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_component.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/design_kr1p5_450.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
@@ -860,18 +827,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
+    <entry file="file://$PROJECT_DIR$/model/m_component.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2544">
-          <caret line="242" column="22" lean-forward="true" selection-start-line="242" selection-start-column="22" selection-end-line="242" selection-end-column="22" />
+        <state relative-caret-position="115">
+          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rRobotDB/pt_micro450.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-58">
-          <caret line="164" column="18" lean-forward="true" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
+        <state relative-caret-position="3784">
+          <caret line="174" column="23" lean-forward="true" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2692">
+          <caret line="263" column="23" lean-forward="true" selection-start-line="263" selection-start-column="23" selection-end-line="263" selection-end-column="23" />
           <folding />
         </state>
       </provider>
