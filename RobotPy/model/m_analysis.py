@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.path import Path
 
-from model.m_math import massCombine
+from model.m_math import mass_combine
 
 np.set_printoptions(suppress=True)
 np.set_printoptions(precision=4)
@@ -294,9 +294,9 @@ class StaticAnalysis:
         cm_eff = np.array([0, 0, 0])
         iT_eff = np.zeros((3,3))
         for body in self.robot.bodies[joint_id:]:
-            (m_eff, cm_eff, iT_eff) = massCombine(m_eff, body.m,
-                                                  cm_eff, body.cm_gl,
-                                                  iT_eff, body.iT_gl)
+            (m_eff, cm_eff, iT_eff) = mass_combine(m_eff, body.m,
+                                                   cm_eff, body.cm_gl,
+                                                   iT_eff, body.iT_gl)
         return m_eff, cm_eff, iT_eff
 
     def get_kinetic(self, q, qd):
@@ -383,7 +383,7 @@ class SimulationAnalysis(StaticAnalysis):
         omega_av = num / den
         return omega_av
 
-    def gear_l50(self, ln, tau_rated, omega_rated):
+    def get_gearbox_lifetime(self, ln, tau_rated, omega_rated):
         tau_av = self.gear_average_tau()
         omega_av = self.gear_average_speed()
         l50 = ln * omega_rated / (omega_av * np.abs(self.ratio)) *\
@@ -469,7 +469,12 @@ class SimulationAnalysis(StaticAnalysis):
         print('max motor tau / motor limit: {}%'.format(percentage * 100))
         return tau_max
 
-    def joint_characteristic(self, gearbox_datasheet=None):
+    def joint_characteristic(
+        self, gearbox_datasheet=None,
+        ln=[6000, 6000, 6000, 6000, 6000, 6000],
+        l_exp=[3.333, 3.333, 3.333, 3.333, 3.333, 3.333],
+        target_lifetime=[40000, 20000, 10000, 6000, 5000, 4000]
+    ):
         characteristic = self.get_gear_characteristic()
         # plt.figure()
         # plt.title("torque - speed / joint")
@@ -480,8 +485,8 @@ class SimulationAnalysis(StaticAnalysis):
         omega_av = self.gear_average_speed()
         for i in range(6):
             ax = ax_arr[int(i/2), (i%2)]
-            ax.plot(np.abs(self.q_dot_ser[:, i]) / np.pi * 180,
-                       np.abs(self.tau_ser[:, i]))
+            qd = np.abs(self.q_dot_ser[:, i]) / np.pi * 180
+            ax.plot(qd, np.abs(self.tau_ser[:, i]))
             char = characteristic[i]
             max_line = char['max']
             s1_line = char['s1']
@@ -491,14 +496,25 @@ class SimulationAnalysis(StaticAnalysis):
             if gearbox_datasheet is not None:
                 tau_rated = gearbox_datasheet[i]['rated_tau']
                 tau_average = gearbox_datasheet[i]['acc_tau']
+                omega_rated = gearbox_datasheet[i]['rated_omega']
+                # datasheet value
                 ax.plot(s1_line[0, :] / np.pi * 180,
                         np.ones(np.shape(s1_line[0, :])) * tau_rated,
                         'c--')
                 ax.plot(s1_line[0, :] / np.pi * 180,
                         np.ones(np.shape(s1_line[0, :])) * tau_average,
                         'y--')
+                # lifetime map
+                for lh in target_lifetime:
+                    omega_h = np.linspace(
+                        0.1 * np.max(np.abs(qd)),
+                        np.max(np.abs(qd)), 10
+                    )
+                    tau_h = (ln[i] * omega_rated / omega_h / lh)**(1/l_exp[i]) * tau_rated
+                    ax.plot(omega_h, tau_h, 'b--', lw=1)
             ax.grid(True)
             ax.set_title("A"+str(i+1))
+        return ax_arr
 
     def get_max_joint_tau(self):
         tau_max = np.abs(self.tau_ser).max(axis=0)
@@ -507,6 +523,7 @@ class SimulationAnalysis(StaticAnalysis):
         percentage = tau_max / tau_limit
         print('max joint tau / gearbox limit: {}%'.format(percentage * 100))
         return tau_max
+
 
     def get_fea_input(self):
         """

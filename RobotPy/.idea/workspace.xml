@@ -14,10 +14,32 @@
       <file leaf-file-name="design_kr1p5_450.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/design_kr1p5_450.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+            <state relative-caret-position="267">
+              <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="m_math.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/m_math.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="248">
+              <caret line="154" column="9" lean-forward="true" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="massparameter_handling.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utility/massparameter_handling.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#58#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -26,18 +48,28 @@
       <file leaf-file-name="m_simulation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/m_simulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
+            <state relative-caret-position="22">
               <caret line="159" column="51" lean-forward="false" selection-start-line="159" selection-start-column="51" selection-end-line="159" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="m_manipulator.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="m_manipulator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2692">
-              <caret line="263" column="23" lean-forward="true" selection-start-line="263" selection-start-column="23" selection-end-line="263" selection-end-column="23" />
+            <state relative-caret-position="3454">
+              <caret line="159" column="34" lean-forward="false" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="m_analysis.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/m_analysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="254">
+              <caret line="496" column="61" lean-forward="true" selection-start-line="496" selection-start-column="61" selection-end-line="496" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -46,18 +78,8 @@
       <file leaf-file-name="pt_micro450.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rRobotDB/pt_micro450.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3784">
-              <caret line="174" column="23" lean-forward="true" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="m_component.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/m_component.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+            <state relative-caret-position="541">
+              <caret line="174" column="23" lean-forward="false" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -81,17 +103,17 @@
       <find>name</find>
       <find>_new</find>
       <find>s_dauer3</find>
-      <find>_ceiling</find>
       <find>.docx</find>
       <find>get</find>
+      <find>_ceiling</find>
     </findStrings>
     <replaceStrings>
       <replace>_</replace>
       <replace>tau_ser</replace>
       <replace>_target</replace>
       <replace>s</replace>
-      <replace>_wall</replace>
       <replace>.doc</replace>
+      <replace>_wall</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -100,9 +122,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/utility/gear_characteristic.py" />
-        <option value="$PROJECT_DIR$/utility/physics.py" />
-        <option value="$PROJECT_DIR$/rRobotLib/robot_config_prototype.py" />
         <option value="$PROJECT_DIR$/rDataAnalysis.py" />
         <option value="$PROJECT_DIR$/utility/fwd_dyn_fun.py" />
         <option value="$PROJECT_DIR$/application/profile_test.py" />
@@ -131,7 +150,6 @@
         <option value="$PROJECT_DIR$/utility/get_roberta_structure.py" />
         <option value="$PROJECT_DIR$/utility/roberta_interface.py" />
         <option value="$PROJECT_DIR$/application/test_trace.py" />
-        <option value="D:/myPythonProjects/WebRobertaTool/fem_report_processing.py" />
         <option value="$PROJECT_DIR$/utility/characteristic.py" />
         <option value="$PROJECT_DIR$/application/design_kr6_900.py" />
         <option value="$PROJECT_DIR$/rRobotDB/agilus_kr6_900.py" />
@@ -148,17 +166,21 @@
         <option value="$PROJECT_DIR$/resource/ExternalDB/gearbox_db.py" />
         <option value="$PROJECT_DIR$/model/rMath.py" />
         <option value="$PROJECT_DIR$/utility/compare_with_OPC.py" />
-        <option value="$PROJECT_DIR$/application/design_kr1p5_450.py" />
         <option value="$PROJECT_DIR$/rRobotDB/pt_micro450.py" />
         <option value="$PROJECT_DIR$/model/m_manipulator.py" />
+        <option value="D:/myPythonProjects/WebRobertaTool/fem_report_processing.py" />
+        <option value="$PROJECT_DIR$/application/design_kr1p5_450.py" />
+        <option value="$PROJECT_DIR$/model/m_analysis.py" />
+        <option value="$PROJECT_DIR$/model/m_math.py" />
+        <option value="$PROJECT_DIR$/utility/massparameter_handling.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
+    <option name="x" value="1905" />
+    <option name="y" value="-129" />
     <option name="width" value="1938" />
-    <option name="height" value="1218" />
+    <option name="height" value="1212" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -176,6 +198,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -183,11 +206,20 @@
               <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
+              <item name="utility" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -231,7 +263,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.design_kr1p5_450">
+  <component name="RunManager" selected="Python.massparameter_handling">
     <configuration name="design_kr1p5_450" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -268,24 +300,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="design_kr6_900" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/application" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="RobotPy" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/application/design_kr6_900.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="fem_report_processing" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -301,6 +315,24 @@
       <option name="SCRIPT_NAME" value="D:/myPythonProjects/WebRobertaTool/fem_report_processing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="massparameter_handling" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utility" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="RobotPy" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utility/massparameter_handling.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
@@ -388,18 +420,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.design_kr1p5_450" />
-      <item index="1" class="java.lang.String" itemvalue="Python.design_kr6_900" />
-      <item index="2" class="java.lang.String" itemvalue="Python.fem_report_processing" />
-      <item index="3" class="java.lang.String" itemvalue="Python.pathplan" />
-      <item index="4" class="java.lang.String" itemvalue="Python.design_kr6_700" />
+      <item index="1" class="java.lang.String" itemvalue="Python.fem_report_processing" />
+      <item index="2" class="java.lang.String" itemvalue="Python.pathplan" />
+      <item index="3" class="java.lang.String" itemvalue="Python.design_kr6_700" />
+      <item index="4" class="java.lang.String" itemvalue="Python.massparameter_handling" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.design_kr1p5_450" />
-        <item index="1" class="java.lang.String" itemvalue="Python.design_kr6_700" />
-        <item index="2" class="java.lang.String" itemvalue="Python.pathplan" />
-        <item index="3" class="java.lang.String" itemvalue="Python.design_kr6_900" />
-        <item index="4" class="java.lang.String" itemvalue="Python.fem_report_processing" />
+        <item index="0" class="java.lang.String" itemvalue="Python.massparameter_handling" />
+        <item index="1" class="java.lang.String" itemvalue="Python.design_kr1p5_450" />
+        <item index="2" class="java.lang.String" itemvalue="Python.fem_report_processing" />
+        <item index="3" class="java.lang.String" itemvalue="Python.design_kr6_700" />
+        <item index="4" class="java.lang.String" itemvalue="Python.pathplan" />
       </list>
     </recent_temporary>
   </component>
@@ -428,20 +460,20 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1170" extended-state="6" />
+    <frame x="1911" y="-129" width="1938" height="1218" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22739291" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14859863" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16683218" sideWeight="0.18561608" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20059583" sideWeight="0.49603385" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1943128" sideWeight="0.2141724" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2" sideWeight="0.4918033" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31876862" sideWeight="0.7202538" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16683218" sideWeight="0.8143839" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31876862" sideWeight="0.7170809" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1943128" sideWeight="0.7858276" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35260662" sideWeight="0.49603385" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34856007" sideWeight="0.8651507" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4236967" sideWeight="0.8445267" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -478,7 +510,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="155" />
+      <option name="time" value="166" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -521,8 +553,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/Users/pei.sun/AppData/Local/Continuum/Anaconda3/Lib/site-packages/scipy/linalg/matfuncs.py" />
-    <entry file="file://$USER_HOME$/Desktop/scitbx_rigid_body_essence/featherstone.py" />
     <entry file="file://$PROJECT_DIR$/application/other/profile_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="733">
@@ -654,13 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/myPythonProjects/WebRobertaTool/fem_report_processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="55" column="46" lean-forward="false" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utility/characteristic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -757,7 +780,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -765,7 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="107" column="73" lean-forward="false" selection-start-line="107" selection-start-column="43" selection-end-line="107" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -773,15 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="104" column="19" lean-forward="false" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_math.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="250" column="14" lean-forward="false" selection-start-line="250" selection-start-column="14" selection-end-line="250" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -789,15 +801,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="880">
           <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3454">
+          <caret line="159" column="34" lean-forward="false" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_analysis.py">
+    <entry file="file://D:/myPythonProjects/WebRobertaTool/fem_report_processing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="463" column="8" lean-forward="false" selection-start-line="463" selection-start-column="8" selection-end-line="463" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="220">
+          <caret line="12" column="46" lean-forward="false" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -805,49 +823,74 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="165" column="25" lean-forward="true" selection-start-line="165" selection-start-column="25" selection-end-line="165" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/design_kr1p5_450.py">
+    <entry file="file://D:/ProgramData/Anaconda3/Lib/site-packages/openpyxl/worksheet/worksheet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_simulation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="159" column="51" lean-forward="false" selection-start-line="159" selection-start-column="51" selection-end-line="159" selection-end-column="51" />
+        <state relative-caret-position="-34">
+          <caret line="270" column="8" lean-forward="false" selection-start-line="270" selection-start-column="8" selection-end-line="270" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/m_component.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        <state relative-caret-position="475">
+          <caret line="39" column="11" lean-forward="true" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/m_simulation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="159" column="51" lean-forward="false" selection-start-line="159" selection-start-column="51" selection-end-line="159" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/design_kr1p5_450.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rRobotDB/pt_micro450.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3784">
-          <caret line="174" column="23" lean-forward="true" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
+        <state relative-caret-position="541">
+          <caret line="174" column="23" lean-forward="false" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
+    <entry file="file://$PROJECT_DIR$/model/m_analysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2692">
-          <caret line="263" column="23" lean-forward="true" selection-start-line="263" selection-start-column="23" selection-end-line="263" selection-end-column="23" />
+        <state relative-caret-position="254">
+          <caret line="496" column="61" lean-forward="true" selection-start-line="496" selection-start-column="61" selection-end-line="496" selection-end-column="61" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/m_math.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="154" column="9" lean-forward="true" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/massparameter_handling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

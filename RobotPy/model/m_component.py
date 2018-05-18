@@ -6,7 +6,7 @@ Compnents to form a robot
 """
 import numpy as np
 import scipy.linalg as li
-from model.m_math import massCombine, twistCoordinate, tensor
+from model.m_math import mass_combine, twistCoordinate, tensor
 from model.m_math import calc_friction, curve_min, pure_cross
 from model.m_math import fast_fwd_ne, fast_bwd_ne
 # from numba import jitclass
@@ -74,7 +74,7 @@ class Body:
         if isLoad:
             cm_new_aligned = cm_new_aligned + self.dimension
         iT_new_aligned = align @ iT_new @ align.T
-        res = massCombine(m, m_new, cm, cm_new_aligned, iT, iT_new_aligned)
+        res = mass_combine(m, m_new, cm, cm_new_aligned, iT, iT_new_aligned)
         (self.m, self.cm, self.iT) = res
 
     def remove_mass(self, cm_target, m_target, iT_target_ar, align):
@@ -89,7 +89,7 @@ class Body:
         cm_target_aligned = align @ cm_target
         cm_target_aligned = cm_target_aligned + self.dimension
         iT_target_aligned = align @ iT_target @ align.T
-        res = massCombine(-m, m_target, cm, cm_target_aligned, iT, -iT_target_aligned)
+        res = mass_combine(-m, m_target, cm, cm_target_aligned, iT, -iT_target_aligned)
         (self.m, self.cm, self.iT) = res
 
     def resetMass(self):

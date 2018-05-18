@@ -147,7 +147,7 @@ def adjointTransform(R, p):
     return Ad_g
 
 
-def massCombine(m, m_new, cm, cm_new, iT, iT_new):
+def mass_combine(m, m_new, cm, cm_new, iT, iT_new):
     """ combine 2 mass """
     m_all = m + m_new
     if m_all != 0:
@@ -156,7 +156,7 @@ def massCombine(m, m_new, cm, cm_new, iT, iT_new):
         cm_all = cm
     d = ar([cm_new - cm_all])
     iT_all = iT + iT_new + m_new * (np.dot(d, d.T)[0, 0] * np.identity(3) - d.T @ d)
-    return m_all,cm_all,iT_all
+    return m_all, cm_all, iT_all
 
 
 def tensor(*args):
