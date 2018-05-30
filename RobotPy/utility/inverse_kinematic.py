@@ -104,10 +104,16 @@ def ik_scara(tcp, geometry, st='00'):
               ~ q3 unit rad
     """
 
-    x, y, z = tcp["origin"][0], tcp["origin"][1], \
-              tcp["origin"][2]
+    x, y, z = tcp["origin"][0], tcp["origin"][1], tcp["origin"][2]
     theta = tcp["orientation"]
-    L1, L2, H = geometry["L1"], geometry["L2"], geometry["H"]
+
+    L1 = np.linalg.norm(
+             geometry[2].origin0[[0, 1]] - geometry[1].origin0[[0, 1]]
+         )
+    L2 = np.linalg.norm(
+             geometry[3].origin0[[0, 1]] - geometry[2].origin0[[0, 1]]
+         )
+    H = geometry[5].origin0[2]
 
     # solve q1, q2
     # ax^2 + bx + c = 0
