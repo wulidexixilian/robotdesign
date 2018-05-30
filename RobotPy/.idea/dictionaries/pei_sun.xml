@@ -11,7 +11,9 @@
       <w>jacobian</w>
       <w>kuka</w>
       <w>linkarm</w>
+      <w>markersize</w>
       <w>rotationcolumn</w>
+      <w>scara</w>
     </words>
   </dictionary>
 </component>

@@ -10,21 +10,18 @@ from model.m_component import Body, Joint, Drive
 
 ar = np.array
 
-class Kinematics():
 
-    idDict = {
-                 "groundbase":0, "rotationcolumn":1, "linkarm":2, "arm":3,
-                 "handbase":4, "handwrist":5, "handflange":6, "tcp":7,
-              }
+class Kinematics:
 
-    def __init__(self, dimensions, coordinateConfigurationDict):
-        accumulationDisp = ar([0,0,0])
+    def __init__(self, dimensions, frame_config):
+        accumulation_displacement = ar([0, 0, 0])
         self.bodies = []
         self.joints = []
+        self.q = None
+        self.link_names = list(frame_config.keys())
         for i, component in enumerate(dimensions):
-            axOrientation = coordinateConfigurationDict[component["name"]][0]
-            nxOrientation = coordinateConfigurationDict[component["name"]][1]
-
+            orientation_ax = frame_config[component["nest"]]['frame0']
+            orientation_nx = frame_config[component["nest"]]['frame1']
             #a matrix to transfer everything in Kuka body coordinate into
             #unified natrual body coordinate
             # z
@@ -32,35 +29,42 @@ class Kinematics():
             # |
             # y --> x
             # which aligns with the world coordinate when q=0
-
-            align2Base = rotation(axOrientation[0],
-                                  axOrientation[1],
-                                  axOrientation[2],
+            align2Base = rotation(orientation_ax[0],
+                                  orientation_ax[1],
+                                  orientation_ax[2],
                                   order="xyz")
-            base2Nxt = rotation(nxOrientation[0],
-                                nxOrientation[1],
-                                nxOrientation[2],
+            base2Nxt = rotation(orientation_nx[0],
+                                orientation_nx[1],
+                                orientation_nx[2],
                                 order="xyz")
             # align 2 axes accordingly
             ax = align2Base @ ar([0, 0, 1])
             nx = align2Base @ base2Nxt @ ar([0, 0, 1])
-            gearOffset = nx*component["offset"]
+            gear_offset = nx * component["offset"]
             displacement2nx = align2Base @ ar(component["displacement"])
-            body = Body(displacement2nx, component["name"], i)
+            body = Body(displacement2nx, component["nest"], i)
             self.bodies.append(body)
-            joint = Joint(accumulationDisp, ax, align2Base, i)
+            if 'mode' in frame_config[component["nest"]].keys():
+                joint_mode = frame_config[component["nest"]]['mode']
+            else:
+                joint_mode = 0
+            joint = Joint(accumulation_displacement, ax, align2Base, i, joint_mode)
             self.joints.append(joint)
-            accumulationDisp = accumulationDisp + displacement2nx + gearOffset
+            accumulation_displacement = accumulation_displacement +\
+                displacement2nx + gear_offset
 
-        tcpOrientation = coordinateConfigurationDict["tcp"][0]
-        align2Tcp = rotation(tcpOrientation[0],
-                                  tcpOrientation[1],
-                                  tcpOrientation[2],
-                                  order="zyx")
-        tcpAx = align2Tcp @ ar([0, 0, 1])
-        tcp = Joint(accumulationDisp, tcpAx, align2Tcp, i+1)
+        tcp_orientation = frame_config["tcp"]['frame0']
+        align2tcp = rotation(
+            tcp_orientation[0],
+            tcp_orientation[1],
+            tcp_orientation[2],
+            order="xyz"
+        )
+        tcpAx = align2tcp @ ar([0, 0, 1])
+        tcp = Joint(accumulation_displacement, tcpAx, align2tcp, i + 1)
         self.joints.append(tcp)
         self.num_axes = len(self.bodies) - 1
+        self.inverse_dynamic = None
 
     def k(self, q):
         """forward kinematics"""
@@ -75,84 +79,24 @@ class Kinematics():
                 k = 0
             else:
                 k = i-1
-            newPosition = self.joints[k].G_gl @\
+            new_position = self.joints[k].G_gl @\
                           np.hstack((joint.origin0, ar([1])))
-            joint.setPose(newPosition[0:3])
+            joint.setPose(new_position[0:3])
 
-    def ik(self, tcp):
-        """
-        inverse kinematics, not a universal method. Only for configuration with:
-        1) 6 rotation joints
-        2) z1 ^; z2 x; z3 x; z4 <; z5 x; z6 <
-        3) a common intersection point of A4, A5, A6 axes.
-        4) offset only on arm link (flange 2 is not on the axis of flange 1)
-
-                 ___l22____A5
-            l21 |A3
-               /
-              /
-         l1  /
-            /
-         A2/
-         Input:
-             tcp = {"origin":np.array([x, y, z]), "orientation":np.array([A, B, C])}
-
-        """
-        if type(tcp) is dict:
-            x, y, z = tcp["tcp"]
-            A, B, C = tcp["orientation"]
-        elif len(tcp) == 3:
-            x, y, z = tcp[0:3]
-            A, B, C = 0, 0, 0
-        elif len(tcp) == 6:
-            x, y, z, A, B, C = tcp
-        d = np.linalg.norm(self.joints[5].origin0[[0,2]] -\
-                           self.joints[7].origin0[[0,2]])
-        R06 = rotation(A,B,C,"zyx")
-        G_gl_tcp = h(R06, [x, y, z])
-        hand = (G_gl_tcp @ ar([-d, 0, 0, 1]))[0:3]
-
-        theta1 = np.arctan2(hand[1],hand[0])
-        A5 = self.joints[5].origin0[[0,2]]
-        A3 = self.joints[3].origin0[[0,2]]
-        A2 = self.joints[2].origin0[[0,2]]
-
-        l21 = A5[1] - A3[1]
-        l22 = A5[0] - A3[0]
-        theta31 = np.arctan2(l21, l22)
-        l23 = np.linalg.norm(A5 - A3)
-
-        l1 = np.linalg.norm(A3 - A2)
-        l2 = l23
-
-        joint1 = self.joints[1]
-        joint2 = self.joints[2]
-        origin2 = joint2.origin0
-        origin2[1] = 0
-        joint1.twist(-theta1)
-        joint2_newO = (joint1.G_indv @ np.hstack((origin2, ar([1]))))[0:3]
-        l3 = np.linalg.norm(hand - joint2_newO)
-        delta_big = triangle(l1, l2, l3)
-
-        theta21 = np.arctan2(hand[2] - joint2_newO[2],
-                             np.linalg.norm(hand[[0,1]] - joint2_newO[[0,1]]))
-        theta22 = delta_big[1]
-        theta2 = -(theta21 + theta22)
-        theta32 = delta_big[2]
-        theta3 = np.pi + theta31 - theta32
-
-        R03 = rotation(theta1, theta2, theta3, "zyy")
-
-        R36 = R03.T @ R06
-        theta4, theta5, theta6 = solveEuler(R36)
-        return ar([-theta1, theta2, theta3, -theta4, theta5, -theta6])
+    def ik(self, tcp, st=None):
+        if self.inverse_dynamic is None:
+            print('set inverse dynamic method before solving')
+            return
+        geometry = self.joints
+        q = self.inverse_dynamic(tcp, geometry, st)
+        return q
 
     def local2world(self, pose_local, ref, target="cs"):
         """
         natrual local cs to world cs
         """
         if isinstance(ref, str):
-            idx = self.idDict[ref]
+            idx = self.link_names.index(ref)
         else:
             idx = ref
 
@@ -180,7 +124,7 @@ class Kinematics():
         kuka local cs to natrual local cs
         """
         if isinstance(ref, str):
-            idx = self.idDict[ref]
+            idx = self.link_names.index(ref)
         else:
             idx = ref
 
@@ -207,8 +151,8 @@ class Kinematics():
         """
         p = (x, y, z, A:z, B:y, C:x) given in tool cs, convert p to world cs
         """
-        temp = self.kuka2local(p, 7)
-        tcp = self.local2world(temp, 7)
+        temp = self.kuka2local(p, self.num_axes+1)
+        tcp = self.local2world(temp, self.num_axes+1)
         return tcp
 
     def jacobian(self):
@@ -216,7 +160,7 @@ class Kinematics():
         generate the Jacobian Matrix based on current kinematics
         """
         p_e = self.joints[-1].origin1
-        JT = np.array([]).reshape(0,6)
+        JT = np.array([]).reshape(0, 6)
         for joint in self.joints[1:-1]:
             p_i = joint.origin1
             z_i = joint.axis1
@@ -248,26 +192,29 @@ class Dynamics(Kinematics):
     Dynamic model with iterative Newton-Euler inverse method.
     Extended from Kinematics
     """
-    def __init__(self, componentList, massList,
-                 driveTrainList, coordinateConfigurationDict):
+    def __init__(
+        self,
+        component_list, mass_list, drivetrain_list, frame_config
+    ):
         """
         Construct kinematic model and assign mass and moment
         of inertia to every body object
         """
         # kinematics model
-        super(Dynamics, self).__init__(componentList, coordinateConfigurationDict)
+        super(Dynamics, self).__init__(component_list, frame_config)
         # distribute mass to each body
-        for mass in massList:
-            idx = self.idDict[mass["nest"]]
-            if idx == 7:
-                body = self.bodies[idx-1]
-                isLoad = True
+        for mass in mass_list:
+            # body_idx = self.link_dict_industry[mass["nest"]]
+            body_idx = self.link_names.index(mass["nest"])
+            if mass["nest"] == 'tcp':
+                body = self.bodies[body_idx-1]
+                is_load = True
             else:
-                body = self.bodies[idx]
-                isLoad = False
+                body = self.bodies[body_idx]
+                is_load = False
             # rotation aligns a kuka local cs to natrual body cs
-            align = self.joints[idx].align
-            body.add_mass(mass["cm"], mass["m"], mass["iT"], align, isLoad)
+            align = self.joints[body_idx].align
+            body.add_mass(mass["cm"], mass["m"], mass["iT"], align, is_load)
         # generate drive object to each driving joint
         # (joints[0] and joints[-1] are not included, [0] is the base surface,
         # and [-1] is flange surface)
@@ -276,9 +223,9 @@ class Dynamics(Kinematics):
             drive = Drive(joint.id)
             self.drives.append(drive)
         # distribute drive train inertia and frictions
-        for dPara in driveTrainList:
+        for dPara in drivetrain_list:
             if isinstance(dPara["nest"], str):
-                dPara["nest"] = self.idDict[dPara["nest"]]
+                dPara["nest"] = self.link_names.index(dPara["nest"])
             drive = self.drives[dPara["nest"] - 1]
             drive.update(dPara["friction"], dPara["driveInertia"], dPara["ratio"])
             if 'characteristic_before_ratio' in dPara:
@@ -289,7 +236,7 @@ class Dynamics(Kinematics):
 
     def add_load(self, load):
         body = self.bodies[-1]
-        align = self.joints[self.idDict['tcp']].align
+        align = self.joints[-1].align
         body.remove_mass(load["cm"], load["m"], load["iT"], align)
 
     def k(self, q):
@@ -310,10 +257,10 @@ class Dynamics(Kinematics):
             head_gl = self.joints[idx].origin1
             tail_gl = self.joints[idx + 1].origin1
             iT_gl = R_i @ body.iT @ R_i.T
-            body.updateKinematics(z_gl, head_gl, tail_gl, cm_gl, iT_gl)
+            body.update_kinematics(z_gl, head_gl, tail_gl, cm_gl, iT_gl)
         # update kinematics infor for each drive (their axis orientation)
         for drive in self.drives:
-            drive.setAxis(self.joints[drive.id].axis1)
+            drive.set_axis(self.joints[drive.id].axis1)
 
     def ne(self, q_dot, q_ddot, gravity):
         """
@@ -330,8 +277,10 @@ class Dynamics(Kinematics):
         acc_e_im1 = zeros
         # forward iterations for omega, alpha, acc
         for i, body in enumerate(self.bodies):
-            body.ne_fwd_iter(q_dot[i], q_ddot[i],
-                             omega_im1, alpha_im1, acc_e_im1)
+            body.ne_fwd_iter(
+                q_dot[i], q_ddot[i],
+                omega_im1, alpha_im1, acc_e_im1
+            )
             # prepare for next iter
             omega_im1 = body.omega
             alpha_im1 = body.alpha
@@ -360,8 +309,10 @@ class Dynamics(Kinematics):
             tau = self.bodies[idx].tau
             # idx - 1 since drive id starts from 1, but q_ddot index starts from 0
             # it starts from 1 because there is no drive to the ground base.
-            drive.getDriveTau(q_dot[idx-1], q_ddot[idx-1], tau,
-                              self.fr_thresholds[i])
+            drive.get_drive_tau(
+                q_dot[idx-1], q_ddot[idx-1],
+                tau, self.fr_thresholds[i]
+            )
 
     def get_inertia_matrix(self):
         """
@@ -382,7 +333,7 @@ class Dynamics(Kinematics):
         for idx in range(n):
             qdd_pseudo = np.zeros(n)
             qdd_pseudo[idx] = 1
-            tau_pseudo = self.ne(np.zeros(6), qdd_pseudo, np.zeros(3))
+            tau_pseudo = self.ne(np.zeros(n), qdd_pseudo, np.zeros(3))
             M_col = tau_pseudo
             M[:, idx] = M_col
         return M

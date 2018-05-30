@@ -13,7 +13,7 @@ load_rated = {
     "cm": np.array([60, 0, 80]) * 1e-3, "m": 6,
     "iT": np.array([45000, 45000, 45000, 0, 0, 0]) * 1e-6
 }
-s.buildRobot(
+s.build_robot(
     cfg.structurePara,
     cfg.massPara,
     cfg.motorPara,
@@ -24,7 +24,7 @@ s.buildRobot(
 q = [0, 0, 0, 0, 0, 0]
 q_dot_max = np.array([360, 300, 462, 450, 470, 600]) / 180 * np.pi
 q_dot = q_dot_max * 0.01
-q_ddot = [0, 0, 0, 0, 0, 0]
+q_ddot = np.array([0, 0, 0, 0, 0, 0])
 rs = s.get_result()
 stall_tau = rs.get_stall_torque(q_dot_max, load_rated)
 s.load_gear_characteristic(
@@ -33,20 +33,20 @@ s.load_gear_characteristic(
     max_omega_override = np.array([6000, 6000, 7700, 6000, 6266.67, 8000])
 )
 # *** kinematics ***
-s.runStep(q, q_dot)
-ax = s.snapShot()
-s.showMotorGearCM(ax)
+s.run_one_step(q, q_dot, q_ddot)
+ax = s.snapshot()
+s.show_cm(ax)
 # *** inverse dynamic ***
 percentage = 100 # amount of data to be simulated, 100% for all
 # load q(t) from trace file
 # trace_file = "resource/trace/KR6R900_NextGen/000xTemperatur_NextGenDrive"
-# s.loadQ(trace_file, percentage,
+# s.load_trajectory(trace_file, percentage,
 #         ratioMask=[100, 120, 105.4, 80, 77.48, 81],
 #         trace_type='NextGenDrive')
 trace_file = "resource/trace/KR6R700_IPO/dauer3_kr6_KRCIpo"
-s.loadQ(trace_file, percentage)
+s.load_trajectory(trace_file, percentage)
 # inverse dynamic simulation
-s.simFromQ()
+s.sim_inv_dynamic()
 # *** result ***
 rs = s.get_result()
 # stall torque

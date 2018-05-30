@@ -4,31 +4,31 @@ from resource.ExternalDB.motor_db import load_motor_db
 
 structurePara = [
     {
-        "name": "groundbase",
+        "nest": "groundbase",
         "displacement": np.array([0, 0, 112.5])*1e-3,
     },
     {
-        "name": "rotationcolumn",
+        "nest": "rotationcolumn",
         "displacement": np.array([0, -52, -82.5])*1e-3,
     },
     {
-        "name": "linkarm",
+        "nest": "linkarm",
         "displacement": np.array([220, 0, -30])*1e-3,
     },
     {
-        "name": "arm",
+        "nest": "arm",
         "displacement": np.array([75, -9, -22])*1e-3,
     },
     {
-        "name": "handbase",
+        "nest": "handbase",
         "displacement": np.array([0, -8.5, -120])*1e-3,
     },
     {
-        "name": "handwrist",
+        "nest": "handwrist",
         "displacement": np.array([30, 0, 8.5])*1e-3,
      },
     {
-        "name": "handflange",
+        "nest": "handflange",
         "displacement": np.array([0, 0, -5])*1e-3,
     }
 ]

@@ -11,36 +11,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="design_kr1p5_450.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/design_kr1p5_450.py">
+      <file leaf-file-name="m_manipulator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="m_math.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/m_math.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="154" column="9" lean-forward="true" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
+            <state relative-caret-position="528">
+              <caret line="89" column="19" lean-forward="true" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="massparameter_handling.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/utility/massparameter_handling.py">
+      <file leaf-file-name="m_component.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/m_component.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#58#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="242">
+              <caret line="141" column="20" lean-forward="false" selection-start-line="141" selection-start-column="13" selection-end-line="141" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -48,39 +34,47 @@
       <file leaf-file-name="m_simulation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/m_simulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="159" column="51" lean-forward="false" selection-start-line="159" selection-start-column="51" selection-end-line="159" selection-end-column="51" />
-              <folding />
+            <state relative-caret-position="6182">
+              <caret line="281" column="46" lean-forward="true" selection-start-line="281" selection-start-column="46" selection-end-line="281" selection-end-column="46" />
+              <folding>
+                <element signature="e#104#117#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="m_manipulator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
+      <file leaf-file-name="m_simulation_scara.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/m_simulation_scara.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3454">
-              <caret line="159" column="34" lean-forward="false" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
-              <folding />
+            <state relative-caret-position="924">
+              <caret line="42" column="21" lean-forward="true" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="m_analysis.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/m_analysis.py">
+      <file leaf-file-name="m_analysis_scara.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/m_analysis_scara.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="496" column="61" lean-forward="true" selection-start-line="496" selection-start-column="61" selection-end-line="496" selection-end-column="61" />
-              <folding />
+            <state relative-caret-position="528">
+              <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pt_micro450.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rRobotDB/pt_micro450.py">
+      <file leaf-file-name="inverse_kinematic.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utility/inverse_kinematic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="541">
-              <caret line="174" column="23" lean-forward="false" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="440">
+              <caret line="104" column="7" lean-forward="true" selection-start-line="104" selection-start-column="7" selection-end-line="104" selection-end-column="7" />
+              <folding>
+                <element signature="e#25#43#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -106,6 +100,13 @@
       <find>.docx</find>
       <find>get</find>
       <find>_ceiling</find>
+      <find>coordinateConfigurationDict</find>
+      <find>dimensionList</find>
+      <find>massList</find>
+      <find>driveList</find>
+      <find>self</find>
+      <find>q_ptp</find>
+      <find>geometry.joints</find>
     </findStrings>
     <replaceStrings>
       <replace>_</replace>
@@ -114,6 +115,7 @@
       <replace>s</replace>
       <replace>.doc</replace>
       <replace>_wall</replace>
+      <replace>geometry</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -122,15 +124,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/rDataAnalysis.py" />
-        <option value="$PROJECT_DIR$/utility/fwd_dyn_fun.py" />
-        <option value="$PROJECT_DIR$/application/profile_test.py" />
-        <option value="$PROJECT_DIR$/application/numba_test.py" />
-        <option value="$PROJECT_DIR$/application/test_fwd_dyn.py" />
-        <option value="$PROJECT_DIR$/rMath.py" />
-        <option value="$PROJECT_DIR$/rRobotLib/pt_micro_1p5kg400.py" />
-        <option value="$PROJECT_DIR$/rRobotLib/pt_micro_1p2kg440.py" />
-        <option value="$PROJECT_DIR$/rRobotLib/pt_micro_1p5kg440.py" />
         <option value="$PROJECT_DIR$/application/design_process2.py" />
         <option value="$PROJECT_DIR$/application/design_process.py" />
         <option value="$PROJECT_DIR$/rRobotLib/pt_micro_1kg380.py" />
@@ -158,29 +151,38 @@
         <option value="$PROJECT_DIR$/application/other/pathplan.py" />
         <option value="$PROJECT_DIR$/model/rAnalysis.py" />
         <option value="$PROJECT_DIR$/rRobotDB/agilus_kr6_700.py" />
-        <option value="$PROJECT_DIR$/application/design_kr6_700.py" />
         <option value="$PROJECT_DIR$/model/rSimulation.py" />
         <option value="$PROJECT_DIR$/model/rManipulator.py" />
         <option value="$PROJECT_DIR$/model/rComponent.py" />
+        <option value="$PROJECT_DIR$/model/rMath.py" />
+        <option value="D:/myPythonProjects/WebRobertaTool/fem_report_processing.py" />
+        <option value="$PROJECT_DIR$/utility/massparameter_handling.py" />
+        <option value="$PROJECT_DIR$/application/design_kr6_700.py" />
+        <option value="$PROJECT_DIR$/application/design_kr1p5_450.py" />
+        <option value="$PROJECT_DIR$/rRobotDB/pt_micro450.py" />
+        <option value="$PROJECT_DIR$/utility/compare_with_OPC.py" />
+        <option value="$PROJECT_DIR$/model/m_math.py" />
+        <option value="$PROJECT_DIR$/model/m_component.py" />
+        <option value="$PROJECT_DIR$/utility/inverseK_scara.py" />
         <option value="$PROJECT_DIR$/resource/ExternalDB/motor_db.py" />
         <option value="$PROJECT_DIR$/resource/ExternalDB/gearbox_db.py" />
-        <option value="$PROJECT_DIR$/model/rMath.py" />
-        <option value="$PROJECT_DIR$/utility/compare_with_OPC.py" />
-        <option value="$PROJECT_DIR$/rRobotDB/pt_micro450.py" />
-        <option value="$PROJECT_DIR$/model/m_manipulator.py" />
-        <option value="D:/myPythonProjects/WebRobertaTool/fem_report_processing.py" />
-        <option value="$PROJECT_DIR$/application/design_kr1p5_450.py" />
+        <option value="$PROJECT_DIR$/rRobotDB/pt_scara.py" />
+        <option value="$PROJECT_DIR$/model/m_analysis_scara.py" />
+        <option value="$PROJECT_DIR$/application/design_scara.py" />
         <option value="$PROJECT_DIR$/model/m_analysis.py" />
-        <option value="$PROJECT_DIR$/model/m_math.py" />
-        <option value="$PROJECT_DIR$/utility/massparameter_handling.py" />
+        <option value="$PROJECT_DIR$/utility/inverse_dynamic.py" />
+        <option value="$PROJECT_DIR$/model/m_simulation_scara.py" />
+        <option value="$PROJECT_DIR$/model/m_simulation.py" />
+        <option value="$PROJECT_DIR$/model/m_manipulator.py" />
+        <option value="$PROJECT_DIR$/utility/inverse_kinematic.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1905" />
-    <option name="y" value="-129" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
     <option name="width" value="1938" />
-    <option name="height" value="1212" />
+    <option name="height" value="1218" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -199,6 +201,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -209,7 +212,28 @@
             <path>
               <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="ExternalDB" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RobotPy" type="462c0819:PsiDirectoryNode" />
+              <item name="rRobotDB" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RobotPy" type="b2602c69:ProjectViewProjectNode" />
@@ -220,7 +244,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,18 +260,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\robotdesign\RobotPy\utility" />
+      <recent name="D:\GitHub\robotdesign\RobotPy\rRobotDB" />
+      <recent name="D:\GitHub\robotdesign\RobotPy\resource" />
       <recent name="D:\GitHub\robotdesign\RobotPy\resource\trace\KR1_IPO" />
       <recent name="D:\GitHub\robotdesign\RobotPy\application\other" />
-      <recent name="D:\GitHub\robotdesign\RobotPy\rRobotDB\not_used" />
-      <recent name="D:\GitHub\robotdesign\RobotPy\model" />
-      <recent name="D:\GitHub\robotdesign\RobotPy\resource\ExternalDB" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GitHub\robotdesign\RobotPy\model" />
+      <recent name="D:\GitHub\robotdesign\RobotPy\rRobotDB\not_used" />
       <recent name="D:\GitHub\robotdesign\RobotPy\resource\trace\KR1_IPO" />
       <recent name="D:\GitHub\robotdesign\RobotPy\resource\trace\KR1_single" />
       <recent name="D:\GitHub\robotdesign\RobotPy\resource\trace\KR6R700_NG" />
-      <recent name="D:\GitHub\robotdesign\RobotPy\resource\trace\KR6R700_IPO" />
-      <recent name="D:\GitHub\robotdesign\RobotPy\application" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -263,7 +286,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.massparameter_handling">
+  <component name="RunManager" selected="Python.design_scara">
     <configuration name="design_kr1p5_450" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -300,6 +323,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="design_scara" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/application" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="RobotPy" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/application/design_scara.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="fem_report_processing" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -333,24 +374,6 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utility/massparameter_handling.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="pathplan" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/application/other" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="RobotPy" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/application/other/pathplan.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
@@ -421,17 +444,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.design_kr1p5_450" />
       <item index="1" class="java.lang.String" itemvalue="Python.fem_report_processing" />
-      <item index="2" class="java.lang.String" itemvalue="Python.pathplan" />
-      <item index="3" class="java.lang.String" itemvalue="Python.design_kr6_700" />
-      <item index="4" class="java.lang.String" itemvalue="Python.massparameter_handling" />
+      <item index="2" class="java.lang.String" itemvalue="Python.design_kr6_700" />
+      <item index="3" class="java.lang.String" itemvalue="Python.massparameter_handling" />
+      <item index="4" class="java.lang.String" itemvalue="Python.design_scara" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.massparameter_handling" />
-        <item index="1" class="java.lang.String" itemvalue="Python.design_kr1p5_450" />
-        <item index="2" class="java.lang.String" itemvalue="Python.fem_report_processing" />
-        <item index="3" class="java.lang.String" itemvalue="Python.design_kr6_700" />
-        <item index="4" class="java.lang.String" itemvalue="Python.pathplan" />
+        <item index="0" class="java.lang.String" itemvalue="Python.design_scara" />
+        <item index="1" class="java.lang.String" itemvalue="Python.massparameter_handling" />
+        <item index="2" class="java.lang.String" itemvalue="Python.design_kr1p5_450" />
+        <item index="3" class="java.lang.String" itemvalue="Python.fem_report_processing" />
+        <item index="4" class="java.lang.String" itemvalue="Python.design_kr6_700" />
       </list>
     </recent_temporary>
   </component>
@@ -460,20 +483,20 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1911" y="-129" width="1938" height="1218" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1170" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14859863" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16287678" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1943128" sideWeight="0.2141724" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2" sideWeight="0.4918033" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38556933" sideWeight="0.25542042" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2" sideWeight="0.4875727" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27110228" sideWeight="0.7445796" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31876862" sideWeight="0.7170809" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1943128" sideWeight="0.7858276" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2919563" sideWeight="0.7033316" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35260662" sideWeight="0.49603385" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38331679" sideWeight="0.8286621" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4236967" sideWeight="0.8445267" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -482,6 +505,26 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38556933" sideWeight="0.25542042" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38556933" sideWeight="0.7445796" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2919955" sideWeight="0.7033316" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35260662" sideWeight="0.49603385" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16129032" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2" sideWeight="0.4875727" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40119165" sideWeight="0.8286621" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -493,13 +536,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/utility/pp.py</url>
-          <line>35</line>
-          <option name="timeStamp" value="139" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -510,7 +546,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="166" />
+      <option name="time" value="181" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -553,70 +589,11 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/other/profile_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="733">
-          <caret line="49" column="20" lean-forward="false" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/other/numba_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="29" column="21" lean-forward="false" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/other/test_sym_dyn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="797">
-          <caret line="76" column="48" lean-forward="false" selection-start-line="76" selection-start-column="48" selection-end-line="76" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Users/pei.sun/AppData/Local/Continuum/Anaconda3/Lib/site-packages/matplotlib/path.py" />
-    <entry file="file://D:/Users/pei.sun/AppData/Local/Continuum/Anaconda3/Lib/site-packages/matplotlib/patches.py" />
-    <entry file="file://$PROJECT_DIR$/application/other/test_fwd_dyn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="29" column="23" lean-forward="true" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Users/pei.sun/AppData/Local/Continuum/Anaconda3/Lib/site-packages/numpy/lib/function_base.py" />
-    <entry file="file://$PROJECT_DIR$/rRobotDB/not_used/pt_micro_1kg380.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7062">
-          <caret line="321" column="27" lean-forward="false" selection-start-line="321" selection-start-column="27" selection-end-line="321" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/other/design_kr1_380.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="818">
-          <caret line="92" column="29" lean-forward="false" selection-start-line="92" selection-start-column="29" selection-end-line="92" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rRobotDB/not_used/pt_micro_1p5kg440.py" />
     <entry file="file://$PROJECT_DIR$/model/m_symbolic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="12" column="7" lean-forward="false" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utility/fwd_dyn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utility/trajectory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -656,13 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utility/roberta_interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/other/test_step.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -681,13 +651,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
           <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utility/characteristic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -712,21 +675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utility/pp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/other/pathplan.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="34" column="50" lean-forward="false" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/m_system.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -738,20 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rRobotDB/agilus_kr6_700.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="274" column="5" lean-forward="false" selection-start-line="274" selection-start-column="5" selection-end-line="274" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/design_kr6_700.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -790,28 +724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resource/ExternalDB/motor_db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="104" column="19" lean-forward="false" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utility/compare_with_OPC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3454">
-          <caret line="159" column="34" lean-forward="false" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/myPythonProjects/WebRobertaTool/fem_report_processing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -819,77 +731,225 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resource/ExternalDB/gearbox_db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="165" column="25" lean-forward="true" selection-start-line="165" selection-start-column="25" selection-end-line="165" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/ProgramData/Anaconda3/Lib/site-packages/openpyxl/worksheet/worksheet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-34">
           <caret line="270" column="8" lean-forward="false" selection-start-line="270" selection-start-column="8" selection-end-line="270" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rRobotDB/agilus_kr6_700.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5821">
+          <caret line="274" column="5" lean-forward="false" selection-start-line="274" selection-start-column="5" selection-end-line="274" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/design_kr6_700.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/trajectory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/roberta_interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/physics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/pp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="15" column="12" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/compare_with_OPC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="47" lean-forward="true" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/axcoupling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/characteristic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_component.py">
+    <entry file="file://$PROJECT_DIR$/utility/fwd_dyn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="39" column="11" lean-forward="true" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+        <state relative-caret-position="196">
+          <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/massparameter_handling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/other/pathplan.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="34" column="50" lean-forward="false" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/ProgramData/Anaconda3/Lib/site-packages/matplotlib/pyplot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="253" column="16" lean-forward="false" selection-start-line="253" selection-start-column="11" selection-end-line="253" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/m_math.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="158" column="17" lean-forward="true" selection-start-line="158" selection-start-column="17" selection-end-line="158" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/ExternalDB/gearbox_db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="367" column="10" lean-forward="true" selection-start-line="367" selection-start-column="10" selection-end-line="367" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/design_scara.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="32" column="12" lean-forward="true" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/design_kr1p5_450.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="42" column="13" lean-forward="true" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rRobotDB/pt_micro450.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4026">
+          <caret line="185" column="8" lean-forward="true" selection-start-line="185" selection-start-column="8" selection-end-line="185" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/ExternalDB/motor_db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="943">
+          <caret line="317" column="29" lean-forward="true" selection-start-line="317" selection-start-column="29" selection-end-line="317" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rRobotDB/pt_scara.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="881">
+          <caret line="136" column="22" lean-forward="false" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/m_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9152">
+          <caret line="422" column="17" lean-forward="false" selection-start-line="422" selection-start-column="17" selection-end-line="422" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utility/inverseK_scara.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="77" column="22" lean-forward="false" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/m_simulation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="159" column="51" lean-forward="false" selection-start-line="159" selection-start-column="51" selection-end-line="159" selection-end-column="51" />
-          <folding />
+        <state relative-caret-position="6182">
+          <caret line="281" column="46" lean-forward="true" selection-start-line="281" selection-start-column="46" selection-end-line="281" selection-end-column="46" />
+          <folding>
+            <element signature="e#104#117#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/design_kr1p5_450.py">
+    <entry file="file://$PROJECT_DIR$/model/m_simulation_scara.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="46" column="63" lean-forward="false" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
+        <state relative-caret-position="924">
+          <caret line="42" column="21" lean-forward="true" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/m_analysis_scara.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rRobotDB/pt_micro450.py">
+    <entry file="file://$PROJECT_DIR$/model/m_component.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="174" column="23" lean-forward="false" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
+        <state relative-caret-position="242">
+          <caret line="141" column="20" lean-forward="false" selection-start-line="141" selection-start-column="13" selection-end-line="141" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_analysis.py">
+    <entry file="file://$PROJECT_DIR$/model/m_manipulator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="496" column="61" lean-forward="true" selection-start-line="496" selection-start-column="61" selection-end-line="496" selection-end-column="61" />
+        <state relative-caret-position="528">
+          <caret line="89" column="19" lean-forward="true" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/m_math.py">
+    <entry file="file://$PROJECT_DIR$/utility/inverse_kinematic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="154" column="9" lean-forward="true" selection-start-line="154" selection-start-column="9" selection-end-line="154" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utility/massparameter_handling.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="20" column="20" lean-forward="true" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+        <state relative-caret-position="440">
+          <caret line="104" column="7" lean-forward="true" selection-start-line="104" selection-start-column="7" selection-end-line="104" selection-end-column="7" />
           <folding>
-            <element signature="e#0#58#0" expanded="true" />
+            <element signature="e#25#43#0" expanded="true" />
           </folding>
         </state>
       </provider>

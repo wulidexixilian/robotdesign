@@ -321,6 +321,98 @@ gear_db = {
             "m": 0.0
         },
     },
+
+    'PT_SCARA_A1': {
+        "ratio":         50,
+        "offset":        0,
+        "rated_tau":     3.5,
+        "acc_tau":       5.5,
+        "max_tau":       8.3,
+        'emergency_tau': 17,
+        "max_omega":     8500,
+        'rated_omega':   3500,
+        "stator":        {
+            "inertia_drive": 1.5e-6,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.33
+        },
+        "rotor":         {
+            "inertia_drive": 1.5e-7,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.03
+        },
+    },
+
+    'PT_SCARA_A2': {
+        "ratio":         50,
+        "offset":        0,
+        "rated_tau":     3.5,
+        "acc_tau":       5.5,
+        "max_tau":       8.3,
+        'emergency_tau': 17,
+        "max_omega":     8500,
+        'rated_omega':   3500,
+        "stator":        {
+            "inertia_drive": 1.5e-6,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.33
+        },
+        "rotor":         {
+            "inertia_drive": 1.5e-7,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.03
+        },
+    },
+
+    'PT_SCARA_A3': {
+        "ratio":         390,
+        "offset":        0,
+        "rated_tau":     1.8,
+        "acc_tau":       2.3,
+        "max_tau":       3.3,
+        'emergency_tau': 6.6,
+        "max_omega":     8500,
+        'rated_omega':   3500,
+        "stator":        {
+            "inertia_drive": 0.4e-6,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.2
+        },
+        "rotor":         {
+            "inertia_drive": 0.4e-7,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.02
+        },
+    },
+
+    'PT_SCARA_A4':  {
+        "ratio":         10,
+        "offset":        0,
+        "rated_tau":     1.8,
+        "acc_tau":       2.3,
+        "max_tau":       3.3,
+        'emergency_tau': 6.6,
+        "max_omega":     8500,
+        'rated_omega':   3500,
+        "stator":        {
+            "inertia_drive": 0.4e-6,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.2
+        },
+        "rotor":         {
+            "inertia_drive": 0.4e-7,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.02
+        },
+    },
 }
 
 

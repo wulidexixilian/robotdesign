@@ -6,7 +6,7 @@ Compnents to form a robot
 """
 import numpy as np
 import scipy.linalg as li
-from model.m_math import mass_combine, twistCoordinate, tensor
+from model.m_math import mass_combine, twist_coordinate, tensor
 from model.m_math import calc_friction, curve_min, pure_cross
 from model.m_math import fast_fwd_ne, fast_bwd_ne
 # from numba import jitclass
@@ -14,38 +14,16 @@ from model.m_math import fast_fwd_ne, fast_bwd_ne
 
 X = pure_cross
 
-# body_jit_spec = [
-#     ('dimension', float32[::1]),
-#     ('id', int32),
-#     ('cm', float32[::1]),
-#     ('m', float32),
-#     ('iT', float32[:,::1]),
-#     ('omega', float32[::1]),
-#     ('alpha', float32[::1]),
-#     ('acc', float32[::1]),
-#     ('z_gl', float32[::1]),
-#     ('cm_gl', float32[::1]),
-#     ('r_hc', float32[::1]),
-#     ('r_ht', float32[::1]),
-#     ('r_tc', float32[::1]),
-#     ('iT_gl', float32[:,::1]),
-#     ('head_gl', float32[::1]),
-#     ('tail_gl', float32[::1]),
-#     ('acc_e', float32[::1]),
-#     ('f', float32[::1]),
-#     ('tau', float32[::1]),
-# ]
 
-# @jitclass(body_jit_spec)
 class Body:
     """ a rigid body """
-    def __init__(self, dimension, nameText, idx):
+    def __init__(self, dimension, name, idx):
         self.dimension = dimension
-        self.name = nameText
+        self.name = name
         self.id = idx
         self.cm = np.array([0, 0, 0])
         self.m = 0
-        self.iT = np.zeros((3,3))
+        self.iT = np.zeros((3, 3))
         self.omega = None # about cm in World
         self.alpha = None # about cm in World
         self.acc = None # about cm in World
@@ -98,7 +76,7 @@ class Body:
         self.m = 0
         self.iT = np.identity([3,3])
 
-    def updateKinematics(self, z_gl, head_gl, tail_gl, cm_gl, iT_gl):
+    def update_kinematics(self, z_gl, head_gl, tail_gl, cm_gl, iT_gl):
         """ update kinematics dependent info for dynamics calculation """
         self.z_gl = z_gl
         self.cm_gl = cm_gl
@@ -132,9 +110,10 @@ class Body:
         # # Calculate body end (flange2) linear acc (WCS)
         # self.acc_e = acc_e_im1 + X(self.alpha, -self.r_ht) +\
         #              X(self.omega, X(self.omega, -self.r_ht))
-        self.omega, self.alpha, self.acc, self.acc_e =\
-            fast_fwd_ne(self.z_gl, self.r_hc, self.r_ht,
-                        q_dot, q_ddot, omega_im1, alpha_im1, acc_e_im1)
+        self.omega, self.alpha, self.acc, self.acc_e = fast_fwd_ne(
+            self.z_gl, self.r_hc, self.r_ht,
+            q_dot, q_ddot, omega_im1, alpha_im1, acc_e_im1
+        )
 
     def ne_bwd_iter(self, f_ip1, tau_ip1, gravity):
         """
@@ -149,22 +128,28 @@ class Body:
         # self.f = f_ip1 + self.m * self.acc - self.m * gravity
         # # Calculate torque at CM without gravity torque included
         # self.tau = tau_ip1 - X(self.r_hc, self.f) + X(self.r_tc, f_ip1) +\
-        #            self.iT_gl @ self.alpha + X(self.omega, (self.iT_gl @ self.omega))
-        self.f, self.tau = fast_bwd_ne(self.m, self.acc, self.r_hc, self.r_tc,
-                                       self.iT_gl, self.omega, self.alpha,
-                                       f_ip1, tau_ip1, gravity)
+        # self.iT_gl @ self.alpha + X(self.omega, (self.iT_gl @ self.omega))
+        self.f, self.tau = fast_bwd_ne(
+            self.m, self.acc, self.r_hc, self.r_tc,
+            self.iT_gl, self.omega, self.alpha,
+            f_ip1, tau_ip1, gravity
+        )
 
 
 class Joint:
     """ abstract object defining the twist motion between two bodies """
-    def __init__(self, origin0, axis0, align, idx):
+    def __init__(self, origin0, axis0, align, idx, mode=0):
         self.origin0 = origin0
         self.axis0 = axis0
         self.axis1 = axis0
         self.align = align
         self.id = idx
+        self.mode = mode
         #init homogenuous transformation
-        (self.xi, self.xi_hat) = twistCoordinate(axis0, origin0)
+        if mode == 0:
+            self.xi_hat = twist_coordinate(axis0, origin0)
+        else:
+            self.xi_hat = twist_coordinate(axis0, origin0, 1)
         self.G_gl = np.identity(4)
         self.G_indv = np.identity(4)
 
@@ -188,58 +173,68 @@ class Drive:
     """ drive torque and friction """
     def __init__(self, ref):
         self.id = ref
-        self.driveInertia = 0
+        self.drivetrain_inertia = 0
         self.ratio = 1
         self.Rh = 0
         self.Rv = 0
         self.Rz = 1
+        self.z = None
+        self.tau_joint = None
+        self.tau_friction = None
+        self.tau_drivetrain_inertia = None
+        self.tau_drive = None
         self.characteristic_before_ratio = None
         self.characteristic_after_ratio = None
         self.char_group_before_ratio = []
         self.char_group_after_ratio = []
 
-    def update(self, friction, driveInertia, ratio):
+    def update(self, friction, new_inertia, ratio):
         # equivalent inertia over ratio conversion
         # self.driveInertia = (self.driveInertia + driveInertia) * ratio**2
-        self.driveInertia = self.driveInertia * abs(ratio) + driveInertia
+        self.drivetrain_inertia = self.drivetrain_inertia * abs(ratio) + new_inertia
         self.ratio *= ratio
         self.Rh += friction[0]
         self.Rv += friction[1]
         self.Rz *= friction[2]
 
-    def load_characteristic(self, char_dict, pos = 'before_ratio'):
+    def load_characteristic(self, char_dict, pos='before_ratio'):
         if pos is 'before_ratio':
             self.char_group_before_ratio.append(char_dict)
             if self.characteristic_before_ratio is None:
                 self.characteristic_before_ratio = char_dict
             else:
-                self.characteristic_before_ratio['s1'] = \
-                    curve_min(self.characteristic_before_ratio['s1'], char_dict['s1'])
-                self.characteristic_before_ratio['max'] = \
-                    curve_min(self.characteristic_before_ratio['max'], char_dict['max'])
+                self.characteristic_before_ratio['s1'] = curve_min(
+                    self.characteristic_before_ratio['s1'], char_dict['s1']
+                )
+                self.characteristic_before_ratio['max'] = curve_min(
+                    self.characteristic_before_ratio['max'], char_dict['max']
+                )
         elif pos is 'after_ratio':
             self.char_group_after_ratio.append(char_dict)
             if self.characteristic_after_ratio is None:
                 self.characteristic_after_ratio = char_dict
             else:
-                self.characteristic_after_ratio['s1'] = \
-                    curve_min(self.characteristic_after_ratio['s1'], char_dict['s1'])
-                self.characteristic_after_ratio['max'] = \
-                    curve_min(self.characteristic_after_ratio['max'], char_dict['max'])
+                self.characteristic_after_ratio['s1'] = curve_min(
+                    self.characteristic_after_ratio['s1'], char_dict['s1']
+                )
+                self.characteristic_after_ratio['max'] = curve_min(
+                    self.characteristic_after_ratio['max'], char_dict['max']
+                )
 
-    def setAxis(self, z):
+    def set_axis(self, z):
         self.z = z
 
-    def getDriveTau(self, q_dot, q_ddot, tau, fr_threshold):
-        # torque projection on the driving axis
-        self.effectiveTau = np.dot(self.z, tau)
-
+    def get_drive_tau(self, q_dot, q_ddot, tau, fr_threshold):
+        # joint torque along axis, a scalar
+        self.tau_joint = np.dot(self.z, tau)
         # self.friction = self.Rh * np.sign(q_dot) + self.Rv * q_dot +\
         #                 (1-self.Rz)*abs(self.effectiveTau)*np.sign(q_dot)
-        self.friction = calc_friction(self.Rh, self.Rv, self.Rz, q_dot,
-                                      self.effectiveTau, fr_threshold)
+        self.tau_friction = calc_friction(
+            self.Rh, self.Rv, self.Rz, q_dot, self.tau_joint, fr_threshold
+        )
         # extra torque to accelerate drivetrain
-        self.inertiaTau = q_ddot * self.driveInertia
+        self.tau_drivetrain_inertia = q_ddot * self.drivetrain_inertia
         # overall torque output of the drive motor
-        self.driveTau = (self.effectiveTau + self.inertiaTau + self.friction) /\
-                        self.ratio
+        self.tau_drive = (
+            self.tau_joint + self.tau_drivetrain_inertia + self.tau_friction
+        ) / self.ratio

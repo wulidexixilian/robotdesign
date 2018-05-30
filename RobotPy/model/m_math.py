@@ -121,28 +121,52 @@ def solveInterAngle(theta0, theta1):
     pass
 
 
-def crossProdMx(x):
+def cross_prod_matrix(x):
     """find A(a) which gives a X b = A @ b"""
-    x_hat = np.array([
-                      [0, -x[2], x[1]],
-                      [x[2], 0, -x[0]],
-                      [-x[1], x[0], 0]
-                     ])
+    x_hat = np.array(
+        [
+            [0, -x[2], x[1]],
+            [x[2], 0, -x[0]],
+            [-x[1], x[0], 0]
+        ]
+    )
     return x_hat
 
 
-def twistCoordinate(omega, ref):
-    """ xi_hat = [omega_hat, -omega X q; 0, 0]"""
-    omega_hat = crossProdMx(omega)
-    v = -np.cross(omega, ref)
-    xi = np.hstack((v, omega))
-    xi_hat_temp = np.hstack((omega_hat, ar([v]).T))
-    xi_hat = np.vstack((xi_hat_temp, ar([[0,0,0,0]])))
-    return xi, xi_hat
+# def twist_coordinate_rotation(omega, ref):
+#     """ xi_hat = [omega_hat, -omega X q; 0, 0]"""
+#     omega_hat = cross_prod_matrix(omega)
+#     v = -np.cross(omega, ref)
+#     # xi = np.hstack((v, omega))
+#     xi_hat_upper = np.hstack((omega_hat, ar([v]).T))
+#     xi_hat = np.vstack((xi_hat_upper, ar([[0, 0, 0, 0]])))
+#     return xi_hat
+#
+#
+# def twist_coordinate_plane(v):
+#     xi_hat_upper = np.hstack((np.zeros((3, 3)), ar([v]).T))
+#     xi_hat = np.vstack((xi_hat_upper, ar([[0, 0, 0, 0]])))
+#     return xi_hat
+
+def twist_coordinate(omega, ref, mode=0):
+    if mode == 0:
+        # rotation joint
+        omega_hat = cross_prod_matrix(omega)
+        v = -np.cross(omega, ref)
+    elif mode == 1:
+        # plane joint
+        omega_hat = np.zeros((3, 3))
+        v = omega
+    else:
+        print('incorrect joint mode, twist operation failure')
+        return
+    xi_hat_upper = np.hstack((omega_hat, ar([v]).T))
+    xi_hat = np.vstack((xi_hat_upper, ar([[0, 0, 0, 0]])))
+    return xi_hat
 
 
 def adjointTransform(R, p):
-    p_hat = crossProdMx(p)
+    p_hat = cross_prod_matrix(p)
     Ad_g = np.vstack((np.hstack((R, p_hat @ R)), np.hstack((np.zeros((3,3)), R))))
     return Ad_g
 

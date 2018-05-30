@@ -16,12 +16,12 @@ def foo():
     s.set_gravity(9.8 * np.array([0, 0, -1]))
     load_dauer3 = {"cm":np.array([15, 15, 30])*1e-3, "m": 1,
                    "iT":np.array([1500, 1500, 1500, 0, 0, 0])*1e-6}
-    s.buildRobot(cfg.structurePara,
-                 cfg.massPara,
-                 cfg.motorPara,
-                 cfg.frictionPara,
-                 cfg.gearPara,
-                 load_dauer3)
+    s.build_robot(cfg.structurePara,
+                  cfg.massPara,
+                  cfg.motorPara,
+                  cfg.frictionPara,
+                  cfg.gearPara,
+                  load_dauer3)
 
     # static
     q = [0, 0, 0, 0, 0, 0]
@@ -37,7 +37,7 @@ def foo():
     trace_file = 'C:/Users/pei.sun/Desktop/mada/trace_example/Dauer_KR6_KR10_R900_2/' \
                  'Dauer_KR6_Tracefile/dauer3_kr6_NextGenDrive'
     # load q(t) from trace file
-    s.loadQ(trace_file, percentage, [100, 160, 3636/25, 100, 2222/23, 101], 1)
+    s.load_trajectory(trace_file, percentage, [100, 160, 3636 / 25, 100, 2222 / 23, 101], 1)
     ref = np.vstack((s.t_ser.T, np.vstack((s.q_cmd_ser.T, s.q_dot_cmd_ser.T))))
     # fwd_dyn.dyn(ref[1:, 0].T, 0, s.robot, np.array([0, 0, -9.8]), fwd_dyn.control, ref)
     t = 0

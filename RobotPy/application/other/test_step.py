@@ -18,19 +18,19 @@ np.set_printoptions(precision=4)
 gravity = 9.8 * np.array([0,0,-1])
 ##%%
 s = sim.Simulation()
-s.buildRobot(cfg.structurePara,
-             cfg.massPara,
-             cfg.motorPara,
-             cfg.frictionPara,
-             cfg.gearPara)
+s.build_robot(cfg.structurePara,
+              cfg.massPara,
+              cfg.motorPara,
+              cfg.frictionPara,
+              cfg.gearPara)
 ##%%
 q = [0.5792, 0.6252, 0.6909, 0.3623, 0.275, 0.31]
 q_dot_max = np.array([270, 225, 333, 450, 450, 600]) / 180 * np.pi
 q_dot = -q_dot_max * 0.0
 q_ddot = [0, 0, 0, 0, 0, 0]
-s.runStep(q, q_dot)
-ax = s.snapShot()
-s.showMotorGearCM(ax)
+s.run_one_step(q, q_dot)
+ax = s.snapshot()
+s.show_cm(ax)
 
 print("tcp:\n", s.robot.joints[-1].origin1)
 mTorques = np.array([item.driveTau for item in s.robot.drives])

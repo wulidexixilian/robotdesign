@@ -19,20 +19,20 @@ s_dauer3 = sim.Simulation()
 s_dauer3.set_gravity(9.8 * np.array([0,0,-1]))
 load_dauer3 = {"cm":np.array([0, 40, 70])*1e-3, "m": 1.2,
                "iT":np.array([1500, 1500, 1500, 0, 0, 0])*1e-6}
-s_dauer3.buildRobot(cfg.structurePara,
-                    cfg.massPara,
-                    cfg.motorPara,
-                    cfg.frictionPara,
-                    cfg.gearPara,
-                    load_dauer3)
+s_dauer3.build_robot(cfg.structurePara,
+                     cfg.massPara,
+                     cfg.motorPara,
+                     cfg.frictionPara,
+                     cfg.gearPara,
+                     load_dauer3)
 # static
 q = [0, 0, 0, 0, 0, 0]
 q_dot_max = np.array([315, 350, 450, 600, 600, 700]) / 180 * np.pi
 q_dot = -q_dot_max * 0.01
 q_ddot = [0, 0, 0, 0, 0, 0]
-s_dauer3.runStep(q, q_dot)
-ax = s_dauer3.snapShot()
-s_dauer3.showMotorGearCM(ax)
+s_dauer3.run_one_step(q, q_dot)
+ax = s_dauer3.snapshot()
+s_dauer3.show_cm(ax)
 # brake analysis
 # TBD
 
@@ -44,10 +44,10 @@ percentage = 100 # amount of data to be simulated, 100% for all
 # trace_file = 'C:/Users/pei.sun/Desktop/mada/trace_example/KRCIPO_Vel_Pos_Dauer3_KR6/dauer3_kr6_KRCIpo'
 trace_file = 'resource/trace/KR1_IPO/Test1_KRCIpo'
 # load q(t) from trace file
-# s_dauer3.loadQ(trace_file, percentage, [100, 160, 3636/25, 100, 2222/23, 101], 1)
-s_dauer3.loadQ(trace_file, percentage, np.ones(6), 0.8, trace_type='ipo')
+# s_dauer3.load_trajectory(trace_file, percentage, [100, 160, 3636/25, 100, 2222/23, 101], 1)
+s_dauer3.load_trajectory(trace_file, percentage, np.ones(6), 0.8, trace_type='ipo')
 # inverse dynamic simulation
-s_dauer3.simFromQ()
+s_dauer3.sim_inv_dynamic()
 # animation
 # s_dauer3.animate()
 
@@ -97,12 +97,12 @@ t_av_dauer3 = rs_dauer3.gear_average_tau()
 figTorqueTrace = plt.figure()
 pm = [plt.subplot(321+i) for i in range(6)]
 for i in range(6):
-   moment_trace = s_dauer3.readTrace(trace_file,
+   moment_trace = s_dauer3.read_trace(trace_file,
                                      'DriveMotorTorq_CmdIpo{}'.format(i+1),
-                                     percentage)[0]
+                                      percentage)[0]
    pm[i].plot(s_dauer3.t_ser[0:len(moment_trace)],
               -moment_trace, 'r-', label="trace T")
-   pm[i].plot(s_dauer3.t_ser, s_dauer3.driveTorque_ser[:,i],
+   pm[i].plot(s_dauer3.t_ser, s_dauer3.tau_motor_ser[:, i],
               'b-', label="sim T")
    # pm[i].plot(s_dauer3.t_ser,
    #            s_dauer3.friction_ser[:,i]/s_dauer3.robot.drives[i].ratio,

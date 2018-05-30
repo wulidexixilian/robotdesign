@@ -13,7 +13,7 @@ load_dauer3 = {
     "cm": np.array([35, 0, 70])*1e-3, "m": 1.5,
     "iT": np.array([1200, 1200, 1200, 0, 0, 0])*1e-6
 }
-s.buildRobot(
+s.build_robot(
     cfg.structurePara,
     cfg.massPara,
     cfg.motorPara,
@@ -24,21 +24,21 @@ s.buildRobot(
 q = [0, 0, 0, 0, 0, 0]
 q_dot_max = np.array([300, 300, 450, 550, 550, 700]) / 180 * np.pi
 q_dot = q_dot_max * 0.01
-q_ddot = [0, 0, 0, 0, 0, 0]
+q_ddot = np.array([0, 0, 0, 0, 0, 0])
 rs = s.get_result()
 stall_tau = rs.get_stall_torque(q_dot_max, load_dauer3)
 s.load_gear_characteristic(cfg.gearPara, stall_tau['tau_joint'])
 # *** kinematics ***
-s.runStep(q, q_dot)
-ax = s.snapShot()
-s.showMotorGearCM(ax)
+s.run_one_step(q, q_dot, q_ddot)
+ax = s.snapshot()
+s.show_cm(ax)
 # *** inverse dynamic ***
 percentage = 100  # amount of data to be simulated, 100% for all
 trace_file = 'resource/trace/KR1_IPO/Test1_KRCIpo'
 # *** load q(t) from trace file ***
-s.loadQ(trace_file, percentage)
+s.load_trajectory(trace_file, percentage)
 # *** inverse dynamic simulation ***
-s.simFromQ()
+s.sim_inv_dynamic()
 # *** animation ***
 # s.animate()
 # *** result ***
@@ -52,7 +52,7 @@ tau_stall_motor = stall_tau['tau_motor']
 motor_percent = stall_tau['motor_percent']
 print('Motor stall torque:\n {}Nm\n {}%'.format(tau_stall_motor, motor_percent))
 print('Gear stall torque: {}Nm'.format(stall_tau['tau_joint']))
-rs.show_performance()
+# rs.show_performance()
 rs.drive_characteristic(30, 15, tau_stall_motor)
 rs.get_max_drive_tau()
 rs.joint_characteristic(cfg.gearPara, )
@@ -61,4 +61,4 @@ gear_av_tau_percent = rs.gear_average_tau() /\
     np.array([item['acc_tau'] for item in cfg.gearPara])
 print('Gear average torque ratio: {}%'.format(gear_av_tau_percent * 100))
 compare(s, trace_file, percentage)
-plt.show()
+plt.show(block=False)

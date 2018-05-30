@@ -20,48 +20,82 @@ import utility.fwd_dyn as dyn
 from model.m_manipulator import Dynamics
 from utility.trajectory import TrajectoryGenerator
 from utility.characteristic import klobps
+from utility.inverse_kinematic import ik_industry
 
-class Simulation():
+ar = np.array
+
+
+class Simulation:
     """
         Simulation environment of one robot
         Methods to establish robot, load trace,
         calculate static properties, solve kinematic problems,
         dynamic simulation.
     """
+    ratioSign = {1: 1, 2: -1, 3: -1, 4: 1, 5: 1, 6: -1, 7: -1, 8: 1,
+                 9: -1, 10: 1, 11: 1, 12: -1, 13: -1, 14: 1, 15: 1, 16: -1}
+    ratioPlus1 = {1: 0, 2: 1, 3: 0, 4: 1, 5: 0, 6: 1, 7: 0, 8: 1,
+                  9: 0, 10: 1, 11: 0, 12: 1, 13: 0, 14: 1, 15: 0, 16: 1}
+    positive_orient_cases = [1, 2, 3, 4, 13, 14, 15, 16]
+    stator_first_cases = [1, 2, 3, 4, 9, 10, 11, 12]
+    frame_config = {
+        "groundbase": {
+            'frame0': ar([0, 0, 0]),
+            'frame1': ar([np.pi, 0, 0]),
+        },
+        "rotationcolumn": {
+            'frame0': ar([np.pi, 0, 0]),
+            'frame1': ar([np.pi / 2, 0, 0])
+        },
+        "linkarm": {
+            'frame0': ar([-np.pi / 2, 0, 0]),
+            'frame1': ar([0, 0, 0])
+        },
+        "arm": {
+            'frame0': ar([-np.pi / 2, 0, 0]),
+            'frame1': ar([0, -np.pi / 2, -np.pi / 2])
+        },
+        "handbase": {
+            'frame0': ar([0, -np.pi / 2, 0]),
+            'frame1': ar([-np.pi / 2, 0, np.pi / 2])
+        },
+        "handwrist": {
+            'frame0': ar([-np.pi / 2, 0, 0]),
+            'frame1': ar([0, -np.pi / 2, -np.pi / 2])
+        },
+        "handflange": {
+            'frame0': ar([0, -np.pi / 2, 0]),
+            'frame1': ar([0, np.pi, 0])
+        },
+        "tcp": {
+            'frame0': ar([0, np.pi / 2, 0]),
+            'frame1': ar([0, 0, 0])
+        },
+    }
+
     def __init__(self):
-        print('\n\n****** Robot Simulation Alpha1.5 ******')
-        ar = np.array
-        self.coordinateConfigurationDict = {
-                                 "groundbase":(ar([0, 0, 0]),
-                                               ar([np.pi, 0, 0])),
-
-                                 "rotationcolumn":(ar([np.pi, 0, 0]),
-                                                   ar([np.pi/2, 0, 0])),
-
-                                 "linkarm":(ar([-np.pi/2, 0, 0]),
-                                            ar([0, 0, 0])),
-
-                                 "arm":(ar([-np.pi/2, 0, 0]),
-                                        ar([0, -np.pi/2, -np.pi/2])),
-
-                                 "handbase":(ar([0, -np.pi/2, 0]),
-                                             ar([-np.pi/2, 0, np.pi/2])),
-
-                                 "handwrist":(ar([-np.pi/2, 0, 0]),
-                                              ar([0, -np.pi/2, -np.pi/2])),
-
-                                 "handflange":(ar([0, -np.pi/2, 0]),
-                                               ar([0, np.pi, 0])),
-
-                                 "tcp":(ar([0, np.pi/2, 0]),
-                                        ar([0, 0, 0])),
-                                 }
+        print('\n\n****** Robot Simulation *******')
+        self.robot = None
         self.filterLen = 50
-        self.gravity = 9.8 * np.array([0,0,-1])
+        self.gravity = 9.8 * np.array([0, 0, -1])
         self.aniRun = False
-        self.trajectoryGenerator = None
+        self.trajectory_generator = None
+        self.t_ser = None
+        self.ts = None
+        self.ratioMask = None
+        self.dimension_list = None
+        self.mass_list = None
+        self.drive_list = None
         self.q_cmd_ser = None
-        self.ratioMask = [1, 1, 1, 1, 1, 1]
+        self.q_dot_cmd_ser = None
+        self.q_ddot_cmd_ser = None
+        self.tau_motor_ser = None
+        self.tau_motor_ser = None
+        self.tau_joint_ser = None
+        self.friction_ser = None
+        self.f_joint_ser = None
+        self.tau_joint_3d_ser = None
+        self.tcp_ser = None
 
     def set_filter_length(self, length):
         self.filterLen = length
@@ -69,91 +103,100 @@ class Simulation():
     def set_gravity(self, gravity):
         self.gravity = gravity
 
-    def handleGear(self, gearPara, base):
+    def handle_gear(self, gear_para, base):
         """
         Divide a gear box into 3 parts as
         stator mass, rotor mass and and drive train mass
         Assign these masses to their corresponding body objects
         according their configuration types
         """
-        ar = np.array
-        partList = [
-                     "groundbase", "rotationcolumn", "linkarm", "arm",
-                     "handbase", "handwrist", "handflange", "tcp",
-        ]
+        link_name = list(self.frame_config.keys())
         # ratioSign = {1:1, 2:-1, 3:-1, 4:1, 5:1, 6:-1, 7:-1, 8:1,
         #              9:-1, 10:1, 11:1, 12:-1, 13:-1, 14:1, 15:1, 16:-1}
         # ratioPlus1 = {1:0, 2:1, 3:0, 4:1, 5:0, 6:1, 7:0, 8:1,
         #              9:0, 10:1, 11:0, 12:1, 13:0, 14:1, 15:0, 16:1}
-        positiveOrientCases = [1,2,3,4,13,14,15,16]
-        statorFirstCases = [1,2,3,4,9,10,11,12]
+        # positive_orient_cases = [1,2,3,4,13,14,15,16]
+        # stator_first_cases = [1,2,3,4,9,10,11,12]
 
-        iT_sr = gearPara["stator"]["inertia_body"]
-        iT_rr = gearPara["rotor"]["inertia_body"]
-        iT_s = np.array(iT_sr)[[2,1,0]]
-        iT_s = np.hstack((iT_s, np.array([0, 0, 0])))
-        iT_r = np.array(iT_rr)[[2,1,0]]
-        iT_r = np.hstack((iT_r, np.array([0, 0, 0])))
-        massListItemStator = {"m":gearPara["stator"]["m"],
-                              "iT":iT_s,
-                              'name':'stator'}
-        massListItemRotor = {"m":gearPara["rotor"]["m"],
-                             "iT":iT_r,
-                             'name':'rotor'}
-
-        driveListItem0 = {"friction":[0, 0, 1]}
-        driveListItem1 = {"friction":[0, 0, 1]}
-        driveListItem0["nest"] = partList[partList.index(gearPara["nest"]) + 1]
-        driveListItem1["nest"] = partList[partList.index(gearPara["nest"]) + 1]
-        driveListItem0["driveInertia"] = 0
-        driveListItem0["ratio"] = 1
-        driveListItem1["ratio"] = gearPara['ratio']
-        case = gearPara["case"]
-        # driveListItem1["ratio"] = (gearPara["ratio"] + ratioPlus1[case]) *\
-        #                           ratioSign[case]
-        # align = rotation(*gearPara['orientation'], 'zyx')
-        # orientation2Nx = self.coordinateConfigurationDict[gearPara['nest']][1]
-        # align2Nx = rotation(*orientation2Nx, 'xyz').T
-        orientation2Nx = self.coordinateConfigurationDict[gearPara['nest']][1]
-        orientation2Nx[2] = 0
-        if case in positiveOrientCases:
-            align = rotation(*orientation2Nx, 'xyz')
-            align2Nx = 1
+        inertia_stator_raw = gear_para["stator"]["inertia_body"]
+        inertia_rotor_raw = gear_para["rotor"]["inertia_body"]
+        inertia_stator = np.hstack(
+            (np.array(inertia_stator_raw)[[2, 1, 0]], np.array([0, 0, 0]))
+        )
+        inertia_rotor = np.hstack(
+            (np.array(inertia_rotor_raw)[[2, 1, 0]], np.array([0, 0, 0]))
+        )
+        mass_list_item_stator = {
+            "m": gear_para["stator"]["m"], "iT": inertia_stator, 'name': 'stator'
+        }
+        mass_list_item_rotor = {
+            "m": gear_para["rotor"]["m"], "iT": inertia_rotor, 'name': 'rotor'
+        }
+        drivetrain_item_0 = dict()
+        drivetrain_item_1 = dict()
+        drivetrain_item_0['friction'] = [0, 0, 1]
+        drivetrain_item_1['friction'] = [0, 0, 1]
+        drivetrain_item_0["nest"] = link_name[link_name.index(gear_para["nest"]) + 1]
+        drivetrain_item_1["nest"] = link_name[link_name.index(gear_para["nest"]) + 1]
+        drivetrain_item_0["driveInertia"] = 0
+        drivetrain_item_0["ratio"] = 1
+        drivetrain_item_1["ratio"] = gear_para['ratio']
+        case = gear_para["case"]
+        orientation2nx = self.frame_config[gear_para['nest']]['frame1']
+        orientation2nx[2] = 0
+        if case in self.positive_orient_cases:
+            align = rotation(*orientation2nx, 'xyz')
+            align2nx = 1
         else:
-            align = -rotation(*orientation2Nx, 'xyz')
-            align2Nx = -1
-        if case in statorFirstCases:
-            massListItemStator["nest"] = gearPara["nest"]
-            massListItemRotor["nest"] = partList[partList.index(gearPara["nest"]) + 1]
-            massListItemStator["cm"] = align @\
-                              ar([0, 0, gearPara["offset"]+gearPara["stator"]["cm"]]) +\
-                              base
-            massListItemRotor["cm"] = align2Nx * ar([0, 0, gearPara["rotor"]["cm"]])
-            driveListItem1["driveInertia"] = gearPara["rotor"]["inertia_drive"]
+            align = -rotation(*orientation2nx, 'xyz')
+            align2nx = -1
+        if case in self.stator_first_cases:
+            mass_list_item_stator["nest"] = gear_para["nest"]
+            mass_list_item_rotor["nest"] = link_name[
+                link_name.index(gear_para["nest"]) + 1
+            ]
+            mass_list_item_stator["cm"] = align @ ar(
+                [0, 0, gear_para["offset"] + gear_para["stator"]["cm"]]
+                ) + base
+            mass_list_item_rotor["cm"] = align2nx * ar(
+                [0, 0, gear_para["rotor"]["cm"]]
+            )
+            drivetrain_item_1["driveInertia"] = gear_para["rotor"]["inertia_drive"]
         else:
-            massListItemRotor["nest"] = gearPara["nest"]
-            massListItemStator["nest"] = partList[partList.index(gearPara["nest"]) + 1]
-            massListItemRotor["cm"] = align @ ar([0, 0, gearPara["rotor"]["cm"]]) + base
-            massListItemStator["cm"] = align2Nx * ar([0, 0, gearPara["offset"]+gearPara["stator"]["cm"]])
-            driveListItem1["driveInertia"] = gearPara["stator"]["inertia_drive"]
+            mass_list_item_rotor["nest"] = gear_para["nest"]
+            mass_list_item_stator["nest"] = link_name[
+                link_name.index(gear_para["nest"]) + 1
+            ]
+            mass_list_item_rotor["cm"] = align @ ar(
+                [0, 0, gear_para["rotor"]["cm"]]
+            ) + base
+            mass_list_item_stator["cm"] = align2nx * ar(
+                [0, 0, gear_para["offset"] + gear_para["stator"]["cm"]]
+            )
+            drivetrain_item_1["driveInertia"] = gear_para["stator"]["inertia_drive"]
 
-        return [massListItemRotor, massListItemStator, driveListItem0, driveListItem1]
+        return mass_list_item_rotor, mass_list_item_stator, drivetrain_item_0, \
+            drivetrain_item_1
 
-    def handleMotors(self, motorPara):
-        massPara_motor = []
-        for motor in motorPara:
-            massItem = dict()
-            massItem['nest'] = motor['nest']
-            massItem['m'] = motor['m']
+
+    @staticmethod
+    def handle_motor(motor_para):
+        mass_para_motor = []
+        for motor in motor_para:
+            mass_item = dict()
+            mass_item['nest'] = motor['nest']
+            mass_item['m'] = motor['m']
             align = rotation(*motor['orientation'])
-            massItem['cm'] = align @ motor['cm'] + motor['position']
-            massItem['iT'] = align @ tensor(*motor['iT']) @ align.T
-            massItem['name'] = 'motor'
-            massPara_motor.append(massItem)
-        return massPara_motor
+            mass_item['cm'] = align @ motor['cm'] + motor['position']
+            mass_item['iT'] = align @ tensor(*motor['iT']) @ align.T
+            mass_item['name'] = 'motor'
+            mass_para_motor.append(mass_item)
+        return mass_para_motor
 
-    def buildRobot(self, structurePara, massPara, motorPara, frictionPara, gearPara,
-                   load = {"cm":[0, 0, 0], "m":0, "iT":[0, 0, 0, 0, 0, 0]}):
+    def build_robot(
+        self, structure_para, mass_para, motor_para,
+        friction_para, gear_para, load=None
+    ):
         """
         a robot is constructed here according to geometry, mass, friction data
         Inputs:
@@ -166,81 +209,94 @@ class Simulation():
         """
         print('building robot')
         # handle dimensions -- flange to flange displacement
-        dimensionList = structurePara
+        dimension_list = structure_para
         # mass parameters + load, with out motors and gears, to be completed later
+        if load is None:
+            load = {"cm": [0, 0, 0], "m": 0, "iT": [0, 0, 0, 0, 0, 0]}
         load['cm'] = np.array(load['cm'])
         load['iT'] = np.array(load['iT'])
         load['nest'] = 'tcp'
-        massPara = list(massPara)
-        massPara.append(load)
-        massList = massPara
-        for item in dimensionList:
+        mass_para = list(mass_para)
+        mass_para.append(load)
+        mass_list = mass_para
+        for item in dimension_list:
             offset = 0
-            name = item["name"]
-            for gear in gearPara:
+            name = item["nest"]
+            for gear in gear_para:
                 if gear["nest"] == name:
                     offset = gear["offset"]
-                    if gear["case"]>8:
+                    if gear["case"] > 8:
                         offset = -offset
                     break
             item["offset"] = offset
         # handle motors -- abstract each motor into a mass item
         # and add it to the mass list
-        massList = massList + self.handleMotors(motorPara)
+        mass_list = mass_list + self.handle_motor(motor_para)
         # handle frictions
-        driveList = []
-        for item in frictionPara:
-            driveItem = dict()
-            driveItem["nest"] = item["nest"]
-            driveItem["driveInertia"] = 0
-            driveItem["ratio"] = 1
-            driveItem["friction"] = item["friction"]
-            driveList.append(driveItem)
-        for i, item in enumerate(motorPara):
+        drive_list = []
+        for item in friction_para:
+            drive_item = dict()
+            drive_item["nest"] = item["nest"]
+            drive_item["driveInertia"] = 0
+            drive_item["ratio"] = 1
+            drive_item["friction"] = item["friction"]
+            drive_list.append(drive_item)
+        for i, item in enumerate(motor_para):
             if 'characteristic' in item:
-                driveList[i]['characteristic_before_ratio'] = \
-                    item['characteristic']
-
-        ratioSign = {1:1, 2:-1, 3:-1, 4:1, 5:1, 6:-1, 7:-1, 8:1,
-                     9:-1, 10:1, 11:1, 12:-1, 13:-1, 14:1, 15:1, 16:-1}
-        ratioPlus1 = {1:0, 2:1, 3:0, 4:1, 5:0, 6:1, 7:0, 8:1,
-                     9:0, 10:1, 11:0, 12:1, 13:0, 14:1, 15:0, 16:1}
-        for i, item in enumerate(gearPara):
+                drive_list[i]['characteristic_before_ratio'] = item['characteristic']
+        # ratioSign = {1:1, 2:-1, 3:-1, 4:1, 5:1, 6:-1, 7:-1, 8:1,
+        #              9:-1, 10:1, 11:1, 12:-1, 13:-1, 14:1, 15:1, 16:-1}
+        # ratioPlus1 = {1:0, 2:1, 3:0, 4:1, 5:0, 6:1, 7:0, 8:1,
+        #              9:0, 10:1, 11:0, 12:1, 13:0, 14:1, 15:0, 16:1}
+        for i, item in enumerate(gear_para):
             case = item['case']
-            item["ratio"] = (item["ratio"] + ratioPlus1[case]) * ratioSign[case] *\
-                            item['pre ratio']
+            item["ratio"] = (item["ratio"] + self.ratioPlus1[case]) \
+                * self.ratioSign[case] * item['pre ratio']
             # if 'limit_factor' in item:
-            #     f = klobps(item['rated_tau'], item['limit_factor'], item['max_omega'])
+            #     f = klobps(
+            #         item['rated_tau'], item['limit_factor'], item['max_omega']
+            #     )
             #     omega_range = np.linspace(0, item['max_omega'], 20)
             #     tau = np.array([f(w) for w in omega_range])
             #     char = dict()
             #     r = np.abs(item['ratio'])
             #     char['max'] = np.vstack((omega_range * 2 * np.pi / 60 / r,
-            #                              np.ones(np.shape(omega_range)) * item['max_tau']))
+            #                   np.ones(np.shape(omega_range)) * item['max_tau']))
             #     char['s1'] = np.vstack((omega_range * 2 * np.pi / 60 / r, tau))
             #     driveList[i]['characteristic_after_ratio'] = char
-
         # handle gears -- abstract each gears to 2 mass item and 2 drive item
         # and add them to their corresponding lists
-        for itemGear in gearPara:
-            for i, itemDim in enumerate(dimensionList):
-                if itemDim['name'] == itemGear['nest']:
-                    gearBase = itemDim['displacement']
+        for item_gear in gear_para:
+            gear_base = None
+            for i, item_dim in enumerate(dimension_list):
+                if item_dim['nest'] == item_gear['nest']:
+                    gear_base = item_dim['displacement']
                     break
+            if gear_base is None:
+                print('nest info does not match, building robot terminated')
+                return
+            additives = self.handle_gear(item_gear, gear_base)
+            mass_list.append(additives[0])
+            mass_list.append(additives[1])
+            drive_list.insert(0, additives[2])
+            drive_list.insert(0, additives[3])
+        self.dimension_list = dimension_list
+        self.mass_list = mass_list
+        self.drive_list = drive_list
+        self.robot = Dynamics(
+            dimension_list,
+            mass_list,
+            drive_list,
+            self.frame_config
+        )
+        self.set_ik()
 
-            additives = self.handleGear(itemGear, gearBase)
-            massList.append(additives[0])
-            massList.append(additives[1])
-            driveList.insert(0, additives[2])
-            driveList.insert(0, additives[3])
+    def set_ik(self):
+        self.robot.inverse_dynamic = ik_industry
 
-        self.dimensionList = dimensionList
-        self.massList = massList
-        self.driveList = driveList
-        self.robot = Dynamics(dimensionList, massList,
-                              driveList, self.coordinateConfigurationDict)
-
-    def load_gear_characteristic(self, gear_data, stall_torque, max_omega_override=None):
+    def load_gear_characteristic(
+        self, gear_data, stall_torque, max_omega_override=None
+    ):
         for idx, item in enumerate(gear_data):
             if 'limit_factor' in item:
                 if max_omega_override is not None:
@@ -255,67 +311,84 @@ class Simulation():
                 tau = np.array([f(w) for w in omega_range])
                 char = dict()
                 r = np.abs(item['ratio'])
-                char['max'] = np.vstack((omega_range * 2 * np.pi / 60 / r,
-                                         np.ones(np.shape(omega_range)) * item['max_tau']))
+                char['max'] = np.vstack(
+                    (
+                        omega_range * 2 * np.pi / 60 / r,
+                        np.ones(np.shape(omega_range)) * item['max_tau']
+                    )
+                )
                 char['s1'] = np.vstack((omega_range * 2 * np.pi / 60 / r, tau))
                 self.robot.drives[idx].load_characteristic(char, 'after_ratio')
 
-    def runStep(self, q, q_dot=np.zeros(6), q_ddot=np.zeros(6)):
+    def run_one_step(self, q, q_dot, q_ddot):
         self.robot.k(q)
         self.robot.ne(q_dot, q_ddot, self.gravity)
         self.robot.solve_drivetrain(q_dot, q_ddot)
-        q_cmd_capacitor = []
+        q_cmd_capacitor = list()
         q_cmd_capacitor.append(q)
         self.q_cmd_ser = np.array(q_cmd_capacitor)
         self.t_ser = np.array([0])
         self.tcp_ser = np.array([self.robot.joints[-1].origin1])
-        self.driveTorque_ser = np.array([np.array([self.robot.drives[i].driveTau\
-                                                   for i in range(6)])])
+        self.tau_motor_ser = np.array(
+            [np.array([d.tau_drive for d in self.robot.drives])]
+        )
 
     @staticmethod
-    def readTrace(fileName, dataName, k):
+    def read_trace(filename, dataname, k):
         """
         access a trace file and read the specified data field
         Inputs:
             fileName: absolute directory to the trace file
             dataName: ask mada guys for what names are available
         """
-        with open('../' + fileName + ".dat", "rb") as f1:
+        with open('../' + filename + ".dat", "rb") as f1:
             text = f1.read()
         blocks = text.split(b'#BEGINCHANNELHEADER')
-        timeBlock = blocks[1]
-        if timeBlock.find(b"Zeit") == -1:
+        time_block = blocks[1]
+        if time_block.find(b"Zeit") == -1:
             pass
-        Ts = float((timeBlock[timeBlock.find(b'241,') + len("241,"):].splitlines())[0])
-        N = len(blocks[2:])
+        ts = float(
+            (time_block[time_block.find(b'241,') + len("241,"):].splitlines())[0]
+        )
+        n = len(blocks[2:])
+        column_index = None
         for block in blocks[2:]:
             lines = block.splitlines()
-            if lines[1]!=b'200,' + dataName.encode("ascii"):
+            if lines[1] != b'200,' + dataname.encode("ascii"):
                 continue
             for line in lines:
-                if line.find(b'221,')==-1:
+                if line.find(b'221,') == -1:
                     continue
                 index = line.find(b'221,') + len("221,")
-                columnNumber = int(line[index:])
+                column_index = int(line[index:])
                 break
             break
-        with open('../' + fileName+".r64", "rb") as f2:
+        if column_index is None:
+            print('target signal is not found')
+            return
+        with open('../' + filename + ".r64", "rb") as f2:
             data_all = f2.read()
-        L = int(len(data_all) * (k/100.0))
-        result_all = [struct.unpack("d", data_all[i:i+8])[0] for i in range(0, L-8, 8)]
-        result = np.array(result_all[columnNumber-1::N])
-        return result, Ts
+        data_length = int(len(data_all) * (k/100.0))
+        result_all = [
+            struct.unpack("d", data_all[i:i+8])[0]
+            for i in range(0, data_length-8, 8)
+        ]
+        result = np.array(result_all[column_index-1::n])
+        return result, ts
 
-    def loadQ(self, fileNameFraction, percentage, ratioMask=[1, 1, 1, 1, 1, 1], speedOverride=1, trace_type='ipo'):
+    def load_trajectory(
+        self, filename_fraction, percentage, ratio_mask=None,
+        speed_override=1, trace_type='ipo'
+    ):
         """
         Load axis angle trajectories from OPC trace files
         Input:
             fileNameFraction: trace file should corresponds to a certain axis with
-                              axis No. in the end of its name, e.g. "xxxx1.dat"
-                              fileNameFraction is a string contains the
-                              absolute directory to the trace file with out the axis
-                              Number. For example, for a trace file "C:/yyy/xxx1.dat",
-                              fileNameFraction = "C:/yyy/xxx"
+                          axis No. in the end of its name, e.g. "xxxx1.dat"
+                          fileNameFraction is a string contains the
+                          absolute directory to the trace file with out the axis
+                          Number. For example, for a trace file "C:/yyy/xxx1.dat",
+                          fileNameFraction = "C:/yyy/xxx"
             percentage: how much data will be loaded
             ratioMask: a mask helps to solve the sign problem manually
 
@@ -323,96 +396,110 @@ class Simulation():
         print("loading q trace")
         q_cmd_capacitor = []
         q_dot_cmd_capacitor = []
+        ts = None
+        n = self.robot.num_axes
+        if ratio_mask is None:
+            ratio_mask = np.ones(n)
         # for i in range(6):
         if 'next' in trace_type.lower():
-            for i in range(6):
-                value, Ts = self.readTrace(fileNameFraction + '#' + str(i+1),
-                                           "Sollposition",
-                                           percentage)
-                pos_value = value * np.pi / 180 * 1e-6 / np.array(ratioMask[i])
+            for i in range(n):
+                value, ts = self.read_trace(
+                    filename_fraction + '#' + str(i + 1),
+                    "Sollposition",
+                    percentage
+                )
+                pos_value = value * np.pi / 180 * 1e-6 / np.array(ratio_mask[i])
                 q_cmd_capacitor.append(pos_value)
-                speed_value = np.gradient(pos_value, Ts)
+                speed_value = np.gradient(pos_value, ts)
                 q_dot_cmd_capacitor.append(speed_value)
         elif 'ipo' in trace_type.lower():
-            for i in range(6):
-                value, Ts = self.readTrace(fileNameFraction,
-                                           "AxisPos_Act{}".format(str(i+1)),
-                                           percentage)
-                q_cmd_capacitor.append(value / np.array(ratioMask[i]))
-                value, Ts = self.readTrace(fileNameFraction,
-                                           "AxisVel_Act{}".format(str(i+1)),
-                                           percentage)
-                q_dot_cmd_capacitor.append(value / np.array(ratioMask[i]))
+            for i in range(n):
+                value, ts = self.read_trace(
+                    filename_fraction,
+                    "AxisPos_Act{}".format(str(i+1)),
+                    percentage
+                )
+                q_cmd_capacitor.append(value / np.array(ratio_mask[i]))
+                value, ts = self.read_trace(
+                    filename_fraction,
+                    "AxisVel_Act{}".format(str(i+1)),
+                    percentage
+                )
+                q_dot_cmd_capacitor.append(value / np.array(ratio_mask[i]))
+        else:
+            print('incorrect trace format')
+            return
         self.q_cmd_ser = (np.array(q_cmd_capacitor)).T
         if len(q_dot_cmd_capacitor[-1]) < len(q_dot_cmd_capacitor[-2]):
-            q_dot_cmd_capacitor[-1] = np.hstack((q_dot_cmd_capacitor[-1],
-                                                 q_dot_cmd_capacitor[-1][-1]))
+            q_dot_cmd_capacitor[-1] = np.hstack(
+                (q_dot_cmd_capacitor[-1], q_dot_cmd_capacitor[-1][-1])
+            )
         self.q_dot_cmd_ser = (np.array(q_dot_cmd_capacitor)).T
-        self.Ts = Ts / speedOverride
-        self.ratioMask = ratioMask
-        self.t_ser = np.linspace(0, (len(self.q_cmd_ser)-1) * self.Ts, len(self.q_cmd_ser))
-        # q_dot_cmd_capacitor = []
-        # for i in range(6):
-        #     value, Ts = self.readTrace(fileNameFraction + '#' + str(i+1),
-        #                             "Sollposition", percentage)
-        #     q_dot_cmd_capacitor.append(value * np.pi /
-        #                            180 * 1e-6 / np.array(ratioMask[i]))
-        # self.q_dot_cmd_ser = (np.array(q_dot_cmd_capacitor)).T
+        self.ts = ts / speed_override
+        self.ratioMask = ratio_mask
+        self.t_ser = np.linspace(
+            0, (len(self.q_cmd_ser)-1) * self.ts, len(self.q_cmd_ser)
+        )
 
-    def simFromQ(self, q=None, qd=None, qdd=None, t=None, Ts=None, ratio_mask=None):
+    def sim_inv_dynamic(
+        self, q=None, qd=None, qdd=None, t=None, ts=None, ratio_mask=None
+    ):
         """
         Inverse dynamics calculation based on axis angle trajectories
         """
         if q is None:
-            self.q_ddot_cmd_ser = np.gradient(self.q_dot_cmd_ser, self.Ts)[0]
+            self.q_ddot_cmd_ser = np.gradient(self.q_dot_cmd_ser, self.ts)[0]
         else:
             self.q_cmd_ser = q
             self.q_dot_cmd_ser = qd
             self.q_ddot_cmd_ser = qdd
-            self.Ts = Ts
+            self.ts = ts
+            if ratio_mask is None:
+                ratio_mask = np.ones(self.robot.num_axes)
             self.ratioMask = ratio_mask
             self.t_ser = t
-        N = len(self.q_ddot_cmd_ser)
-        driveTorque_capacitor = []
-        drivePure_capacitor = []
+        data_len = len(self.q_ddot_cmd_ser)
+        num_axes = self.robot.num_axes
+        tau_motor_capacitor = []
+        tau_joint_capacitor = []
         friction_capacitor = []
-        joint_f_capacitor = np.zeros([len(self.robot.bodies), 3, N])
-        joint_tau_capacitor = np.zeros([len(self.robot.bodies), 3, N])
+        f_joint_capacitor = np.zeros([len(self.robot.bodies), 3, data_len])
+        tau_joint_3d_capacitor = np.zeros([len(self.robot.bodies), 3, data_len])
         tcp_capacitor = []
 
-        bar = pyprind.ProgBar(N, track_time=True,
+        bar = pyprind.ProgBar(data_len, track_time=True,
                               title='computing dynamic...', stream=1)
-        for i in range(N):
-            self.robot.k(self.q_cmd_ser[i,:])
-            tau_axes = self.robot.ne(
-                self.q_dot_cmd_ser[i,:],
-                self.q_ddot_cmd_ser[i,:],
+        for i in range(data_len):
+            self.robot.k(self.q_cmd_ser[i, :])
+            self.robot.ne(
+                self.q_dot_cmd_ser[i, :],
+                self.q_ddot_cmd_ser[i, :],
                 self.gravity
             )
             self.robot.solve_drivetrain(
                 self.q_dot_cmd_ser[i, :],
-                self.q_ddot_cmd_ser[i,:]
+                self.q_ddot_cmd_ser[i, :]
             )
             tcp_capacitor.append(self.robot.joints[-1].origin1)
-            driveTorque_capacitor.append(
-                [self.robot.drives[j].driveTau for j in range(6)]
+            tau_motor_capacitor.append(
+                [self.robot.drives[j].tau_drive for j in range(num_axes)]
             )
-            drivePure_capacitor.append(
-                [self.robot.drives[j].effectiveTau for j in range(6)]
+            tau_joint_capacitor.append(
+                [self.robot.drives[j].tau_joint for j in range(num_axes)]
             )
             friction_capacitor.append(
-                [self.robot.drives[j].friction for j in range(6)]
+                [self.robot.drives[j].tau_friction for j in range(num_axes)]
             )
             for j, body in enumerate(self.robot.bodies):
-                joint_f_capacitor[j, :, i] = body.f
-                joint_tau_capacitor[j, :, i] = body.tau
+                f_joint_capacitor[j, :, i] = body.f
+                tau_joint_3d_capacitor[j, :, i] = body.tau
             bar.update()
 
-        self.driveTorque_ser = np.array(driveTorque_capacitor)
-        self.drivePure_ser = np.array(drivePure_capacitor)
+        self.tau_motor_ser = np.array(tau_motor_capacitor)
+        self.tau_joint_ser = np.array(tau_joint_capacitor)
         self.friction_ser = np.array(friction_capacitor)
-        self.joint_f_ser = np.array(joint_f_capacitor)
-        self.joint_tau_ser = np.array(joint_tau_capacitor)
+        self.f_joint_ser = np.array(f_joint_capacitor)
+        self.tau_joint_3d_ser = np.array(tau_joint_3d_capacitor)
         self.tcp_ser = np.array(tcp_capacitor)
 
     def generate_trajectory(self, trajectory):
@@ -422,19 +509,19 @@ class Simulation():
         :param trajectory: trajectory configuration
         :return: 
         """
-        self.trajectoryGenerator = TrajectoryGenerator()
+        self.trajectory_generator = TrajectoryGenerator()
         if trajectory['type'] is 'adept':
-            self.trajectoryGenerator.adept(trajectory['v_max'],
-                                           trajectory['T'],
-                                           trajectory['N'],
-                                           trajectory['offset'],
-                                           trajectory['rotation'],
-                                           trajectory['orientation'])
-        self.Ts = trajectory['T'] / trajectory['N']
+            self.trajectory_generator.adept(trajectory['v_max'],
+                                            trajectory['T'],
+                                            trajectory['N'],
+                                            trajectory['offset'],
+                                            trajectory['rotation'],
+                                            trajectory['orientation'])
+        self.ts = trajectory['T'] / trajectory['N']
         self.q_cmd_ser = np.array(list(map(self.robot.ik,
-                                           self.trajectoryGenerator.trajectory.T)))
-        self.q_dot_cmd_ser = np.gradient(self.q_cmd_ser, self.Ts)[0]
-        self.t_ser = np.linspace(0, (len(self.q_cmd_ser) - 1) * self.Ts,
+                                           self.trajectory_generator.trajectory.T)))
+        self.q_dot_cmd_ser = np.gradient(self.q_cmd_ser, self.ts)[0]
+        self.t_ser = np.linspace(0, (len(self.q_cmd_ser) - 1) * self.ts,
                                  len(self.q_cmd_ser))
 
     def init_symbolic_model(self):
@@ -451,9 +538,11 @@ class Simulation():
         for drive in self.robot.drives:
             fr['Rh'].append(drive.Rh)
             fr['Rv'].append(drive.Rv)
-        self.sdr = SymDyRobot(dimension_lo, fr, mass_centers_lo, masses, its,
-                         abs(self.gravity),
-                         if_simplify=True)
+        self.sdr = SymDyRobot(
+            dimension_lo, fr, mass_centers_lo, masses, its,
+            abs(self.gravity),
+            if_simplify=True
+        )
         self.sdr.generate_equation()
 
     def set_symbolic_simulation(self, tr, r, ts, t_end, x0, kpd, ki, i0, i_bound):
@@ -466,14 +555,13 @@ class Simulation():
         print('computing time: {}sec'.format(round(time.clock() - start_time, 2)))
         self.sdr.show()
 
-    def showMotorGearCM(self, ax):
-        ar = np.array
+    def show_cm(self, ax):
         motors = []
         stators = []
         rotors = []
-        for item in self.massList:
+        for item in self.mass_list:
             if 'name' in item:
-                idx = self.robot.idDict[item['nest']]
+                idx = list(self.frame_config.keys()).index(item['nest'])
                 joint = self.robot.joints[idx]
                 align = joint.align
                 cm_gl = self.robot.local2world(align @ item['cm'], idx)[0:3]
@@ -489,19 +577,21 @@ class Simulation():
                     rotors.append(cm_gl)
                     marker = 'c+'
                     markersize = 8
+                else:
+                    print('Only motor and gear components have key "name"')
+                    return
                 ax.plot(ar([cm_gl[0]]), ar([cm_gl[1]]), ar([cm_gl[2]]),
                         marker, markersize=markersize)
-        return {'motor':motors, 'stator':stators, 'rotor':rotors}
+        return {'motor': motors, 'stator': stators, 'rotor': rotors}
 
-    def snapShot(self, **kwargs):
+    def snapshot(self, **kwargs):
         """
         static image of the robot in present pose
         For drawing two robots in one figure, call in this way:
-            ax = simulation_a.snapShot()
-            ax = simulation_b.snapShot(ax = ax, G = G_a2b)
+            ax = simulation_a.snapshot()
+            ax = simulation_b.snapshot(ax = ax, G = G_a2b)
             where G_a2b is the homogenuous transformation from a to b
         """
-        G=np.identity(4)
         if 'ax' in kwargs:
             ax = kwargs['ax']
         else:
@@ -515,10 +605,8 @@ class Simulation():
             G = kwargs['G']
         else:
             G = np.identity(4)
-
         js = self.robot.joints
         N = len(js)
-        ar = np.array
         for idx in range(N-1):
             pa = (G @ np.hstack((js[idx].origin1, ar([1]))))[0:3]
             pb = (G @ np.hstack((js[idx+1].origin1, ar([1]))))[0:3]
@@ -530,24 +618,24 @@ class Simulation():
                             'o',
                             markeredgecolor='b', markerfacecolor='none', ms=8, lw=2)
 
-        arrowColor = ["r", "g", "b"]
-        arrowHeads = []
+        arrow_color = ["r", "g", "b"]
         head1 = (G @ np.hstack((self.robot.tool2world(np.array([0,0,0.1]))[0:3],
                                 ar([1]))))[0:3]
         head2 = (G @ np.hstack((self.robot.tool2world(np.array([0,0.1,0]))[0:3],
                                 ar([1]))))[0:3]
         head3 = (G @ np.hstack((self.robot.tool2world(np.array([0.1,0,0]))[0:3],
                                 ar([1]))))[0:3]
-        arrowHeads = [head1, head2, head3]
-        tail = ( G @ np.hstack((self.robot.joints[-1].origin1, ar([1]))) )[0:3]
-        for idx, head in enumerate(arrowHeads):
+        arrow_heads = [head1, head2, head3]
+        tail = (G @ np.hstack((self.robot.joints[-1].origin1, ar([1]))))[0:3]
+        for idx, head in enumerate(arrow_heads):
             line, = ax.plot(ar([tail[0], head[0]]),
                             ar([tail[1], head[1]]),
                             ar([tail[2], head[2]]),
-                            arrowColor[idx],lw=1)
+                            arrow_color[idx],lw=1)
         line, = ax.plot(ar([0]), ar([0]), ar([0]), 'gs', markersize=16)
-        line, = ax.plot(ar([G[0][3]]), ar([G[1][3]]), ar([G[2][3]]),
-                         'gs', markersize=16)
+        line, = ax.plot(
+            ar([G[0][3]]), ar([G[1][3]]), ar([G[2][3]]), 'gs', markersize=16
+        )
         return ax
 
     def get_result(self):
@@ -558,13 +646,15 @@ class Simulation():
         if self.q_cmd_ser is None:
             sr = StaticAnalysis(self.robot)
         else:
-            sr = SimulationAnalysis(self.robot,
-                                    self.q_cmd_ser, self.q_dot_cmd_ser,
-                                    self.driveTorque_ser, self.drivePure_ser,
-                                    self.joint_f_ser, self.joint_tau_ser,
-                                    self.tcp_ser,
-                                    self.t_ser,
-                                    self.Ts)
+            sr = SimulationAnalysis(
+                self.robot,
+                self.q_cmd_ser, self.q_dot_cmd_ser,
+                self.tau_motor_ser, self.tau_joint_ser,
+                self.f_joint_ser, self.tau_joint_3d_ser,
+                self.tcp_ser,
+                self.t_ser,
+                self.ts
+            )
         return sr
 
     def onClick(self, event):
@@ -592,28 +682,27 @@ class Simulation():
         self.ani_links = []
         for indx in range(N-1):
             line, = self.ax.plot(
-                            ar([js[indx].origin1[0], js[indx+1].origin1[0]]),
-                            ar([js[indx].origin1[1], js[indx+1].origin1[1]]),
-                            ar([js[indx].origin1[2], js[indx+1].origin1[2]]),
-                            orange,
-                            lw=1.5)
+                ar([js[indx].origin1[0], js[indx+1].origin1[0]]),
+                ar([js[indx].origin1[1], js[indx+1].origin1[1]]),
+                ar([js[indx].origin1[2], js[indx+1].origin1[2]]),
+                orange, lw=1.5
+            )
             self.ani_links.append(line)
         self.ani_joints = []
         for joint in js:
-            line, = self.ax.plot(ar([joint.origin1[0]]),
-                                 ar([joint.origin1[1]]),
-                                 ar([joint.origin1[2]]),
-                                 'o',
-                                 markeredgecolor="b",
-                                 markerfacecolor="none",
-                                 ms=8,
-                                 lw=2)
+            line, = self.ax.plot(
+                ar([joint.origin1[0]]),
+                ar([joint.origin1[1]]),
+                ar([joint.origin1[2]]),
+                'o', markeredgecolor="b", markerfacecolor="none", ms=8, lw=2
+            )
             self.ani_joints.append(line)
-        self.ani_Trajectory, = self.ax.plot(self.tcp_ser[:1, 0],
-                                            self.tcp_ser[:1, 1],
-                                            self.tcp_ser[:1, 2],
-                                            'm--',
-                                            lw=1)
+        self.ani_Trajectory, = self.ax.plot(
+            self.tcp_ser[:1, 0],
+            self.tcp_ser[:1, 1],
+            self.tcp_ser[:1, 2],
+            'm--', lw=1
+        )
 #
         arrowHeads = []
         self.arrow = []
@@ -624,14 +713,14 @@ class Simulation():
         tail = self.robot.joints[-1].origin1
         for i, head in enumerate(arrowHeads):
             self.arrow.append(
-                         self.ax.plot(
-                                      np.array([tail[0], head[0]]),
-                                      np.array([tail[1], head[1]]),
-                                      np.array([tail[2], head[2]]),
-                                      arrowColor[i],
-                                      lw = 1
-                                     )[0]
-                             )
+                self.ax.plot(
+                    np.array([tail[0], head[0]]),
+                    np.array([tail[1], head[1]]),
+                    np.array([tail[2], head[2]]),
+                    arrowColor[i],
+                    lw = 1
+                )[0]
+            )
         self.x_text = self.ax.text(-0.45, -0.7, 0.8, "tcp[x]:")
         self.y_text = self.ax.text(-0.45, -0.7, 0.7, "tcp[y]:")
         self.z_text = self.ax.text(-0.45, -0.7, 0.6, "tcp[z]:")
@@ -699,12 +788,12 @@ class Simulation():
         self.y_text.set_text("tcp[y]: %3.4f" % js[-1].origin1[1])
         self.z_text.set_text("tcp[z]: %3.4f" % js[-1].origin1[2])
         self.t_text.set_text("t: %3.4f" % self.t_ser[i])
-        self.tau1_text.set_text("T1: %3.4f" % self.driveTorque_ser[i,0])
-        self.tau2_text.set_text("T2: %3.4f" % self.driveTorque_ser[i,1])
-        self.tau3_text.set_text("T3: %3.4f" % self.driveTorque_ser[i,2])
-        self.tau4_text.set_text("T4: %3.4f" % self.driveTorque_ser[i,3])
-        self.tau5_text.set_text("T5: %3.4f" % self.driveTorque_ser[i,4])
-        self.tau6_text.set_text("T6: %3.4f" % self.driveTorque_ser[i,5])
+        self.tau1_text.set_text("T1: %3.4f" % self.tau_motor_ser[i, 0])
+        self.tau2_text.set_text("T2: %3.4f" % self.tau_motor_ser[i, 1])
+        self.tau3_text.set_text("T3: %3.4f" % self.tau_motor_ser[i, 2])
+        self.tau4_text.set_text("T4: %3.4f" % self.tau_motor_ser[i, 3])
+        self.tau5_text.set_text("T5: %3.4f" % self.tau_motor_ser[i, 4])
+        self.tau6_text.set_text("T6: %3.4f" % self.tau_motor_ser[i, 5])
 #
         return self.ani_links, self.ani_joints, self.ani_Trajectory,\
                self.x_text, self.y_text, self.z_text, self.t_text,\
@@ -748,28 +837,32 @@ class Simulation():
         kp = [1500, 1250, 1250, 750, 500, 400]
         kd = [1, 1, 0.5, 0.2, 0.1, 0.1]
         threshold = 0.001
-        sol = odeint(dyn.dyn, y0, t,
-                     args=(self.robot, self.gravity, dyn.control,
-                           Rh, Rv, trajectory_cmd, (kp, kd), threshold),
-                     rtol=5e-5, atol=1e-5)
+        sol = odeint(
+            dyn.dyn, y0, t,
+            args=(
+                self.robot, self.gravity, dyn.control,
+                Rh, Rv, trajectory_cmd, (kp, kd), threshold
+            ),
+            rtol=5e-5, atol=1e-5
+        )
         return sol
 
-    def solve_brake(self, q0, qd0, tau_brake, t_end=0.6, N=2500):
+    def solve_brake(self, q0, qd0, tau_brake, t_end=0.6, num_sample=2500):
         """
         solve the forward dynamic problem in emergency brake case
-        :param q0: initial position
-        :param qd0: initial speed
-        :return: simulation trajectory [q(t)', qd(t)']
         """
         y0 = np.hstack((q0, qd0))
-        t = np.linspace(0, t_end, N)
+        t = np.linspace(0, t_end, num_sample)
         print('solving forward dynamic')
         Rh, Rv = get_all_friction_in_array(self.robot)
         ratio = np.array([drive.ratio for drive in self.robot.drives])
         tau_brake_joint = tau_brake * ratio
         threshold = 0.0001
-        sol = odeint(dyn.dyn, y0, t,
-                     args=(self.robot, self.gravity, dyn.brake,
-                           Rh, Rv, None, tau_brake_joint, threshold),
-                     rtol=5e-5, atol=1e-5)
+        sol = odeint(
+            dyn.dyn, y0, t,
+            args=(
+                self.robot, self.gravity, dyn.brake,
+                Rh, Rv, None, tau_brake_joint, threshold),
+            rtol=5e-5, atol=1e-5
+        )
         return sol

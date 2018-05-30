@@ -13,7 +13,7 @@ s = sim.Simulation()
 s.set_gravity(9.8 * np.array([0,0,-1]))
 load_dauer3 = {"cm":np.array([0, 40, 70])*1e-3, "m": 1.2,
                "iT":np.array([1500, 1500, 1500, 0, 0, 0])*1e-6}
-s.buildRobot(
+s.build_robot(
     cfg.structurePara,
     cfg.massPara,
     cfg.motorPara,
@@ -44,7 +44,7 @@ plt.plot(t_new, vel_new[1, :], 'r-')
 plt.subplot(313)
 plt.plot(t, acc[1, :], 'b-')
 plt.plot(t_new, acc_new[1, :], 'r-')
-# s.simFromQ(pos_new.T, vel_new.T, acc_new.T, t_new, ts, ratio_mask=np.ones(6))
+# s.sim_inv_dynamic(pos_new.T, vel_new.T, acc_new.T, t_new, ts, ratio_mask=np.ones(6))
 #
 # # result
 # rs = s.get_result()

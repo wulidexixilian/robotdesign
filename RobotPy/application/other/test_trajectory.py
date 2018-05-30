@@ -15,11 +15,11 @@ np.set_printoptions(precision=4)
 #%%
 s = sim.Simulation()
 s.set_gravity(9.8 * np.array([0,0,-1]))
-s.buildRobot(cfg.structurePara,
-             cfg.massPara,
-             cfg.motorPara,
-             cfg.frictionPara,
-             cfg.gearPara)
+s.build_robot(cfg.structurePara,
+              cfg.massPara,
+              cfg.motorPara,
+              cfg.frictionPara,
+              cfg.gearPara)
 #%%
 percentage = 10 # amount of data to be simulated, 100% for all
 # Trajectory generating
@@ -29,7 +29,7 @@ trajectoryDef = {'type': 'adept', 'v_max': 1200, 'T': 0.32, 'N': 2500,
 s.generate_trajectory(trajectoryDef)
 
 # inverse dynamic simulation
-s.simFromQ()
+s.sim_inv_dynamic()
 # animation
 plt.close("all")
 s.animate()
