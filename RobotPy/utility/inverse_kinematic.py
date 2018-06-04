@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from model.m_math import rotation, h, triangle, solveEuler
+from utility.u_math import rotation, h, triangle, solveEuler
 
 ar = np.array
 
@@ -68,7 +68,7 @@ def ik_industry(tcp, geometry, st=None):
     return ar([-theta1, theta2, theta3, -theta4, theta5, -theta6])
 
 
-def ik_scara(tcp, geometry, st='00'):
+def ik_scara(tcp, geometry, st=None):
     """
     Inverse kinematics for SCARA type robot (4-axis)
         zero position
@@ -103,12 +103,24 @@ def ik_scara(tcp, geometry, st='00'):
               ~ q1, q2, q4 unit mm
               ~ q3 unit rad
     """
+    if st is None:
+        st = '00'
+    if type(tcp) is dict:
+        x, y, z = tcp["tcp"]
+        A, B, C = tcp["orientation"]
+    elif len(tcp) == 3:
+        x, y, z = tcp[0:3]
+        A, B, theta = 0, 0, 0
+    elif len(tcp) == 6:
+        x, y, z, A, B, theta = tcp
 
-    x, y, z = tcp["origin"][0], tcp["origin"][1], \
-              tcp["origin"][2]
-    theta = tcp["orientation"]
-    L1, L2, H = geometry["L1"], geometry["L2"], geometry["H"]
-
+    L1 = np.linalg.norm(
+        geometry[2].origin0[[0, 1]] - geometry[1].origin0[[0, 1]]
+    )
+    L2 = np.linalg.norm(
+        geometry[3].origin0[[0, 1]] - geometry[2].origin0[[0, 1]]
+    )
+    H = geometry[5].origin0[2]
     # solve q1, q2
     # ax^2 + bx + c = 0
     D = L1 ** 2 - L2 ** 2 + x ** 2 + y ** 2

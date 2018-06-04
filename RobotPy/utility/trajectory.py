@@ -1,5 +1,5 @@
 import numpy as np
-from model.m_math import rotation
+from utility.u_math import rotation
 
 
 class TrajectoryGenerator:
@@ -42,9 +42,11 @@ class TrajectoryGenerator:
         elif s > self.adept_length_2ndSeg:
             s_seg = s - self.adept_length_2ndSeg
             theta = np.pi/2 - s_seg / self.adept_r
-            return (self.adept_r + 255 + self.adept_r * np.cos(theta),
-                    0,
-                    self.adept_r * np.sin(theta))
+            return (
+                self.adept_r + 255 + self.adept_r * np.cos(theta),
+                0,
+                self.adept_r * np.sin(theta)
+            )
 
     def adept(self, v_max, T, N, offset, angle, orientation):
         try:

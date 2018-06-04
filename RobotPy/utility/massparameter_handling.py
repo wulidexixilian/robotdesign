@@ -1,4 +1,4 @@
-from model.m_math import mass_combine, tensor, tear_tensor
+from utility.u_math import mass_combine, tensor, tear_tensor
 from openpyxl import load_workbook
 import numpy as np
 
