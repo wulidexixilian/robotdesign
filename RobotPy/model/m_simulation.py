@@ -517,14 +517,21 @@ class Simulation:
                                             trajectory['rotation'],
                                             trajectory['orientation'])
         self.ts = trajectory['T'] / trajectory['N']
+        self.t_ser = np.linspace(0, (trajectory['N'] - 1) * self.ts, trajectory['N'])
+        plt.figure()
+        plt.plot(self.t_ser, self.trajectory_generator.trajectory[0, :])
+        plt.figure()
+        plt.plot(self.t_ser, self.trajectory_generator.trajectory[1, :])
+        plt.figure()
+        plt.plot(self.t_ser, self.trajectory_generator.trajectory[2, :])
+        plt.show(block=False)
         self.q_cmd_ser = np.array(
             list(
                 map(self.robot.ik, self.trajectory_generator.trajectory.T)
             )
         )
         self.q_dot_cmd_ser = np.gradient(self.q_cmd_ser, self.ts)[0]
-        self.t_ser = np.linspace(0, (len(self.q_cmd_ser) - 1) * self.ts,
-                                 len(self.q_cmd_ser))
+
 
     def init_symbolic_model(self):
         dimension_lo = []
