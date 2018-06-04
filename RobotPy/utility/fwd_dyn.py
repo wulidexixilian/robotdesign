@@ -1,6 +1,6 @@
 import numpy as np
 from numba import jit
-from model.m_math import easy_friction
+from utility.u_math import easy_friction
 
 
 def dyn(y, t, robot, gravity, torque_func, Rh, Rv, ref,

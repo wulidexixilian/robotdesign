@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.path import Path
 
-from model.m_math import mass_combine
+from utility.u_math import mass_combine
 
 np.set_printoptions(suppress=True)
 np.set_printoptions(precision=4)

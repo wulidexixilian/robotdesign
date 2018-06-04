@@ -35,9 +35,21 @@ s.load_gear_characteristic(cfg.gearPara, stall_tau['tau_joint'])
 s.run_one_step(q, q_dot, q_ddot)
 ax = s.snapshot()
 s.show_cm(ax)
-plt.show(block=False)
+
 print('Zero position tcp: {}mm'.format(stall_tau['tcp']))
 tau_stall_motor = stall_tau['tau_motor']
 motor_percent = stall_tau['motor_percent']
 print('Motor stall torque:\n {}Nm\n {}%'.format(tau_stall_motor, motor_percent))
 print('Gear stall torque: {}Nm'.format(stall_tau['tau_joint']))
+
+trajectory_def = {
+    'v_max': 1200,
+    'T': 0.35,
+    'N': 1000,
+    'offset': ar([250, 0, 15]),
+    'rotation': ar([0, 0, np.pi/2]),
+    'orientation': ar([0, 0, 0]),
+    'type': 'adept'
+}
+s.generate_trajectory(trajectory_def)
+

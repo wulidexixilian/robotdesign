@@ -5,7 +5,7 @@ Kinematics
 @author: pei.sun
 """
 import numpy as np
-from model.m_math import rotation, h, solveZYX, solveEuler, triangle
+from utility.u_math import rotation, h, solveZYX
 from model.m_component import Body, Joint, Drive
 
 ar = np.array

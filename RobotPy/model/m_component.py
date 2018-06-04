@@ -6,9 +6,9 @@ Compnents to form a robot
 """
 import numpy as np
 import scipy.linalg as li
-from model.m_math import mass_combine, twist_coordinate, tensor
-from model.m_math import calc_friction, curve_min, pure_cross
-from model.m_math import fast_fwd_ne, fast_bwd_ne
+from utility.u_math import mass_combine, twist_coordinate, tensor
+from utility.u_math import calc_friction, curve_min, pure_cross
+from utility.u_math import fast_fwd_ne, fast_bwd_ne
 # from numba import jitclass
 # from numba import int32, float32
 

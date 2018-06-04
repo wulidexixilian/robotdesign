@@ -254,14 +254,44 @@ def curve_min(curve1, curve2):
 
 @numba.jit(nopython=True)
 def pure_cross(a, b):
+    """
+    Simplified cross operation for 1 * 3 vectors
+    :param a: 1 * 3
+    :param b: 1 * 3
+    :return: 1 * 3
+    """
     return np.array([-a[2] * b[1] + a[1] * b[2],
                     a[2] * b[0] - a[0] * b[2],
                     -a[1] * b[0] + a[0] * b[1]])
 
 
 @numba.jit(nopython=True)
-def fast_fwd_ne(z_gl, r_hc, r_ht,
-                q_dot, q_ddot, omega_im1, alpha_im1, acc_e_im1):
+def fast_fwd_ne(
+        z_gl, r_hc, r_ht, q_dot, q_ddot, omega_im1, alpha_im1, acc_e_im1
+    ):
+    """
+    Newton Euler operation in the forward iteration
+    :param z_gl: axis in global frame, 1 * 3 vector
+    :param r_hc: displacement head to center, 1 * 3 vector
+    :param r_ht: displacement head to tail, 1 * 3 vector
+    :param q_dot: joint speed, scalar
+    :param q_ddot: joint acceleration, scalar
+    :param omega_im1: angular speed of the previous link
+        in global frame, 1 * 3 vector
+    :param alpha_im1: angular acceleration of the previous link
+        in global frame, 1 * 3 vector
+    :param acc_e_im1: planer acceleration of the joint point to the previous link
+        in global frame, 1 * 3 vector
+    :return:
+        omega: angular speed about mass center of this link in global frame
+            1 * 3 vector
+        alpha: angular acceleration about mass center of this link in global frame
+            1 * 3 vector
+        acc: planer acceleration of mass center of this link in global frame
+            1 * 3 vector
+        acc_e: planer acceleration of the tail point of this link in global frame
+            1 * 3 vector
+    """
     omega = omega_im1 + q_dot * z_gl
     alpha = alpha_im1 + z_gl * q_ddot + pure_cross(omega, z_gl) * q_dot
     acc = acc_e_im1 + pure_cross(alpha, - r_hc) +\
@@ -273,6 +303,28 @@ def fast_fwd_ne(z_gl, r_hc, r_ht,
 
 @numba.jit(nopython=True)
 def fast_bwd_ne(m, acc, r_hc, r_tc, iT_gl, omega, alpha, f_ip1, tau_ip1, gravity):
+    """
+    Newton Euler operation in the backward iteration
+    :param m: mass, scalar
+    :param acc: planer acceleration of mass center of this link in global frame
+            1 * 3 vector
+    :param r_hc: displacement head to center, 1 * 3 vector
+    :param r_tc: displacement tail to center, 1 * 3 vector
+    :param iT_gl: inertia tensor of this link about mass center in global frame,
+        3 * 3 matrix
+    :param omega: angular speed about mass center of this link in global frame
+            1 * 3 vector
+    :param alpha: angular acceleration about mass center of this link in global frame
+            1 * 3 vector
+    :param f_ip1: force at the joint point from the next link in global frame,
+        1 * 3 vector
+    :param tau_ip1: torque at the joint point from the next link in global frame,
+        1 * 3 vector
+    :param gravity: gravity, 1 * 3 vector
+    :return:
+        f: force exerted on this link in global frame
+        tau: force exerted on this link in global frame
+    """
     f = f_ip1 + m * acc - m * gravity
     tau = tau_ip1 - pure_cross(r_hc, f) + pure_cross(r_tc, f_ip1) + \
           iT_gl @ alpha + pure_cross(omega, (iT_gl @ omega))

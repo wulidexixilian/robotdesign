@@ -9,11 +9,10 @@ import struct
 import time
 import matplotlib.animation as ani
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import pyprind
 from model.m_analysis import StaticAnalysis, SimulationAnalysis, get_all_friction_in_array
-from model.m_math import rotation, tensor, tear_tensor
+from utility.u_math import rotation, tensor, tear_tensor
 from scipy.integrate import odeint
 from model.m_symbolic import SymDyRobot
 import utility.fwd_dyn as dyn
@@ -518,8 +517,11 @@ class Simulation:
                                             trajectory['rotation'],
                                             trajectory['orientation'])
         self.ts = trajectory['T'] / trajectory['N']
-        self.q_cmd_ser = np.array(list(map(self.robot.ik,
-                                           self.trajectory_generator.trajectory.T)))
+        self.q_cmd_ser = np.array(
+            list(
+                map(self.robot.ik, self.trajectory_generator.trajectory.T)
+            )
+        )
         self.q_dot_cmd_ser = np.gradient(self.q_cmd_ser, self.ts)[0]
         self.t_ser = np.linspace(0, (len(self.q_cmd_ser) - 1) * self.ts,
                                  len(self.q_cmd_ser))
