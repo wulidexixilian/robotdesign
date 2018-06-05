@@ -10,12 +10,12 @@ structurePara = [
     },
     {
         "nest": "link1",
-        "displacement": np.array([200, 0, -20])*1e-3,
+        "displacement": np.array([250, 0, -20])*1e-3,
         'offset': 0
     },
     {
         "nest": "link2",
-        "displacement": np.array([150, 0, -20])*1e-3,
+        "displacement": np.array([200, 0, -20])*1e-3,
         'offset': 0
     },
     {

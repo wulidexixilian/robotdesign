@@ -9,6 +9,7 @@ import struct
 import time
 import matplotlib.animation as ani
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d, Axes3D
 import numpy as np
 import pyprind
 from model.m_analysis import StaticAnalysis, SimulationAnalysis, get_all_friction_in_array
@@ -517,14 +518,21 @@ class Simulation:
                                             trajectory['rotation'],
                                             trajectory['orientation'])
         self.ts = trajectory['T'] / trajectory['N']
+        self.t_ser = np.linspace(0, (trajectory['N'] - 1) * self.ts, trajectory['N'])
+        # plt.figure()
+        # plt.plot(self.t_ser, self.trajectory_generator.trajectory[0, :])
+        # plt.figure()
+        # plt.plot(self.t_ser, self.trajectory_generator.trajectory[1, :])
+        # plt.figure()
+        # plt.plot(self.t_ser, self.trajectory_generator.trajectory[2, :])
+        # plt.show(block=False)
         self.q_cmd_ser = np.array(
             list(
                 map(self.robot.ik, self.trajectory_generator.trajectory.T)
             )
         )
         self.q_dot_cmd_ser = np.gradient(self.q_cmd_ser, self.ts)[0]
-        self.t_ser = np.linspace(0, (len(self.q_cmd_ser) - 1) * self.ts,
-                                 len(self.q_cmd_ser))
+
 
     def init_symbolic_model(self):
         dimension_lo = []
@@ -727,20 +735,20 @@ class Simulation:
         self.y_text = self.ax.text(-0.45, -0.7, 0.7, "tcp[y]:")
         self.z_text = self.ax.text(-0.45, -0.7, 0.6, "tcp[z]:")
         self.t_text = self.ax.text(-0.45, -0.7, 0.5, "T1:")
-        self.tau1_text = self.ax.text(0.45, -0.7, 0.8, "T2:")
-        self.tau2_text = self.ax.text(0.45, -0.7, 0.7, "T3:")
-        self.tau3_text = self.ax.text(0.45, -0.7, 0.6, "T4:")
-        self.tau4_text = self.ax.text(0.45, -0.7, 0.5, "T5:")
-        self.tau5_text = self.ax.text(0.45, -0.7, 0.4, "T6:")
-        self.tau6_text = self.ax.text(0.45, -0.7, 0.3, "T7:")
+        # self.tau1_text = self.ax.text(0.45, -0.7, 0.8, "T2:")
+        # self.tau2_text = self.ax.text(0.45, -0.7, 0.7, "T3:")
+        # self.tau3_text = self.ax.text(0.45, -0.7, 0.6, "T4:")
+        # self.tau4_text = self.ax.text(0.45, -0.7, 0.5, "T5:")
+        # self.tau5_text = self.ax.text(0.45, -0.7, 0.4, "T6:")
+        # self.tau6_text = self.ax.text(0.45, -0.7, 0.3, "T7:")
 #
         self.ax.plot(ar([0]), ar([0]), ar([0]), 'gs', markersize=8)
 #
         return self.ani_links, self.ani_joints, self.ani_Trajectory,\
-               self.x_text, self.y_text, self.z_text, self.t_text,\
-               self.tau1_text, self.tau2_text, self.tau3_text, self.tau4_text,\
-               self.tau5_text, self.tau6_text,\
-               self.arrow
+               self.x_text, self.y_text, self.z_text, self.t_text, self.arrow\
+               # self.tau1_text, self.tau2_text, self.tau3_text, self.tau4_text,\
+               # self.tau5_text, self.tau6_text,\
+               # self.arrow
 
     def updateAni(self, i):
         """
@@ -790,18 +798,18 @@ class Simulation:
         self.y_text.set_text("tcp[y]: %3.4f" % js[-1].origin1[1])
         self.z_text.set_text("tcp[z]: %3.4f" % js[-1].origin1[2])
         self.t_text.set_text("t: %3.4f" % self.t_ser[i])
-        self.tau1_text.set_text("T1: %3.4f" % self.tau_motor_ser[i, 0])
-        self.tau2_text.set_text("T2: %3.4f" % self.tau_motor_ser[i, 1])
-        self.tau3_text.set_text("T3: %3.4f" % self.tau_motor_ser[i, 2])
-        self.tau4_text.set_text("T4: %3.4f" % self.tau_motor_ser[i, 3])
-        self.tau5_text.set_text("T5: %3.4f" % self.tau_motor_ser[i, 4])
-        self.tau6_text.set_text("T6: %3.4f" % self.tau_motor_ser[i, 5])
+        # self.tau1_text.set_text("T1: %3.4f" % self.tau_motor_ser[i, 0])
+        # self.tau2_text.set_text("T2: %3.4f" % self.tau_motor_ser[i, 1])
+        # self.tau3_text.set_text("T3: %3.4f" % self.tau_motor_ser[i, 2])
+        # self.tau4_text.set_text("T4: %3.4f" % self.tau_motor_ser[i, 3])
+        # self.tau5_text.set_text("T5: %3.4f" % self.tau_motor_ser[i, 4])
+        # self.tau6_text.set_text("T6: %3.4f" % self.tau_motor_ser[i, 5])
 #
         return self.ani_links, self.ani_joints, self.ani_Trajectory,\
-               self.x_text, self.y_text, self.z_text, self.t_text,\
-               self.tau1_text, self.tau2_text, self.tau3_text, self.tau4_text,\
-               self.tau5_text, self.tau6_text,\
-               self.arrow
+               self.x_text, self.y_text, self.z_text, self.t_text, self.arrow\
+               # self.tau1_text, self.tau2_text, self.tau3_text, self.tau4_text,\
+               # self.tau5_text, self.tau6_text,\
+               # self.arrow
 
     def animate(self, space_size=1.2):
         """

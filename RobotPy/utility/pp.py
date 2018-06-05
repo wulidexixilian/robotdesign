@@ -4,9 +4,9 @@ def rescale(tau_ref, tau_max, qd_ref, Rv):
     n_axes = len(Rv)
     c_candidate = np.zeros(n_axes)
     for idx in range(n_axes):
-        root = np.roots(np.array([tau_max[idx],
-                                  Rv[idx] * qd_ref[idx],
-                                  -tau_ref[idx]]))
+        root = np.roots(
+            np.array([tau_max[idx], Rv[idx] * qd_ref[idx], -tau_ref[idx]])
+        )
         # if np.size(np.where(root>0.1))>0:
         #     c_candidate[idx] = max(root)
         # else:
