@@ -55,7 +55,7 @@ print('Gear stall torque: {}Nm'.format(stall_tau['tau_joint']))
 # rs.show_performance()
 rs.drive_characteristic(30, 15, tau_stall_motor)
 rs.get_max_drive_tau()
-rs.joint_characteristic(cfg.gearPara, )
+rs.joint_characteristic(cfg.gearPara)
 rs.get_max_joint_tau()
 gear_av_tau_percent = rs.gear_average_tau() /\
     np.array([item['acc_tau'] for item in cfg.gearPara])

@@ -9,6 +9,7 @@ import struct
 import time
 import matplotlib.animation as ani
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d, Axes3D
 import numpy as np
 import pyprind
 from model.m_analysis import StaticAnalysis, SimulationAnalysis, get_all_friction_in_array
@@ -518,13 +519,13 @@ class Simulation:
                                             trajectory['orientation'])
         self.ts = trajectory['T'] / trajectory['N']
         self.t_ser = np.linspace(0, (trajectory['N'] - 1) * self.ts, trajectory['N'])
-        plt.figure()
-        plt.plot(self.t_ser, self.trajectory_generator.trajectory[0, :])
-        plt.figure()
-        plt.plot(self.t_ser, self.trajectory_generator.trajectory[1, :])
-        plt.figure()
-        plt.plot(self.t_ser, self.trajectory_generator.trajectory[2, :])
-        plt.show(block=False)
+        # plt.figure()
+        # plt.plot(self.t_ser, self.trajectory_generator.trajectory[0, :])
+        # plt.figure()
+        # plt.plot(self.t_ser, self.trajectory_generator.trajectory[1, :])
+        # plt.figure()
+        # plt.plot(self.t_ser, self.trajectory_generator.trajectory[2, :])
+        # plt.show(block=False)
         self.q_cmd_ser = np.array(
             list(
                 map(self.robot.ik, self.trajectory_generator.trajectory.T)

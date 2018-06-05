@@ -285,33 +285,37 @@ class Dynamics(Kinematics):
             omega_im1 = body.omega
             alpha_im1 = body.alpha
             acc_e_im1 = body.acc_e
-        # initialize inversed iterations
+        # initialize inverse iterations
         f_ip1 = zeros
         tau_ip1 = zeros
-        # inversed iterations for f, tau
-        # term_r = []
-        tau_ar_axes = []
+        # inverse iterations for f, tau
         for body in reversed(self.bodies):
             body.ne_bwd_iter(f_ip1, tau_ip1, gravity)
             # prepare for next iter
             f_ip1 = body.f
             tau_ip1 = body.tau
-            tau_ar_axes.insert(0, np.dot(body.z_gl, body.tau))
-        return np.array(tau_ar_axes[1:])
+
+    def get_free_axis_potential(self):
+        return np.where(
+            ar([self.joints[d.id].mode for d in self.drives]),
+            ar([self.bodies[d.id].f[-1] for d in self.drives]),
+            ar([self.bodies[d.id].tau[-1] for d in self.drives])
+        )
 
     def solve_drivetrain(self, q_dot, q_ddot):
         """
-        solve drive torque (with friction and torque to accelerate drivetrain inertia)
+        solve drive torque (with friction and torque to accelerate drivetrain inertia
         """
         self.fr_thresholds = np.array([0.01, 0.01, 0.01, 0.01, 0.01, 0.01])
-        for i, drive in enumerate(self.drives):
-            idx = drive.id
-            tau = self.bodies[idx].tau
-            # idx - 1 since drive id starts from 1, but q_ddot index starts from 0
-            # it starts from 1 because there is no drive to the ground base.
+        for idx, drive in enumerate(self.drives):
+            idx_axis = drive.id
+            if self.joints[idx_axis].mode == 0:
+                tau = self.bodies[idx_axis].tau
+            else:
+                tau = self.bodies[idx_axis].f
             drive.get_drive_tau(
-                q_dot[idx-1], q_ddot[idx-1],
-                tau, self.fr_thresholds[i]
+                q_dot[idx], q_ddot[idx],
+                tau, self.fr_thresholds[idx]
             )
 
     def get_inertia_matrix(self):
@@ -333,7 +337,8 @@ class Dynamics(Kinematics):
         for idx in range(n):
             qdd_pseudo = np.zeros(n)
             qdd_pseudo[idx] = 1
-            tau_pseudo = self.ne(np.zeros(n), qdd_pseudo, np.zeros(3))
+            self.ne(np.zeros(n), qdd_pseudo, np.zeros(3))
+            tau_pseudo = self.get_free_axis_potential()
             M_col = tau_pseudo
             M[:, idx] = M_col
         return M

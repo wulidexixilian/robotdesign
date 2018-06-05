@@ -85,13 +85,15 @@ class StaticAnalysis:
         return get_all_friction_in_array(self.robot)
 
     def get_motor_characteristic(self):
-        characteristic_motor = [drive.characteristic_before_ratio for drive in
-                                self.robot.drives]
+        characteristic_motor = [
+            drive.characteristic_before_ratio for drive in self.robot.drives
+        ]
         return characteristic_motor
 
     def get_gear_characteristic(self):
-        characteristic_gear = [drive.characteristic_after_ratio for drive in
-                               self.robot.drives]
+        characteristic_gear = [
+            drive.characteristic_after_ratio for drive in self.robot.drives
+        ]
         return characteristic_gear
 
     def max_joint_tau_batch(self, qd=None, is_static=True):
@@ -427,7 +429,7 @@ class SimulationAnalysis(StaticAnalysis):
         """
         characteristic = self.get_motor_characteristic()
         n = len(self.q_dot_ser[:, 0])
-        fig, ax_arr = plt.subplots(3, 2)
+        fig, ax_arr = plt.subplots(int(self.num_axes / 2), 2)
         fig.suptitle('Drive Characteristic [rpm - Nm]')
         for i, r in enumerate(self.ratio):
             speed_data = np.abs(self.q_dot_ser[:, i] * r
@@ -435,7 +437,9 @@ class SimulationAnalysis(StaticAnalysis):
             torque_data = np.abs(self.motor_tau_ser[:, i])
             speed_grid = np.linspace(0, max(speed_data), step_num_vel)
             torque_grid = np.linspace(0, max(torque_data), step_num_tau)
-            characteristic_timer = np.zeros([len(torque_grid), len(speed_grid), 6])
+            characteristic_timer = np.zeros(
+                [len(torque_grid), len(speed_grid), self.num_axes]
+            )
             for j in range(n):
                 temp_vel = np.where(speed_grid >= speed_data[j])[0]
                 if len(temp_vel) > 0:
@@ -504,11 +508,11 @@ class SimulationAnalysis(StaticAnalysis):
         if ln is None:
             ln = np.ones(self.num_axes) * 6000
         if l_exp is None:
-            ln = np.ones(self.num_axes) * 3.333
+            l_exp = np.ones(self.num_axes) * 3.333
         if target_lifetime is None:
             target_lifetime=[40000, 20000, 6000, 4000]
         characteristic = self.get_gear_characteristic()
-        fig, ax_arr = plt.subplots(3, 2)
+        fig, ax_arr = plt.subplots(int(self.num_axes/2), 2)
         fig.suptitle('Gear Characteristic [rpm - Nm]')
         tau_av = self.gear_average_tau()
         omega_av = self.gear_average_speed()
@@ -586,15 +590,15 @@ class SimulationAnalysis(StaticAnalysis):
         """
         # pose
         plt.figure()
-        p1 = [plt.subplot(self.num_axes, 2, 1+i) for i in range(self.num_axes)]
+        p1 = [plt.subplot(int(self.num_axes/2), 2, 1+i) for i in range(self.num_axes)]
         plt.tight_layout()
-        for i in range(6):
+        for i in range(self.num_axes):
             p1[i].plot(self.t_ser, self.q_ser[:, i]*180/np.pi)
             p1[i].grid(True)
             p1[i].set_title("$q_{"+str(i+1)+"}$")
         # velocity
         plt.figure()
-        p3 = [plt.subplot(self.num_axes, 2, 1+i) for i in range(self.num_axes)]
+        p3 = [plt.subplot(int(self.num_axes/2), 2, 1+i) for i in range(self.num_axes)]
         plt.tight_layout()
         for i in range(self.num_axes):
             p3[i].plot(self.t_ser, self.q_dot_ser[:, i]*180/np.pi)
@@ -602,7 +606,7 @@ class SimulationAnalysis(StaticAnalysis):
             p3[i].set_title("$\dot{q_{"+str(i+1)+"}}$")
         # torque motor side
         plt.figure()
-        p2 = [plt.subplot(self.num_axes, 2, 1+i) for i in range(self.num_axes)]
+        p2 = [plt.subplot(int(self.num_axes/2), 2, 1+i) for i in range(self.num_axes)]
         plt.tight_layout()
         for i in range(self.num_axes):
             p2[i].plot(self.t_ser, self.motor_tau_ser[:, i])
@@ -610,7 +614,7 @@ class SimulationAnalysis(StaticAnalysis):
             p2[i].set_title("$T_{A"+str(i+1)+"}$")
         # torque joint side
         plt.figure()
-        p2 = [plt.subplot(self.num_axes, 2, 1+i) for i in range(self.num_axes)]
+        p2 = [plt.subplot(int(self.num_axes/2), 2, 1+i) for i in range(self.num_axes)]
         plt.tight_layout()
         for i in range(self.num_axes):
             p2[i].plot(self.t_ser, self.tau_ser[:, i])
@@ -634,7 +638,7 @@ class SimulationAnalysis(StaticAnalysis):
         # speed-torque diagram on motor side
         plt.figure()
         plt.title("torque - speed / motor")
-        p4 = [plt.subplot(self.num_axes, 2, 1+i) for i in range(self.num_axes)]
+        p4 = [plt.subplot(int(self.num_axes/2), 2, 1+i) for i in range(self.num_axes)]
         plt.tight_layout()
         for i in range(self.num_axes):
             p4[i].plot(

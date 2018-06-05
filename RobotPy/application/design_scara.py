@@ -33,8 +33,8 @@ stall_tau = rs.get_stall_torque(q_dot_max, load_dauer3)
 s.load_gear_characteristic(cfg.gearPara, stall_tau['tau_joint'])
 # *** kinematics ***
 s.run_one_step(q, q_dot, q_ddot)
-# ax = s.snapshot()
-# s.show_cm(ax)
+ax = s.snapshot()
+s.show_cm(ax)
 
 print('Current tcp: {}mm'.format(s.robot.joints[-1].origin1))
 print('Zero position tcp: {}mm'.format(stall_tau['tcp']))
@@ -46,10 +46,17 @@ trajectory_def = {
     'v_max': 1200,
     'T': 0.35,
     'N': 1000,
-    'offset': ar([250, 0, 15]),
+    'offset': ar([-150, -200, 15]),
     'rotation': ar([np.pi/2, 0, 0]),
     'orientation': ar([0, 0, 0]),
     'type': 'adept'
 }
 s.generate_trajectory(trajectory_def)
+s.sim_inv_dynamic()
+rs = s.get_result()
+rs.show_performance()
+rs.drive_characteristic(30, 15, tau_stall_motor)
+rs.joint_characteristic(cfg.gearPara)
+plt.show(block=False)
+
 
