@@ -53,6 +53,7 @@ trajectory_def = {
 }
 s.generate_trajectory(trajectory_def)
 s.sim_inv_dynamic()
+s.animate()
 rs = s.get_result()
 rs.show_performance()
 rs.drive_characteristic(30, 15, tau_stall_motor)
