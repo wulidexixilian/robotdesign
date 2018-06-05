@@ -1,1 +1,2 @@
 # robotdesign
+scara supported
