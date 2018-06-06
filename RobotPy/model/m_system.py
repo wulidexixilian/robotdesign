@@ -33,7 +33,8 @@ def planner(pos, vel, acc, ts, robot):
         qd = vel[:, idx]
         qdd = acc[:, idx]
         robot.k(q)
-        tau = robot.ne(qd, qdd, np.array([0, 0, -9.8]))
+        robot.ne(qd, qdd, np.array([0, 0, -9.8]))
+        tau = robot.get_free_axis_potential()
         rs = m_analysis.StaticAnalysis(robot)
         [ll, ul] = rs.max_joint_tau_output(q, qd)
         tau_limit = np.where(tau < 0, ll, ul)

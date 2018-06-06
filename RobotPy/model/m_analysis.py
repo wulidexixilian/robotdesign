@@ -121,7 +121,7 @@ class StaticAnalysis:
         self.robot.k(q)
         self.robot.ne(qd, np.zeros(self.num_axes), gravity)
         self.robot.solve_drivetrain(qd, np.zeros(self.num_axes))
-        tau_gravity = np.array([drive.driveTau for drive in self.robot.drives])
+        tau_gravity = np.array([drive.tau_drive for drive in self.robot.drives])
         tau_limit_upper = np.clip(
             tau_max - tau_gravity,
             np.zeros(np.shape(tau_max)),

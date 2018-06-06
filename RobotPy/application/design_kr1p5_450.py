@@ -60,5 +60,5 @@ rs.get_max_joint_tau()
 gear_av_tau_percent = rs.gear_average_tau() /\
     np.array([item['acc_tau'] for item in cfg.gearPara])
 print('Gear average torque ratio: {}%'.format(gear_av_tau_percent * 100))
-compare(s, trace_file, percentage)
+# compare(s, trace_file, percentage)
 plt.show(block=False)

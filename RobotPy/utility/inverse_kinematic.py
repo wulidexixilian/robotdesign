@@ -113,6 +113,8 @@ def ik_scara(tcp, geometry, st=None):
         A, B, theta = 0, 0, 0
     elif len(tcp) == 6:
         x, y, z, A, B, theta = tcp
+    else:
+        raise Exception('Wrong tcp format')
 
     L1 = np.linalg.norm(
         geometry[2].origin0[[0, 1]] - geometry[1].origin0[[0, 1]]
@@ -162,8 +164,7 @@ def ik_scara(tcp, geometry, st=None):
             return q
         q2 = 0
     else:
-        print('inverse kinematics failure')
-        return
+        raise Exception('inverse kinematics failure')
 
     if st[0] == '1':
         q1 = q1 - np.sign(q1) * 2 * np.pi
