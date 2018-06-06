@@ -103,20 +103,6 @@ def ik_scara(tcp, geometry, st=None):
               ~ q1, q2, q4 unit mm
               ~ q3 unit rad
     """
-<<<<<<< HEAD
-
-    x, y, z = tcp["origin"][0], tcp["origin"][1], tcp["origin"][2]
-    theta = tcp["orientation"]
-
-    L1 = np.linalg.norm(
-             geometry[2].origin0[[0, 1]] - geometry[1].origin0[[0, 1]]
-         )
-    L2 = np.linalg.norm(
-             geometry[3].origin0[[0, 1]] - geometry[2].origin0[[0, 1]]
-         )
-    H = geometry[5].origin0[2]
-
-=======
     if st is None:
         st = '00'
     if type(tcp) is dict:
@@ -135,7 +121,6 @@ def ik_scara(tcp, geometry, st=None):
         geometry[3].origin0[[0, 1]] - geometry[2].origin0[[0, 1]]
     )
     H = geometry[5].origin0[2]
->>>>>>> 58b65ab95b26b7a4fd909560928b1d3c920ad08f
     # solve q1, q2
     # ax^2 + bx + c = 0
     D = L1 ** 2 - L2 ** 2 + x ** 2 + y ** 2
@@ -196,6 +181,7 @@ def ik_scara(tcp, geometry, st=None):
 
     q = np.array([q1, q2, q3, q4])
     return q
+
 
 
 

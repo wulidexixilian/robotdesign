@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from model import m_simulation_scara as sim
-from rRobotDB import pt_scara as cfg
+from rRobotDB import pt_scara_LS3401S as cfg
 
 ar = np.array
 

@@ -413,6 +413,98 @@ gear_db = {
             "m":             0.02
         },
     },
+
+    'SHG20-50-741769-46': {
+        "ratio": 50,
+        "rated_tau": 33,
+        "acc_tau": 44,
+        "max_tau": 73,
+        'emergency_tau': 127,
+        "max_omega": 6500,
+        'rated_omega': 3500,
+        "offset": 26e-3,
+        "stator": {
+            "inertia_drive": 19.3e-6,
+            "inertia_body": [315e-6, 315e-6, 550e-5],
+            "cm": 0,
+            "m": 0.79
+        },
+        "rotor": {
+            "inertia_drive": 19.3e-7,
+            "inertia_body": [0, 0, 0],
+            "cm": 0,
+            "m": 0.05
+        },
+    },
+
+    'SHG17-50-741477-33': {
+        "ratio": 50,
+        "rated_tau": 21,
+        "acc_tau": 34,
+        "max_tau": 44,
+        'emergency_tau': 127,
+        "max_omega": 7300,
+        'rated_omega': 3500,
+        "offset": 26e-3,
+        "stator": {
+            "inertia_drive": 7.9e-6,
+            "inertia_body": [101e-6, 101e-6, 355e-6],
+            "cm": 0,
+            "m": 0.6
+        },
+        "rotor": {
+            "inertia_drive": 7.9e-7,
+            "inertia_body": [0, 0, 0],
+            "cm": 0,
+            "m": 0.066
+        },
+    },
+
+    'EPSON-LS3-401S-A3': {
+        "ratio":         410.34,  # rad/mm
+        "offset":        0,
+        "rated_tau":     1.8,
+        "acc_tau":       2.3,
+        "max_tau":       3.3,
+        'emergency_tau': 6.6,
+        "max_omega":     8500,
+        'rated_omega':   3500,
+        "stator":        {
+            "inertia_drive": 0.4e-6,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.2
+        },
+        "rotor":         {
+            "inertia_drive": 0.4e-7,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.02
+        },
+    },
+
+    'EPSON-LS3-401S-A4': {
+        "ratio":         1,
+        "offset":        0,
+        "rated_tau":     1.8,
+        "acc_tau":       2.3,
+        "max_tau":       3.3,
+        'emergency_tau': 6.6,
+        "max_omega":     8500,
+        'rated_omega':   3500,
+        "stator":        {
+            "inertia_drive": 0.4e-6,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.2
+        },
+        "rotor":         {
+            "inertia_drive": 0.4e-7,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0.02
+        },
+    },
 }
 
 
