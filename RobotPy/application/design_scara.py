@@ -44,9 +44,9 @@ print('Motor stall torque:\n {}Nm\n {}%'.format(tau_stall_motor, motor_percent))
 print('Gear stall torque: {}Nm'.format(stall_tau['tau_joint']))
 trajectory_def = {
     'v_max': 1200,
-    'T': 0.35,
+    'T': 0.4,
     'N': 1000,
-    'offset': ar([-150, -200, 15]),
+    'offset': ar([-150, -325, 15]),
     'rotation': ar([np.pi/2, 0, 0]),
     'orientation': ar([0, 0, 0]),
     'type': 'adept'
@@ -57,7 +57,7 @@ s.animate()
 rs = s.get_result()
 rs.show_performance()
 rs.drive_characteristic(30, 15, tau_stall_motor)
-rs.joint_characteristic(cfg.gearPara)
+rs.joint_characteristic(cfg.gearPara, draw_lifetime=False)
 plt.show(block=False)
 
 

@@ -117,7 +117,7 @@ motor_installation = [
         "nest": "handbase",
         "position": np.array([0, -8.5, -40]) * 1e-3,
         "orientation": np.array([0, -np.pi / 2, 0]),
-        'type': 'TS4872'
+        'type': 'TS4873'
         # 'type': 'TS4632'
     },
 
@@ -134,12 +134,12 @@ motor_installation = [
 motorPara = list(map(load_motor_db, motor_installation))
 
 frictionPara = [
-    {"nest": "rotationcolumn", "friction": [7.35, 1.02, 1]},
-    {"nest": "linkarm", "friction": [8.58, 1.47, 1]},
-    {"nest": "arm", "friction": [2.21, 0.78, 1]},
-    {"nest": "handbase", "friction": [0.63, 0.14, 1]},
-    {"nest": "handwrist", "friction": [0.63, 0.14, 1]},
-    {"nest": "handflange", "friction": [0.29, 0.07, 1]}
+    {"nest": "rotationcolumn", "friction": np.array([7.35, 1.02, 1])},
+    {"nest": "linkarm", "friction": np.array([8.58, 1.47, 1])},
+    {"nest": "arm", "friction": np.array([2.21, 0.78, 1])},
+    {"nest": "handbase", "friction": np.array([0.63, 0.14, 1])},
+    {"nest": "handwrist", "friction": np.array([0.63, 0.14, 1])},
+    {"nest": "handflange", "friction": np.array([0.29, 0.07, 1])}
 ]
 
 gear_installation = [

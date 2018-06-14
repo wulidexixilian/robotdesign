@@ -463,10 +463,10 @@ gear_db = {
     'EPSON-LS3-401S-A3': {
         "ratio":         410.34,  # rad/mm
         "offset":        0,
-        "rated_tau":     1.8,
-        "acc_tau":       2.3,
-        "max_tau":       3.3,
-        'emergency_tau': 6.6,
+        "rated_tau":     50,
+        "acc_tau":       70,
+        "max_tau":       90,
+        'emergency_tau': 100,
         "max_omega":     8500,
         'rated_omega':   3500,
         "stator":        {

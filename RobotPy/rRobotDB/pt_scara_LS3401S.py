@@ -131,7 +131,7 @@ gear_installation = [
     # A3
     {  # A4-A3 coupling -1
         "nest": "link2",
-        "case": 9,
+        "case": 2,
         'type': 'EPSON-LS3-401S-A3',
         'pre ratio': 0.82,
         "limit_factor": 1.35,

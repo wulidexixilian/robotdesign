@@ -503,14 +503,8 @@ class SimulationAnalysis(StaticAnalysis):
 
     def joint_characteristic(
         self, gearbox_datasheet=None,
-        ln=None, l_exp=None, target_lifetime=None
+        ln=None, l_exp=None, target_lifetime=None, draw_lifetime=True
     ):
-        if ln is None:
-            ln = np.ones(self.num_axes) * 6000
-        if l_exp is None:
-            l_exp = np.ones(self.num_axes) * 3.333
-        if target_lifetime is None:
-            target_lifetime=[40000, 20000, 6000, 4000]
         characteristic = self.get_gear_characteristic()
         fig, ax_arr = plt.subplots(int(self.num_axes/2), 2)
         fig.suptitle('Gear Characteristic [rpm - Nm]')
@@ -542,13 +536,21 @@ class SimulationAnalysis(StaticAnalysis):
                     'y--'
                 )
                 # lifetime map
-                for lh in target_lifetime:
-                    omega_h = np.linspace(
-                        0.1 * np.max(np.abs(qd)),
-                        np.max(np.abs(qd)), 10
-                    )
-                    tau_h = (ln[i] * omega_rated / omega_h / lh)**(1/l_exp[i]) * tau_rated
-                    ax.plot(omega_h, tau_h, 'b--', lw=1)
+                if draw_lifetime:
+                    if ln is None:
+                        ln = np.ones(self.num_axes) * 6000
+                    if l_exp is None:
+                        l_exp = np.ones(self.num_axes) * 3.333
+                    if target_lifetime is None:
+                        target_lifetime = [40000, 20000, 6000, 4000]
+                    for lh in target_lifetime:
+                        omega_h = np.linspace(
+                            0.1 * np.max(np.abs(qd)),
+                            np.max(np.abs(qd)), 10
+                        )
+                        tau_h = (ln[i] * omega_rated / omega_h / lh)\
+                                **(1/l_exp[i]) * tau_rated
+                        ax.plot(omega_h, tau_h, 'b--', lw=1)
             ax.grid(True)
             ax.set_title("A"+str(i+1))
         return ax_arr
