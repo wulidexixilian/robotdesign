@@ -231,8 +231,10 @@ class Dynamics(Kinematics):
             if 'characteristic_before_ratio' in dPara:
                 drive.load_characteristic(dPara['characteristic_before_ratio'])
             if 'characteristic_after_ratio' in dPara:
-                drive.load_characteristic(dPara['characteristic_after_ratio'],
-                                          'after_ratio')
+                drive.load_characteristic(
+                    dPara['characteristic_after_ratio'], 'after_ratio'
+                )
+        self.fr_thresholds = np.array([0.01, 0.01, 0.01, 0.01, 0.01, 0.01])
 
     def add_load(self, load):
         body = self.bodies[-1]
@@ -258,7 +260,7 @@ class Dynamics(Kinematics):
             tail_gl = self.joints[idx + 1].origin1
             iT_gl = R_i @ body.iT @ R_i.T
             body.update_kinematics(z_gl, head_gl, tail_gl, cm_gl, iT_gl)
-        # update kinematics infor for each drive (their axis orientation)
+        # update kinematics info for each drive (their axis orientation)
         for drive in self.drives:
             drive.set_axis(self.joints[drive.id].axis1)
 
@@ -288,6 +290,7 @@ class Dynamics(Kinematics):
         # initialize inverse iterations
         f_ip1 = zeros
         tau_ip1 = zeros
+        print(self.bodies[3].acc)
         # inverse iterations for f, tau
         for body in reversed(self.bodies):
             body.ne_bwd_iter(f_ip1, tau_ip1, gravity)
@@ -306,7 +309,6 @@ class Dynamics(Kinematics):
         """
         solve drive torque (with friction and torque to accelerate drivetrain inertia
         """
-        self.fr_thresholds = np.array([0.01, 0.01, 0.01, 0.01, 0.01, 0.01])
         for idx, drive in enumerate(self.drives):
             idx_axis = drive.id
             if self.joints[idx_axis].mode == 0:

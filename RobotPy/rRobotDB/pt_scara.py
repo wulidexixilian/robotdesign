@@ -112,7 +112,7 @@ gear_installation = [
     {
         "nest": "groundbase",
         "case": 9,
-        'type': 'PT_SCARA_A1',
+        'type': 'SHG20-50-741769-46',
         'pre ratio': 1,
         "limit_factor": 1.35,
     },
@@ -120,7 +120,7 @@ gear_installation = [
     {
         "nest": "link1",
         "case": 9,
-        'type': 'PT_SCARA_A2',
+        'type': 'SHG17-50-741477-33',
         'pre ratio': 1,
         "limit_factor": 1.35,
     },
@@ -128,7 +128,7 @@ gear_installation = [
     {
         "nest": "link2",
         "case": 9,
-        'type': 'PT_SCARA_A3',
+        'type': 'EPSON-LS3-401S-A3',
         'pre ratio': 1,
         "limit_factor": 1.35,
     },
@@ -136,7 +136,7 @@ gear_installation = [
     {
         "nest": "link3",
         "case": 9,
-        'type': 'PT_SCARA_A4',
+        'type': 'EPSON-LS3-401S-A4',
         'pre ratio': 1,
         "limit_factor": 1.35,
     },

@@ -267,7 +267,7 @@ def pure_cross(a, b):
 
 @numba.jit(nopython=True)
 def fast_fwd_ne(
-        z_gl, r_hc, r_ht, q_dot, q_ddot, omega_im1, alpha_im1, acc_e_im1
+        z_gl, r_hc, r_ht, q_dot, q_ddot, omega_im1, alpha_im1, acc_e_im1, mode=0
     ):
     """
     Newton Euler operation in the forward iteration
@@ -292,13 +292,16 @@ def fast_fwd_ne(
         acc_e: planer acceleration of the tail point of this link in global frame
             1 * 3 vector
     """
-    omega = omega_im1 + q_dot * z_gl
-    alpha = alpha_im1 + z_gl * q_ddot + pure_cross(omega, z_gl) * q_dot
-    acc = acc_e_im1 + pure_cross(alpha, - r_hc) +\
-          pure_cross(omega, pure_cross(omega, -r_hc))
-    acc_e = acc_e_im1 + pure_cross(alpha, -r_ht) + \
-            pure_cross(omega, pure_cross(omega, - r_ht))
-    return omega, alpha, acc, acc_e
+    if mode == 0:
+        omega = omega_im1 + q_dot * z_gl
+        alpha = alpha_im1 + z_gl * q_ddot + pure_cross(omega, z_gl) * q_dot
+        acc = acc_e_im1 + pure_cross(alpha, - r_hc) +\
+              pure_cross(omega, pure_cross(omega, -r_hc))
+        acc_e = acc_e_im1 + pure_cross(alpha, -r_ht) + \
+                pure_cross(omega, pure_cross(omega, - r_ht))
+        return omega, alpha, acc, acc_e
+    else:
+        pass
 
 
 @numba.jit(nopython=True)
