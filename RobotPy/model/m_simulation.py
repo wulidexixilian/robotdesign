@@ -178,7 +178,6 @@ class Simulation:
         return mass_list_item_rotor, mass_list_item_stator, drivetrain_item_0, \
             drivetrain_item_1
 
-
     @staticmethod
     def handle_motor(motor_para):
         mass_para_motor = []
@@ -220,15 +219,18 @@ class Simulation:
         mass_para.append(load)
         mass_list = mass_para
         for item in dimension_list:
-            offset = 0
-            name = item["nest"]
-            for gear in gear_para:
-                if gear["nest"] == name:
-                    offset = gear["offset"]
-                    if gear["case"] > 8:
-                        offset = -offset
-                    break
-            item["offset"] = offset
+            if 'offset' in item:
+                continue
+            else:
+                offset = 0
+                name = item["nest"]
+                for gear in gear_para:
+                    if gear["nest"] == name:
+                        offset = gear["offset"]
+                        if gear["case"] > 8:
+                            offset = -offset
+                        break
+                item["offset"] = offset
         # handle motors -- abstract each motor into a mass item
         # and add it to the mass list
         mass_list = mass_list + self.handle_motor(motor_para)

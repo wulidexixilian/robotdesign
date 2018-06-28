@@ -140,6 +140,7 @@ class Joint:
     """ abstract object defining the twist motion between two bodies """
     def __init__(self, origin0, axis0, align, idx, mode=0):
         self.origin0 = origin0
+        self.origin1 = origin0
         self.axis0 = axis0
         self.axis1 = axis0
         self.align = align

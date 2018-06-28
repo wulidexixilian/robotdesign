@@ -40,7 +40,7 @@ s.load_trajectory(trace_file, percentage)
 # *** inverse dynamic simulation ***
 s.sim_inv_dynamic()
 # *** animation ***
-# s.animate()
+s.animate()
 # *** result ***
 rs = s.get_result()
 motor_velocity_max = [

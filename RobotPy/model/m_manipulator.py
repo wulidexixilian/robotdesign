@@ -290,7 +290,6 @@ class Dynamics(Kinematics):
         # initialize inverse iterations
         f_ip1 = zeros
         tau_ip1 = zeros
-        print(self.bodies[3].acc)
         # inverse iterations for f, tau
         for body in reversed(self.bodies):
             body.ne_bwd_iter(f_ip1, tau_ip1, gravity)
