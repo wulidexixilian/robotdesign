@@ -509,5 +509,33 @@ gear_db = {
 
 
 def load_gear_db(installation):
-    data = {**installation, **gear_db[installation['type']]}
+    if 'type' in installation:
+        if installation['type'] is not None:
+            data = {**installation, **gear_db[installation['type']]}
+            return data
+    data = {
+        **installation,
+        "ratio":         1,
+        "offset":        0,
+        "rated_tau":     0,
+        "acc_tau":       0,
+        "max_tau":       0,
+        'emergency_tau': 0,
+        "max_omega":     8500,
+        'rated_omega':   3500,
+        "stator":        {
+            "inertia_drive": 0,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0
+        },
+        "rotor":         {
+            "inertia_drive": 0,
+            "inertia_body":  [0, 0, 0],
+            "cm":            0,
+            "m":             0
+        },
+    }
+    if 'ratio_override' in installation:
+        data['ratio'] = installation['ratio_override']
     return data

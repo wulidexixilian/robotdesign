@@ -17,11 +17,11 @@ load = {
     "iT": np.array([1200, 1200, 1200, 0, 0, 0])*1e-6
 }
 s.build_robot(
-    cfg.structurePara,
-    cfg.massPara,
-    cfg.motorPara,
-    cfg.frictionPara,
-    cfg.gearPara,
+    cfg.structure_para,
+    cfg.mass_para,
+    cfg.motor_para,
+    cfg.friction_para,
+    cfg.gear_para,
     load
 )
 q = [0, 0, 0, 0]
@@ -30,7 +30,7 @@ q_dot = q_dot_max * 0.01
 q_ddot = np.array([0, 0, 0, 0])
 rs = s.get_result()
 stall_tau = rs.get_stall_torque(q_dot_max, load)
-s.load_gear_characteristic(cfg.gearPara, stall_tau['tau_joint'])
+s.load_gear_characteristic(cfg.gear_para, stall_tau['tau_joint'])
 # *** kinematics ***
 s.run_one_step(q, q_dot, q_ddot)
 ax = s.snapshot()
@@ -57,7 +57,7 @@ s.animate()
 rs = s.get_result()
 rs.show_performance()
 rs.drive_characteristic(30, 15, tau_stall_motor)
-rs.joint_characteristic(cfg.gearPara, draw_lifetime=False)
+rs.joint_characteristic(cfg.gear_para, draw_lifetime=False)
 plt.show(block=False)
 
 

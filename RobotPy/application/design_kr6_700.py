@@ -14,11 +14,11 @@ load_rated = {
     "iT": np.array([45000, 45000, 45000, 0, 0, 0]) * 1e-6
 }
 s.build_robot(
-    cfg.structurePara,
-    cfg.massPara,
-    cfg.motorPara,
-    cfg.frictionPara,
-    cfg.gearPara,
+    cfg.structure_para,
+    cfg.mass_para,
+    cfg.motor_para,
+    cfg.friction_para,
+    cfg.gear_para,
     load_rated
 )
 q = [0, 0, 0, 0, 0, 0]
@@ -28,7 +28,7 @@ q_ddot = np.array([0, 0, 0, 0, 0, 0])
 rs = s.get_result()
 stall_tau = rs.get_stall_torque(q_dot_max, load_rated)
 s.load_gear_characteristic(
-    cfg.gearPara,
+    cfg.gear_para,
     stall_tau['tau_joint'],
     max_omega_override = np.array([6000, 6000, 7700, 6000, 6266.67, 8000])
 )
@@ -64,9 +64,9 @@ rs.show_performance()
 rs.drive_characteristic(30, 15, tau_stall_motor)
 rs.get_max_drive_tau()
 # gearbox characteristic
-rs.joint_characteristic(cfg.gearPara)
+rs.joint_characteristic(cfg.gear_para)
 rs.get_max_joint_tau()
 gear_av_tau_percent = rs.gear_average_tau() /\
-    np.array([item['acc_tau'] for item in cfg.gearPara])
+    np.array([item['acc_tau'] for item in cfg.gear_para])
 print('Gear average torque ratio: {}%'.format(gear_av_tau_percent * 100))
 plt.show()

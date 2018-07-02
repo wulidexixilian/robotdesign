@@ -2,7 +2,7 @@ import numpy as np
 from resource.ExternalDB.gearbox_db import load_gear_db
 from resource.ExternalDB.motor_db import load_motor_db
 
-structurePara = [
+structure_para = [
     {
         "nest": "groundbase",
         "displacement": np.array([0, 0, 112.5])*1e-3,
@@ -33,7 +33,7 @@ structurePara = [
     }
 ]
 
-massPara = [
+mass_para = [
     # groundbase structure
     {
         "nest": "groundbase",
@@ -131,9 +131,9 @@ motor_installation = [
     }
 ]
 
-motorPara = list(map(load_motor_db, motor_installation))
+motor_para = list(map(load_motor_db, motor_installation))
 
-frictionPara = [
+friction_para = [
     {"nest": "rotationcolumn", "friction": np.array([7.35, 1.02, 1])},
     {"nest": "linkarm", "friction": np.array([8.58, 1.47, 1])},
     {"nest": "arm", "friction": np.array([2.21, 0.78, 1])},
@@ -193,4 +193,4 @@ gear_installation = [
     }
 ]
 
-gearPara = list(map(load_gear_db, gear_installation))
+gear_para = list(map(load_gear_db, gear_installation))
