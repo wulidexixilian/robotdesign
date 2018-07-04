@@ -236,9 +236,10 @@ class Simulation:
         mass_list = mass_list + self.handle_motor(motor_para)
         # handle frictions
         drive_list = []
-        for item in friction_para:
+        for idx, item in enumerate(friction_para):
             drive_item = dict()
             drive_item["nest"] = item["nest"]
+            drive_item['joint'] = idx + 1
             drive_item["driveInertia"] = 0
             drive_item["ratio"] = 1
             drive_item["friction"] = item["friction"]
@@ -268,9 +269,9 @@ class Simulation:
             #     driveList[i]['characteristic_after_ratio'] = char
         # handle gears -- abstract each gears to 2 mass item and 2 drive item
         # and add them to their corresponding lists
-        for item_gear in gear_para:
+        for idx_joint, item_gear in enumerate(gear_para):
             gear_base = None
-            for i, item_dim in enumerate(dimension_list):
+            for item_dim in dimension_list:
                 if item_dim['nest'] == item_gear['nest']:
                     gear_base = item_dim['displacement']
                     break
@@ -280,6 +281,8 @@ class Simulation:
             additives = self.handle_gear(item_gear, gear_base)
             mass_list.append(additives[0])
             mass_list.append(additives[1])
+            additives[2]['joint'] = idx_joint + 1
+            additives[3]['joint'] = idx_joint + 1
             drive_list.insert(0, additives[2])
             drive_list.insert(0, additives[3])
         self.dimension_list = dimension_list

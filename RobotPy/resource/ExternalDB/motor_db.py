@@ -358,22 +358,39 @@ motor_db = {
 
 
 def load_motor_db(installation):
-    if 'type' in installation:
+    if 'type' in installation and installation['type'] is not None:
         data = {**installation, **motor_db[installation['type']]}
     else:
-        data = {
-            **installation,
-            'cm': [0, 0, 0], 'm': [0, 0, 0],
-            'J_rotor': 0, 'iT': [0, 0, 0, 0, 0, 0],
-            'characteristic': {
-                'max': [
-                    [0, 3000, 6000],
-                    [0, 0, 0]
-                ],
-                's1': [
-                    [0, 3000, 6000],
-                    [0, 0, 0]
-                ]
+        if 'characteristic' in installation:
+            data = {
+                **installation,
+                'cm':             [0, 0, 0], 'm': 0,
+                'J_rotor':        0, 'iT': [0, 0, 0, 0, 0, 0],
+                'characteristic': {
+                    'max': [
+                        installation['characteristic'][1],
+                        installation['characteristic'][0]
+                    ],
+                    's1': [
+                        installation['characteristic'][1],
+                        [item/3.0 for item in installation['characteristic'][0]]
+                    ]
+                }
             }
-        }
+        else:
+            data = {
+                **installation,
+                'cm': [0, 0, 0], 'm': 0,
+                'J_rotor': 0, 'iT': [0, 0, 0, 0, 0, 0],
+                'characteristic': {
+                    'max': [
+                        [0, 3000, 6000],
+                        [0, 0, 0]
+                    ],
+                    's1': [
+                        [0, 3000, 6000],
+                        [0, 0, 0]
+                    ]
+                }
+            }
     return data

@@ -505,6 +505,294 @@ gear_db = {
             "m":             0.02
         },
     },
+
+    "175": {
+        "ratio":               -80,
+        "rated_tau":           85,
+        "limit_torque_factor": 1.18,
+        "acc_tau":             185.29999999999998,
+        "max_tau":             170,
+        "emergency_tau":       425,
+        "max_omega":           4500,
+        "rated_omega":         21.0526,
+        "offset":              0,
+        "stator":              {
+            "inertia_drive": 0.000012,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.015,
+            "m":             1.3
+        },
+        "rotor":               {
+            "inertia_drive": 0.000012,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.015,
+            "m":             0.8
+        },
+        "characteristic":      [
+            [
+                0,
+                2128.3527835909454,
+                2888.8695880103378,
+                3304.6917256784864,
+                3441.4753235956468
+            ],
+            [
+                372,
+                305.57,
+                229.77,
+                147.53,
+                62
+            ]
+        ]
+    },
+
+    "176": {
+        "ratio":               -61,
+        "rated_tau":           75,
+        "limit_torque_factor": 1.18,
+        "acc_tau":             163.49999999999997,
+        "max_tau":             150,
+        "emergency_tau":       375,
+        "max_omega":           6000,
+        "rated_omega":         32.7869,
+        "offset":              0,
+        "stator":              {
+            "inertia_drive": 0.000004,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.015,
+            "m":             0.8
+        },
+        "rotor":               {
+            "inertia_drive": 0.0000034,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.015,
+            "m":             0.6
+        },
+        "characteristic":      [
+            [
+                0,
+                1772.7154290063443,
+                2407.3913233419435,
+                2752.0859900931782,
+                2866.984212343586
+            ],
+            [
+                300,
+                246.42,
+                185.3,
+                118.97,
+                50
+            ]
+        ]
+    },
+
+    "177": {
+        "ratio":               -87,
+        "rated_tau":           34,
+        "limit_torque_factor": 1.18,
+        "acc_tau":             74.11999999999999,
+        "max_tau":             68,
+        "emergency_tau":       170,
+        "max_omega":           6000,
+        "rated_omega":         33.8983,
+        "offset":              0,
+        "stator":              {
+            "inertia_drive": 0.0000019,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            0,
+            "m":             0.5
+        },
+        "rotor":               {
+            "inertia_drive": 0.0000019,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            0,
+            "m":             0.4
+        },
+        "characteristic":      [
+            [
+                0,
+                2128.3527835909454,
+                2888.8695880103378,
+                3304.6917256784864,
+                3441.4753235956468
+            ],
+            [
+                170.64,
+                145.39,
+                116.58,
+                85.33,
+                52.82
+            ]
+        ]
+    },
+
+    "178": {
+        "ratio":               -60,
+        "rated_tau":           75,
+        "limit_torque_factor": 1.18,
+        "acc_tau":             163.49999999999997,
+        "max_tau":             150,
+        "emergency_tau":       375,
+        "max_omega":           4500,
+        "rated_omega":         24.6914,
+        "offset":              0,
+        "stator":              {
+            "inertia_drive": 0.000004,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.015,
+            "m":             0.555
+        },
+        "rotor":               {
+            "inertia_drive": 0.000004,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.015,
+            "m":             0.555
+        },
+        "characteristic":      [
+            [
+                0,
+                2254.1936936747293,
+                3058.4812494276066,
+                3501.6601066791955,
+                3643.9150485130335
+            ],
+            [
+                43.59,
+                36.4,
+                28.2,
+                19.31,
+                10.06
+            ]
+        ]
+    },
+
+    "179": {
+        "ratio":               -57.9382889200561,
+        "rated_tau":           21,
+        "limit_torque_factor": 1.18,
+        "acc_tau":             45.779999999999994,
+        "max_tau":             56,
+        "emergency_tau":       113,
+        "max_omega":           7300,
+        "rated_omega":         25,
+        "offset":              0,
+        "stator":              {
+            "inertia_drive": 0,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.0165,
+            "m":             0
+        },
+        "rotor":               {
+            "inertia_drive": 0,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.011,
+            "m":             0
+        },
+        "characteristic":      [
+            [
+                0,
+                2292.4931010915352,
+                3118.6660325111548,
+                3561.8448897627432,
+                3709.5711755132693
+            ],
+            [
+                43.59,
+                36.4,
+                28.2,
+                19.31,
+                10.06
+            ]
+        ]
+    },
+
+    "180": {
+        "ratio":               -36.580159532636785,
+        "rated_tau":           21,
+        "limit_torque_factor": 1.18,
+        "acc_tau":             45.779999999999994,
+        "max_tau":             56,
+        "emergency_tau":       113,
+        "max_omega":           7300,
+        "rated_omega":         25,
+        "offset":              0,
+        "stator":              {
+            "inertia_drive": 0,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.022,
+            "m":             0
+        },
+        "rotor":               {
+            "inertia_drive": 0,
+            "inertia_body":  [
+                0,
+                0,
+                0
+            ],
+            "cm":            -0.018,
+            "m":             0
+        },
+        "characteristic":      [
+            [
+                0,
+                3632.9723606796674,
+                4935.1522128509923,
+                5646.4269220202041,
+                5876.22336652102
+            ],
+            [
+                23.29,
+                19.06,
+                14.23,
+                8.98,
+                3.53
+            ]
+        ]
+    }
 }
 
 

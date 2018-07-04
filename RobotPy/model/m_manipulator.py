@@ -64,7 +64,7 @@ class Kinematics:
         tcp = Joint(accumulation_displacement, tcpAx, align2tcp, i + 1)
         self.joints.append(tcp)
         self.num_axes = len(self.bodies) - 1
-        self.inverse_dynamic = None
+        self.inverse_kinematics = None
 
     def k(self, q):
         """forward kinematics"""
@@ -84,11 +84,11 @@ class Kinematics:
             joint.setPose(new_position[0:3])
 
     def ik(self, tcp, st=None):
-        if self.inverse_dynamic is None:
+        if self.inverse_kinematics is None:
             print('set inverse dynamic method before solving')
             return
         geometry = self.joints
-        q = self.inverse_dynamic(tcp, geometry, st)
+        q = self.inverse_kinematics(tcp, geometry, st)
         return q
 
     def local2world(self, pose_local, ref, target="cs"):
@@ -223,16 +223,16 @@ class Dynamics(Kinematics):
             drive = Drive(joint.id)
             self.drives.append(drive)
         # distribute drive train inertia and frictions
-        for dPara in drivetrain_list:
-            if isinstance(dPara["nest"], str):
-                dPara["nest"] = self.link_names.index(dPara["nest"])
-            drive = self.drives[dPara["nest"] - 1]
-            drive.update(dPara["friction"], dPara["driveInertia"], dPara["ratio"])
-            if 'characteristic_before_ratio' in dPara:
-                drive.load_characteristic(dPara['characteristic_before_ratio'])
-            if 'characteristic_after_ratio' in dPara:
+        for drive_para in drivetrain_list:
+            # if isinstance(drive_para["nest"], str):
+            #     drive_para["nest"] = self.link_names.index(drive_para["nest"])
+            drive = self.drives[drive_para['joint'] - 1]
+            drive.update(drive_para["friction"], drive_para["driveInertia"], drive_para["ratio"])
+            if 'characteristic_before_ratio' in drive_para:
+                drive.load_characteristic(drive_para['characteristic_before_ratio'])
+            if 'characteristic_after_ratio' in drive_para:
                 drive.load_characteristic(
-                    dPara['characteristic_after_ratio'], 'after_ratio'
+                    drive_para['characteristic_after_ratio'], 'after_ratio'
                 )
         self.fr_thresholds = np.array([0.01, 0.01, 0.01, 0.01, 0.01, 0.01])
 

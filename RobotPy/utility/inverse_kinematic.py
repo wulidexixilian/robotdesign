@@ -183,6 +183,9 @@ def ik_scara(tcp, geometry, st=None):
     q = np.array([q1, q2, q3, q4])
     return q
 
+def ik_iiwa():
+    pass
+
 
 
 

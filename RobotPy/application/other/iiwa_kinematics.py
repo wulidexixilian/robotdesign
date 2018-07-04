@@ -1,5 +1,6 @@
 import numpy as np
 from model import m_manipulator
+from utility.inverse_kinematic import ik_iiwa
 
 np.set_printoptions(suppress=True)
 np.set_printoptions(precision=4)
@@ -84,6 +85,11 @@ frame_config = {
     }
 }
 robot = m_manipulator.Kinematics(dimension_list, frame_config)
+robot.inverse_kinematics = ik_iiwa
+
+jacobian = robot.jacobian()
+tcp = None
+q_ik = robot.ik(tcp)
 
 for joint in robot.joints:
     print(joint.origin1)
