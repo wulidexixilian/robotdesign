@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from model import m_simulation as sim
 from rRobotDB import pt_micro450 as cfg
-# from utility.compare_with_OPC import compare
+from utility.compare_with_OPC import compare
 
 plt.close("all")
 np.set_printoptions(suppress=True)
@@ -35,7 +35,7 @@ ax = s.snapshot()
 s.show_cm(ax)
 # *** inverse dynamic ***
 percentage = 100  # amount of data to be simulated, 100% for all
-trace_file = 'resource/trace/KR1_IPO/Test1_KRCIpo'
+trace_file = '../resource/trace/KR1_IPO/Test1_KRCIpo'
 # *** load q(t) from trace file ***
 s.load_trajectory(trace_file, percentage)
 # *** inverse dynamic simulation ***
@@ -61,5 +61,5 @@ rs.get_max_joint_tau()
 gear_av_tau_percent = rs.gear_average_tau() /\
     np.array([item['acc_tau'] for item in cfg.gear_para])
 print('Gear average torque ratio: {}%'.format(gear_av_tau_percent * 100))
-# compare(s, trace_file, percentage)
+compare(s, trace_file, percentage)
 plt.show(block=False)

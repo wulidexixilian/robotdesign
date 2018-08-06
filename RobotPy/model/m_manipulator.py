@@ -234,7 +234,7 @@ class Dynamics(Kinematics):
                 drive.load_characteristic(
                     drive_para['characteristic_after_ratio'], 'after_ratio'
                 )
-        self.fr_thresholds = np.array([0.01, 0.01, 0.01, 0.01, 0.01, 0.01])
+        self.fr_thresholds = np.array([0.005, 0.01, 0.05, 0.075, 0.1, 0.5])
 
     def add_load(self, load):
         body = self.bodies[-1]

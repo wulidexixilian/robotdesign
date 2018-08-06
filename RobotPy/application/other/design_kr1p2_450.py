@@ -45,7 +45,7 @@ percentage = 100 # amount of data to be simulated, 100% for all
 trace_file = 'resource/trace/KR1_IPO/Test1_KRCIpo'
 # load q(t) from trace file
 # s_dauer3.load_trajectory(trace_file, percentage, [100, 160, 3636/25, 100, 2222/23, 101], 1)
-s_dauer3.load_trajectory(trace_file, percentage, np.ones(6), 0.8, trace_type='ipo')
+s_dauer3.load_trajectory(trace_file, percentage, np.ones(6), 0.8, trace_chnl='ipo')
 # inverse dynamic simulation
 s_dauer3.sim_inv_dynamic()
 # animation

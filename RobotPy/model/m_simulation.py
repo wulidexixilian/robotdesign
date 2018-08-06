@@ -21,6 +21,7 @@ from model.m_manipulator import Dynamics
 from utility.trajectory import TrajectoryGenerator
 from utility.characteristic import klobps
 from utility.inverse_kinematic import ik_industry
+import os
 
 ar = np.array
 
@@ -35,7 +36,7 @@ class Simulation:
     ratioSign = {1: 1, 2: -1, 3: -1, 4: 1, 5: 1, 6: -1, 7: -1, 8: 1,
                  9: -1, 10: 1, 11: 1, 12: -1, 13: -1, 14: 1, 15: 1, 16: -1}
     ratioPlus1 = {1: 0, 2: 1, 3: 0, 4: 1, 5: 0, 6: 1, 7: 0, 8: 1,
-                  9: 0, 10: 1, 11: 0, 12: 1, 13: 0, 14: 1, 15: 0, 16: 1}
+                  9: 0, 10: 1, 11: 0, 12: 1, 13: 1, 14: 1, 15: 0, 16: 1}
     positive_orient_cases = [1, 2, 3, 4, 13, 14, 15, 16]
     stator_first_cases = [1, 2, 3, 4, 9, 10, 11, 12]
     frame_config = {
@@ -339,14 +340,15 @@ class Simulation:
         )
 
     @staticmethod
-    def read_trace(filename, dataname, k):
+    def read_trace(filename, dataname, k=100):
         """
         access a trace file and read the specified data field
         Inputs:
             fileName: absolute directory to the trace file
             dataName: ask mada guys for what names are available
         """
-        with open('../' + filename + ".dat", "rb") as f1:
+        tracedef_path = os.path.abspath(filename + '.dat')
+        with open(tracedef_path, "rb") as f1:
             text = f1.read()
         blocks = text.split(b'#BEGINCHANNELHEADER')
         time_block = blocks[1]
@@ -370,8 +372,11 @@ class Simulation:
             break
         if column_index is None:
             print('target signal is not found')
-            return
-        with open('../' + filename + ".r64", "rb") as f2:
+            result = None
+            ts = None
+            return result, ts
+        tracedata_path = os.path.abspath(filename + ".r64")
+        with open(tracedata_path, "rb") as f2:
             data_all = f2.read()
         data_length = int(len(data_all) * (k/100.0))
         result_all = [
@@ -383,7 +388,7 @@ class Simulation:
 
     def load_trajectory(
         self, filename_fraction, percentage, ratio_mask=None,
-        speed_override=1, trace_type='ipo'
+        speed_override=1, trace_chnl='ipo', trace_type='cmd'
     ):
         """
         Load axis angle trajectories from OPC trace files
@@ -406,7 +411,7 @@ class Simulation:
         if ratio_mask is None:
             ratio_mask = np.ones(n)
         # for i in range(6):
-        if 'next' in trace_type.lower():
+        if 'next' in trace_chnl.lower():
             for i in range(n):
                 value, ts = self.read_trace(
                     filename_fraction + '#' + str(i + 1),
@@ -417,22 +422,38 @@ class Simulation:
                 q_cmd_capacitor.append(pos_value)
                 speed_value = np.gradient(pos_value, ts)
                 q_dot_cmd_capacitor.append(speed_value)
-        elif 'ipo' in trace_type.lower():
+        elif 'ipo' in trace_chnl.lower():
             for i in range(n):
-                value, ts = self.read_trace(
-                    filename_fraction,
-                    "AxisPos_Act{}".format(str(i+1)),
-                    percentage
-                )
-                q_cmd_capacitor.append(value / np.array(ratio_mask[i]))
-                value, ts = self.read_trace(
-                    filename_fraction,
-                    "AxisVel_Act{}".format(str(i+1)),
-                    percentage
-                )
-                q_dot_cmd_capacitor.append(value / np.array(ratio_mask[i]))
+                if 'cmd' in trace_type.lower():
+                    value, ts = self.read_trace(
+                        filename_fraction,
+                        "AxisPos_CmdIpo{}".format(str(i+1)),
+                        percentage
+                    )
+                    q_cmd_capacitor.append(value / np.array(ratio_mask[i]))
+                    value, ts = self.read_trace(
+                        filename_fraction,
+                        "AxisVel_CmdIpo{}".format(str(i+1)),
+                        percentage
+                    )
+                    q_dot_cmd_capacitor.append(value / np.array(ratio_mask[i]))
+                elif 'act' in trace_type.lower():
+                    value, ts = self.read_trace(
+                        filename_fraction,
+                        "AxisPos_Act{}".format(str(i + 1)),
+                        percentage
+                    )
+                    q_cmd_capacitor.append(value / np.array(ratio_mask[i]))
+                    value, ts = self.read_trace(
+                        filename_fraction,
+                        "AxisVel_Act{}".format(str(i + 1)),
+                        percentage
+                    )
+                    q_dot_cmd_capacitor.append(value / np.array(ratio_mask[i]))
+                else:
+                    print('incorrect trace type')
         else:
-            print('incorrect trace format')
+            print('incorrect trace chnl')
             return
         self.q_cmd_ser = (np.array(q_cmd_capacitor)).T
         if len(q_dot_cmd_capacitor[-1]) < len(q_dot_cmd_capacitor[-2]):

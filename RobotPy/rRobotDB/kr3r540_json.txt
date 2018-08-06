@@ -4,6 +4,9 @@
       "motorID": null,
       "type": null,
       "nest": "groundbase",
+      "m": 1.7319,
+      "cm": [0, 0, 0.063],
+      "J_rotor": 0.00005,
       "position": [
         0,
         0,
@@ -16,16 +19,16 @@
       ],
       "characteristic": [
         [
-          5.3125,
-          5.3125,
-          3.1155,
-          1.1164
+          3.34,
+          3.34,
+          2.8,
+          2.2838
         ],
         [
           0,
-          296.17834394904457,
-          558.91719745222929,
-          821.656050955414
+          4200,
+          5598,
+          8000
         ]
       ]
     },
@@ -33,6 +36,9 @@
       "motorID": null,
       "type": null,
       "nest": "rotationcolumn",
+      "cm": [0, 0, 0.063],
+      "m": 1.7319,
+      "J_rotor": 0.00005,
       "position": [
         -0.0214,
         -0.0629,
@@ -45,16 +51,16 @@
       ],
       "characteristic": [
         [
-          5.1,
-          5.1,
-          2.1792,
-          1.2605
+          3.34,
+          3.34,
+          2.8,
+          2.2838
         ],
         [
           0,
-          171.97452229299361,
-          563.69426751592357,
-          945.859872611465
+          4200,
+          5598,
+          8000
         ]
       ]
     },
@@ -62,6 +68,9 @@
       "motorID": null,
       "type": null,
       "nest": "linkarm",
+      "cm": [0, 0, 0.052],
+      "m": 1.2992,
+      "J_rotor": 0.000028,
       "position": [
         0.1251,
         -0.0238,
@@ -74,16 +83,16 @@
       ],
       "characteristic": [
         [
-          3.145,
-          3.145,
-          3.1,
-          3.1
+          1.67,
+          1.67,
+          1.52,
+          1.2469
         ],
         [
           0,
-          343.94904458598722,
-          598.72611464968179,
-          853.5031847133755
+          4500,
+          5598,
+          8000
         ]
       ]
     },
@@ -91,6 +100,9 @@
       "motorID": null,
       "type": null,
       "nest": "arm",
+      "cm": [0, 0, 0.041],
+      "m": 0.4598,
+      "J_rotor": 0.000004,
       "position": [
         0.0352,
         -0.02,
@@ -103,12 +115,14 @@
       ],
       "characteristic": [
         [
-          20,
-          20
+          0.46,
+          0.46,
+          0.4312
         ],
         [
           0,
-          955.41401273885344
+          6000,
+          8000
         ]
       ]
     },
@@ -116,6 +130,9 @@
       "motorID": null,
       "type": null,
       "nest": "handbase",
+      "cm": [0, 0, 0.041],
+      "m": 0.4598,
+      "J_rotor": 0.000004,
       "position": [
         0.0043,
         0.043,
@@ -128,12 +145,14 @@
       ],
       "characteristic": [
         [
-          20,
-          20
+          0.46,
+          0.46,
+          0.4312
         ],
         [
           0,
-          955.41401273885344
+          6000,
+          8000
         ]
       ]
     },
@@ -141,6 +160,9 @@
       "motorID": null,
       "type": null,
       "nest": "handwrist",
+      "cm": [0, 0, 0.041],
+      "m": 0.4598,
+      "J_rotor": 0.000004,
       "position": [
         0.0353,
         0,
@@ -153,12 +175,14 @@
       ],
       "characteristic": [
         [
-          20,
-          20
+          0.46,
+          0.46,
+          0.4312
         ],
         [
           0,
-          955.41401273885344
+          6000,
+          8000
         ]
       ]
     }
@@ -915,42 +939,42 @@
   ],
   "gear_installation": [
     {
-      "nest": "rotationcolumn",
+      "nest": "groundbase",
       "case": 9,
       "type": 175,
-      "pre ratio": 1,
+      "pre ratio": -1,
       "comment": "KR3R540 Achse1"
+    },
+    {
+      "nest": "rotationcolumn",
+      "case": 9,
+      "type": 176,
+      "pre ratio": 1.44,
+      "comment": "KR3R540 Achse2"
     },
     {
       "nest": "linkarm",
       "case": 9,
-      "type": 176,
-      "pre ratio": 1.4261333333333333,
-      "comment": "KR3R540 Achse2"
+      "type": 177,
+      "pre ratio": 1.4167,
+      "comment": "KR3R540 Achse3"
     },
     {
       "nest": "arm",
       "case": 9,
-      "type": 177,
-      "pre ratio": 1,
-      "comment": "KR3R540 Achse3"
-    },
-    {
-      "nest": "handbase",
-      "case": 9,
       "type": 178,
-      "pre ratio": 1,
+      "pre ratio": -1,
       "comment": "KR3R540 Achse4"
     },
     {
-      "nest": "handwrist",
+      "nest": "handbase",
       "case": 13,
       "type": 179,
-      "pre ratio": 1,
+      "pre ratio": -0.965517,
       "comment": "KR3R540 Achse5"
     },
     {
-      "nest": "handflange",
+      "nest": "handwrist",
       "case": 13,
       "type": 180,
       "pre ratio": 1,

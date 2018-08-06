@@ -9,9 +9,15 @@ def compare(s, trace_file, percentage):
     for i in range(6):
         moment_trace = s.read_trace(
             trace_file,
-            'DriveMotorTorq_CmdIpo{}'.format(i+1),
+            'DriveMotorTorq_Cmd{}'.format(i+1),
             percentage
         )[0]
+        if moment_trace is None:
+            moment_trace = s.read_trace(
+                trace_file,
+                'DriveMotorTorq_CmdIpo{}'.format(i + 1),
+                percentage
+            )[0]
         pm[i].plot(
             s.t_ser[0:len(moment_trace)],
             -moment_trace, 'r-', label="trace"
@@ -43,4 +49,3 @@ def compare(s, trace_file, percentage):
         )
         pm[i].grid(True)
         pm[i].legend()
-    plt.show()

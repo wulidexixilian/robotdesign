@@ -237,5 +237,6 @@ class Drive:
         self.tau_drivetrain_inertia = q_ddot * self.drivetrain_inertia
         # overall torque output of the drive motor
         self.tau_drive = (
-            self.tau_joint + self.tau_drivetrain_inertia + self.tau_friction
+            (self.tau_joint + self.tau_friction) / self.Rz +
+            self.tau_drivetrain_inertia
         ) / self.ratio

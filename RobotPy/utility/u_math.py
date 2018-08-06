@@ -209,7 +209,9 @@ def calc_friction(Rh, Rv, Rz, v, tau, h):
     :return: 
     """
     # f = Rh * np.sign(v) + Rv * v + (1 - Rz) * abs(tau) * np.sign(v)
-    f = np.tanh(1.5*v/h) * Rh + Rv * v + (1 - Rz) * abs(tau) * np.sign(v)
+    # f = np.tanh(1.5*v/h) * Rh + Rv * v + (1 - Rz) * abs(tau) * np.sign(v)
+    # f = np.tanh(1.5 * v / h) * (Rh + (1 - Rz) * abs(tau)) + Rv * v
+    f = np.tanh(1.5 * v / h) * Rh + Rv * v
     return f
 
 

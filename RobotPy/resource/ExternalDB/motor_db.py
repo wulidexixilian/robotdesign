@@ -184,6 +184,23 @@ motor_db = {
         }
     },
 
+    'TSM3202E200': {
+        "cm":             [0, 0, 35e-3],
+        "m":              1.3,
+        "J_rotor":        0.6e-4,
+        "iT":             [0, 0, 0, 0, 0, 0],
+        "characteristic": {
+            'max': [
+                [0, 3400, 6000],
+                [2.24, 2.24, 0.95]
+            ],
+            's1':  [
+                [0, 3000, 6000],
+                [0.64, 0.64, 0.35]
+            ]
+        }
+    },
+
     'TSM3104E200': {
         "cm": [0, 0, 56e-3],
         "m": 0.7,
@@ -191,8 +208,8 @@ motor_db = {
         "iT": [1000e-6, 1000e-6, 150e-6, 0, 0, 0],
         "characteristic": {
             'max': [
-                [0, 3200, 5600, 8000, 8001],
-                [0.92, 0.92, 0.54, 0.38, 0]
+                [0, 3200, 5600, 6000],
+                [0.92, 0.92, 0.54, 0.38]
             ],
             's1':  [
                 [0, 3000, 6000],
@@ -208,12 +225,29 @@ motor_db = {
         "iT": [320e-6, 320e-6, 123e-6, 0, 0, 0],
         "characteristic": {
             'max': [
-                [0, 5200, 6600, 8000, 8001],
-                [0.46, 0.46, 0.4, 0.36, 0]
+                [0, 5200, 6600, 8000],
+                [0.46, 0.46, 0.4, 0.36]
             ],
             's1':  [
                 [0, 3000, 6000],
                 [0.159, 0.13, 0.08]
+            ]
+        }
+    },
+
+    'TSM3101E200': {
+        "cm":             [0, 0, -25e-3],
+        "m":              0.5,
+        "J_rotor":        2.8e-6,
+        "iT":             [0, 0, 0, 0, 0, 0],
+        "characteristic": {
+            'max': [
+                [0, 3000, 4500, 8000],
+                [0.33, 0.33, 0.225, 0.17]
+            ],
+            's1':  [
+                [0, 3000, 4000, 6000],
+                [0.095, 0.095, 0.075, 0.05]
             ]
         }
     },
@@ -361,12 +395,26 @@ def load_motor_db(installation):
     if 'type' in installation and installation['type'] is not None:
         data = {**installation, **motor_db[installation['type']]}
     else:
+        data = {
+            'nest': installation['nest'],
+            'position': installation['position'],
+            'orientation': installation['orientation'],
+            'cm':             [0, 0, 0],
+            'm': 0,
+            'J_rotor':        0, 'iT': [0, 0, 0, 0, 0, 0],
+            'characteristic': {
+                'max': [
+                    [0, 3000, 6000],
+                    [0, 0, 0]
+                ],
+                's1':  [
+                    [0, 3000, 6000],
+                    [0, 0, 0]
+                ]
+            }
+        }
         if 'characteristic' in installation:
-            data = {
-                **installation,
-                'cm':             [0, 0, 0], 'm': 0,
-                'J_rotor':        0, 'iT': [0, 0, 0, 0, 0, 0],
-                'characteristic': {
+            data['characteristic'] = {
                     'max': [
                         installation['characteristic'][1],
                         installation['characteristic'][0]
@@ -375,22 +423,11 @@ def load_motor_db(installation):
                         installation['characteristic'][1],
                         [item/3.0 for item in installation['characteristic'][0]]
                     ]
-                }
             }
-        else:
-            data = {
-                **installation,
-                'cm': [0, 0, 0], 'm': 0,
-                'J_rotor': 0, 'iT': [0, 0, 0, 0, 0, 0],
-                'characteristic': {
-                    'max': [
-                        [0, 3000, 6000],
-                        [0, 0, 0]
-                    ],
-                    's1': [
-                        [0, 3000, 6000],
-                        [0, 0, 0]
-                    ]
-                }
-            }
+        if 'cm' in installation:
+            data['cm'] = installation['cm']
+        if 'm' in installation:
+            data['m'] = installation['m']
+        if 'J_rotor' in installation:
+            data['J_rotor'] = installation['J_rotor']
     return data

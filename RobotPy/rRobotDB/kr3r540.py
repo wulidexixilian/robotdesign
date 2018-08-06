@@ -2,9 +2,11 @@ import numpy as np
 import json
 from resource.ExternalDB.gearbox_db import load_gear_db
 from resource.ExternalDB.motor_db import load_motor_db
+import os
 
-
-with open('../rRobotDB/kr3r540_json.txt') as f:
+filename = os.path.abspath('../rRobotDB/kr3r540_json.txt')
+# filename = os.path.abspath('RobotPy/rRobotDB/kr3r540_json.txt')
+with open(filename) as f:
     kr3 = json.load(f)
 
 structure_para = kr3['structure_para']

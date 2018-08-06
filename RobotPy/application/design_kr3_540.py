@@ -11,8 +11,8 @@ np.set_printoptions(precision=4)
 s = sim.Simulation()
 s.set_gravity(9.8 * np.array([0, 0, -1]))
 load_dauer3 = {
-    "cm": np.array([35, 0, 70])*1e-3, "m": 1.5,
-    "iT": np.array([1200, 1200, 1200, 0, 0, 0])*1e-6
+    "cm": np.array([60, 0, 80])*1e-3, "m": 3,
+    "iT": np.array([45000, 45000, 45000, 0, 0, 0])*1e-6
 }
 s.build_robot(
     cfg.structure_para,
@@ -23,7 +23,7 @@ s.build_robot(
     load_dauer3
 )
 q = [0, 0, 0, 0, 0, 0]
-q_dot_max = np.array([300, 300, 450, 550, 550, 700]) / 180 * np.pi
+q_dot_max = np.array([530, 550, 550, 600, 600, 800]) / 180 * np.pi
 q_dot = q_dot_max * 0.01
 q_ddot = np.array([0, 0, 0, 0, 0, 0])
 rs = s.get_result()
@@ -35,9 +35,11 @@ ax = s.snapshot()
 s.show_cm(ax)
 # *** inverse dynamic ***
 percentage = 100  # amount of data to be simulated, 100% for all
-trace_file = 'resource/trace/KR3R540/Catcher_overload_orig_trace_7_KRCIpo'
+# trace_file = '../resource/trace/KR3R540/dauer3_KRCIpo'
+# trace_file = '../resource/trace/KR3R540/adept5_KRCIpo'
+trace_file = '../resource/trace/KR3R540/dauer3_KRCIpo'
 # *** load q(t) from trace file ***
-s.load_trajectory(trace_file, percentage)
+s.load_trajectory(trace_file, percentage, trace_type='cmd')
 # *** inverse dynamic simulation ***
 s.sim_inv_dynamic()
 # *** animation ***
@@ -53,7 +55,7 @@ tau_stall_motor = stall_tau['tau_motor']
 motor_percent = stall_tau['motor_percent']
 print('Motor stall torque:\n {}Nm\n {}%'.format(tau_stall_motor, motor_percent))
 print('Gear stall torque: {}Nm'.format(stall_tau['tau_joint']))
-# rs.show_performance()
+rs.show_performance()
 rs.drive_characteristic(30, 15, tau_stall_motor)
 rs.get_max_drive_tau()
 rs.joint_characteristic(cfg.gear_para)
